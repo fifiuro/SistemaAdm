@@ -13,8 +13,7 @@
 @endsection
 
 @section('contenido')
-    Christian
-    fasdfasd
+    chrisyias
 @endsection
 
 @section('extra')
