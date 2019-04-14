@@ -32,5 +32,22 @@ Route::post('editGestion','GestionController@update');
 Route::get('confirmGestion','GestionController@confirm');
 //eliminar la gestion
 Route::post('destroyGestion','GestionController@destroy');
-
 /**FIN */
+
+/** ACIONES PARA EL MODULO UNIDAD EJECUTORA */
+// Muestra el formulario para buscar Unidad Ejecutora
+Route::get('findUnidad','UnidadController@index');
+// Envia los datos a buscar
+Route::post('findUnidad','UnidadController@show');
+// Muestra el formulario par Nueva Unidad Ejecutora
+Route::get('createUnidad','UnidadController@create');
+// Recibe los datos de Nueva Unidad Ejecutora
+Route::get('storeUnidad','StoreController@store');
+// Formulario de Editar Unidad Ejecutora
+Route::get('editUnidad','StoreController@edit');
+// Recibe los datos a modificar de la Unidad Ejecutora
+Route::get('updateUnidad','StoreController@update');
+// Formulario de Confirmacion de eliminar
+Route::get('confirmUnidad','StoreController@confirm');
+// ELimina el registro de Unida Ejecutora
+Route::get('destroyUnidad','StoreController@destroy');
