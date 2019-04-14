@@ -14,6 +14,7 @@
 
 @section('contenido')
     Christian
+    fasdfasd
 @endsection
 
 @section('extra')
