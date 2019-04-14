@@ -13,7 +13,7 @@
 @endsection
 
 @section('contenido')
-    
+    Christian
 @endsection
 
 @section('extra')
