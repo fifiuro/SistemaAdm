@@ -32,6 +32,5 @@ Route::post('editGestion','GestionController@update');
 Route::get('confirmGestion','GestionController@confirm');
 //eliminar la gestion
 Route::post('destroyGestion','GestionController@destroy');
-hdhdjhfj
 
 /**FIN */
