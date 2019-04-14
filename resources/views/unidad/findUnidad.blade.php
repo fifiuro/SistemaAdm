@@ -15,26 +15,33 @@
 @section('contenido')
 <div class="box box-primary">
     <div class="box-body">
-      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findAlumno') }}">
+      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findUnidad') }}">
         {{ csrf_field() }}
         <div class="row">
-          <div class="col-xs-5">
-            <label for="nom">Nombre o apellidos:</label>
-            <input class="form-control" id="nom" name="nom" placeholder="Nombre o apellidos" type="text">
-          </div>
-          <div class="col-xs-5">
-            <label for="email">Correo electrónico:</label>
-            <input class="form-control" id="email" name="email" placeholder="Correo electrónico" type="text">
-          </div>
+            <div class="col-xs-5">
+                <label for="gestion">Gestión:</label>
+                <select name="gestion" id="gestion" class="form-control">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="col-xs-5">
+                <label for="unidad">Unidad Ejecutora:</label>
+                <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text">
+            </div>
           <div class="col-xs-2">
             {{-- Boton Buscar --}}
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
             {{-- Boton Nuevo --}}
-            <a href="{{ url('createAlumno') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+            <a href="{{ url('createUnidad') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
           </div>
         </div>
       </form>
     </div>
+
+
+
+
+
     @if(isset($alumno))
       @if($estado)
         <div class="box-footer">
