@@ -42,31 +42,29 @@
 
 
 
-    @if(isset($alumno))
+    @if(isset($unidad))
       @if($estado)
         <div class="box-footer">
           <table class="table">
             <tbody>
               <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Celular</th>
-                <th>Email</th>
+                <th>Gestión</th>
+                <th>Unidad Ejecutora</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
-              @foreach($alumno as $key => $a)
+              @foreach($unidad as $key => $u)
               <tr>
-                <td>{{ $a->nombre }}</td>
-                <td>{{ $a->apellidos }}</td>
-                <td>{{ $a->celular }}</td>
-                <td>{{ $a->email }}</td>
+                <td>{{ $u->gestion }}</td>
+                <td>{{ $a->unidad_ejecutora }}</td>
+                <td>{{ $a->estado }}</td>
                 <td>
                   {{-- Boton Editar --}}
-                  <a href="{{ url('editAlumno/'.$a->id_alu) }}" class="btn btn-warning">
+                  <a href="{{ url('editUnidad/'.$u->id_uni) }}" class="btn btn-warning">
                     <i class="glyphicon glyphicon-pencil"></i>
                   </a>
                   {{-- Boton Eliminar --}}
-                  <a href="{{ url('confirmAlumno/'.$a->id_pe) }}" class="btn btn-danger">
+                  <a href="{{ url('confirmUnidad/'.$u->id_uni) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                 </td>

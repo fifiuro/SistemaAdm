@@ -29,7 +29,7 @@ Route::get('editGestion','GestionController@edit');
 //envia los datos modificados de la gestion
 Route::post('editGestion','GestionController@update');
 //formulario de confirmacion
-Route::get('confirmGestion','GestionController@confirm');
+Route::get('confirmGestion/{id}','GestionController@confirm');
 //eliminar la gestion
 Route::post('destroyGestion','GestionController@destroy');
 /**FIN */
@@ -44,9 +44,9 @@ Route::get('createUnidad','UnidadController@create');
 // Recibe los datos de Nueva Unidad Ejecutora
 Route::get('storeUnidad','StoreController@store');
 // Formulario de Editar Unidad Ejecutora
-Route::get('editUnidad','StoreController@edit');
+Route::get('editUnidad/{id}','StoreController@edit');
 // Recibe los datos a modificar de la Unidad Ejecutora
-Route::get('updateUnidad','StoreController@update');
+Route::post('updateUnidad','StoreController@update');
 // Formulario de Confirmacion de eliminar
 Route::get('confirmUnidad','StoreController@confirm');
 // ELimina el registro de Unida Ejecutora
