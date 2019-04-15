@@ -30,22 +30,27 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::join('gestion','gestion.id_ges','=','unidad.id_ges')
                         ->where('unidad_ejecutora','like','%'.$request->unidad.'%')
-                        ->where('gestion')
+                        ->where('gestion','=',$request->gestion)
                         ->get();
+                
+        $gestion = Gestion::all();
 
-        if(count($unidad) > 0){
+        print_r($unidad);
+
+        /*if(count($unidad) > 0){
             return view('unidad.findUnidad',array('unidad' => $unidad,
-                                                'estado' => true));
+                                                  'gestion' => $gestion,
+                                                  'estado' => true));
         }else{
             return view('unidad.findUnidad',array('unidad' => '',
-                                                'estado' => false,
-                                                'mensaje' => 'No se tuvieron coincidencias con: '.$request->unidad));
+                                                  'gestion' => $gestion,
+                                                  'estado' => false,
+                                                  'mensaje' => 'No se tuvieron coincidencias con: '.$request->unidad.' o '.$request->gestion));
 
-        }
+        }*/
     }
 
-    /**
-     * Show the form for creating a new resource.
+    /** Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
@@ -67,8 +72,8 @@ class UnidadController extends Controller
         $unidad = new Unidad;
 
         $unidad->id_ges = $request->id_ges;
-        $unidad->nombre_ejecutora = $request->unidad;
-        $unidad->fecha_reg = date();
+        $unidad->unidad_ejecutora = $request->unidad;
+        $unidad->fecha_reg = date('Y-m-d');
         $unidad->estado = true;
 
         $unidad->save();
@@ -102,7 +107,7 @@ class UnidadController extends Controller
         $unidad = Unidad::find($request->id_uni);
 
         $unidad->id_ges = $request->id_ges;
-        $unidad->nombre_ejecutora = $request->unidad;
+        $unidad->unidad_ejecutora = $request->unidad;
         $unidad->estado = $request->estado;
 
         $unidad->save();

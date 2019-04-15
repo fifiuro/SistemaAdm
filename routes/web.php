@@ -42,12 +42,12 @@ Route::post('findUnidad','UnidadController@show');
 // Muestra el formulario par Nueva Unidad Ejecutora
 Route::get('createUnidad','UnidadController@create');
 // Recibe los datos de Nueva Unidad Ejecutora
-Route::get('storeUnidad','StoreController@store');
+Route::post('storeUnidad','UnidadController@store');
 // Formulario de Editar Unidad Ejecutora
-Route::get('editUnidad/{id}','StoreController@edit');
+Route::get('editUnidad/{id}','UnidadController@edit');
 // Recibe los datos a modificar de la Unidad Ejecutora
-Route::post('updateUnidad','StoreController@update');
+Route::post('updateUnidad','UnidadController@update');
 // Formulario de Confirmacion de eliminar
-Route::get('confirmUnidad','StoreController@confirm');
+Route::get('confirmUnidad','UnidadController@confirm');
 // ELimina el registro de Unida Ejecutora
-Route::get('destroyUnidad','StoreController@destroy');
+Route::get('destroyUnidad','UnidadController@destroy');

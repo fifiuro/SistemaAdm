@@ -19,7 +19,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findGestion') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-5">
+            <div class="col-xs-10">
                 <label for="unidad">Gestion:</label>
                 <input class="form-control" id="gestion" name="gestion" placeholder="Gestion" type="text">
             </div>
@@ -32,11 +32,6 @@
         </div>
       </form>
     </div>
-
-
-
-
-
     @if(isset($gestion))
       @if($estado)
         <div class="box-footer">
@@ -50,7 +45,13 @@
               @foreach($gestion as $key => $g)
               <tr>
                 <td>{{ $g->gestion }}</td>
-                <td>{{ $g->estado }}</td>
+                <td>
+                  @if ($g->estado)
+                    <i class="fa fa-fw fa-check" style="color:green"></i>
+                  @else
+                    <i class="fa fa-fw fa-close" style="color:red"></i>
+                  @endif
+                </td>
                 <td>
                   {{-- Boton Editar --}}
                   <a href="{{ url('editGestion/'.$g->id_ges) }}" class="btn btn-warning">

@@ -15,12 +15,12 @@
 @section('contenido')
 <div class="box box-primary">
     <div class="box-body">
-      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('createUnidad') }}">
+      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeUnidad') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
             <label for="gestion">Gestión:</label>
             @foreach ($gestion as $key => $g)
-                <input type="text" name="gestion" id="gestion" value="{{ $g->gestion }}" disabled>
+                <input type="text" name="gestion" id="gestion" value="{{ $g->gestion }}" class="form-control" disabled>
                 <input type="hidden" name="id_ges" value="{{ $g->id_ges }}" required>
             @endforeach
         </div>
@@ -29,9 +29,9 @@
             <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" required>
         </div>
         <div class="group-form-control">
+        <br>
         <button type="submit" class="btn btn-primary" name="guardar" id="guardar">GUARDAR</button>
-        {{-- Boton Nuevo --}}
-        <a href="{{ url('createUnidad') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+        <a href="{{ url('findUnidad') }}" class="btn btn-danger">CANCELAR</a>
         </div>
       </form>
     </div>

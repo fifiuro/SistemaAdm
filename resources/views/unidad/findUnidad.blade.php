@@ -21,7 +21,10 @@
             <div class="col-xs-5">
                 <label for="gestion">Gestión:</label>
                 <select name="gestion" id="gestion" class="form-control">
-                    <option value=""></option>
+                  <option value=""></option>
+                  @foreach ($gestion as $key => $g)
+                    <option value="{{ $g->id_ges }}">{{ $g->gestion }}</option>
+                  @endforeach
                 </select>
             </div>
             <div class="col-xs-5">
