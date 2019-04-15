@@ -25,9 +25,9 @@ Route::get('createGestion','GestionController@create');
 //recibe los datos a resgistrar en la base de datos
 Route::post('storeGestion','GestionController@store');
 //envia lso datos para modificar
-Route::get('editGestion','GestionController@edit');
+Route::get('editGestion/{id}','GestionController@edit');
 //envia los datos modificados de la gestion
-Route::post('editGestion','GestionController@update');
+Route::post('updateGestion','GestionController@update');
 //formulario de confirmacion
 Route::get('confirmGestion/{id}','GestionController@confirm');
 //eliminar la gestion
