@@ -30,14 +30,13 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::join('gestion','gestion.id_ges','=','unidad.id_ges')
                         ->where('unidad_ejecutora','like','%'.$request->unidad.'%')
-                        ->where('gestion','=',$request->gestion)
+                        ->where('gestion.id_ges','=',$request->gestion)
+                        ->select('unidad.id_uni','gestion.gestion','unidad.unidad_ejecutora','unidad.estado')
                         ->get();
                 
         $gestion = Gestion::all();
 
-        print_r($unidad);
-
-        /*if(count($unidad) > 0){
+        if(count($unidad) > 0){
             return view('unidad.findUnidad',array('unidad' => $unidad,
                                                   'gestion' => $gestion,
                                                   'estado' => true));
@@ -47,7 +46,7 @@ class UnidadController extends Controller
                                                   'estado' => false,
                                                   'mensaje' => 'No se tuvieron coincidencias con: '.$request->unidad.' o '.$request->gestion));
 
-        }*/
+        }
     }
 
     /** Show the form for creating a new resource.
@@ -90,7 +89,9 @@ class UnidadController extends Controller
      */
     public function edit($id)
     {
-        $unidad = Unidad::find($id);
+        $unidad = Unidad::join('gestion','gestion.id_ges','=','unidad.id_ges')
+                        ->where('id_uni','=',$id)
+                        ->get();
 
         return view('unidad.updateUnidad',array('unidad' => $unidad));
     }
@@ -106,13 +107,17 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::find($request->id_uni);
 
-        $unidad->id_ges = $request->id_ges;
         $unidad->unidad_ejecutora = $request->unidad;
         $unidad->estado = $request->estado;
 
         $unidad->save();
 
         return redirect('findUnidad');
+    }
+
+    public function confirm($id)
+    {
+        return view('unidad.deleteUnidad',array('id' => $id));
     }
 
     /**
@@ -130,8 +135,4 @@ class UnidadController extends Controller
         return redirect('findUnidad');
     }
 
-    public function confirm($id)
-    {
-        return view('unidad.confirmUnidad',$id);
-    }
 }

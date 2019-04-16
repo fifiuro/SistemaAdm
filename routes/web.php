@@ -48,6 +48,6 @@ Route::get('editUnidad/{id}','UnidadController@edit');
 // Recibe los datos a modificar de la Unidad Ejecutora
 Route::post('updateUnidad','UnidadController@update');
 // Formulario de Confirmacion de eliminar
-Route::get('confirmUnidad','UnidadController@confirm');
+Route::get('confirmUnidad/{id}','UnidadController@confirm');
 // ELimina el registro de Unida Ejecutora
-Route::get('destroyUnidad','UnidadController@destroy');
+Route::post('destroyUnidad','UnidadController@destroy');

@@ -40,11 +40,6 @@
         </div>
       </form>
     </div>
-
-
-
-
-
     @if(isset($unidad))
       @if($estado)
         <div class="box-footer">
@@ -59,8 +54,14 @@
               @foreach($unidad as $key => $u)
               <tr>
                 <td>{{ $u->gestion }}</td>
-                <td>{{ $a->unidad_ejecutora }}</td>
-                <td>{{ $a->estado }}</td>
+                <td>{{ $u->unidad_ejecutora }}</td>
+                <td>
+                  @if ($u->estado == 1)
+                    <i class="fa fa-fw fa-check" style="color:green"></i>
+                  @else
+                    <i class="fa fa-fw fa-close" style="color:red"></i>
+                  @endif
+                </td>
                 <td>
                   {{-- Boton Editar --}}
                   <a href="{{ url('editUnidad/'.$u->id_uni) }}" class="btn btn-warning">

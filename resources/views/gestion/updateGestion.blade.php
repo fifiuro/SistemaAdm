@@ -33,7 +33,6 @@
                 <option value="1" >Activo</option>
                 <option value="0"selected>Desactivado</option>
                 @endif
-                    
             </select>
         </div>
         <br>

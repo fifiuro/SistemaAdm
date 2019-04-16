@@ -17,34 +17,34 @@
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateUnidad') }}">
         {{ csrf_field() }}
+        @foreach ($unidad as $key => $u)
             <div class="group-form-control">
                 <label for="gestion">Gestión:</label>
-                @foreach ($gestion as $key => $g)
-                    <input type="text" name="gestion" id="gestion" value="{{ $unidad->gestion }}" disabled>
-                    <input type="hidden" name="id_ges" value="{{ $unidad->id_uni }}" required>
-                @endforeach
+                <input type="text" name="gestion" id="gestion" value="{{ $u->gestion }}" class="form-control" disabled>
+                <input type="hidden" name="id_uni" value="{{ $u->id_uni }}" required>
             </div>
             <div class="group-form-control">
                 <label for="unidad">Unidad Ejecutora:</label>
-                <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" value="{{ $unidad->unidad_ejecutora }}" required>
+                <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" value="{{ $u->unidad_ejecutora }}" required>
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>
                 <select name="estado" id="estado" class="form-control">
-                    @if($unidad->estado)
-                        <option value="true" selected>Activo</option>
-                        <option value="false">Desactivado</option>
+                    @if($u->estado)
+                        <option value="1" selected>Activo</option>
+                        <option value="0">Desactivado</option>
                     @else
-                        <option value="true">Activo</option>
-                        <option value="false" selected>Desactivado</option>
+                        <option value="1">Activo</option>
+                        <option value="0" selected>Desactivado</option>
                     @endif
                 </select>
-            </div>
-            <div class="group-form-control">
+            </div>    
+        @endforeach
+        <br>
+        <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>
-            {{-- Boton Nuevo --}}
-            <a href="{{ url('createUnidad') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
-            </div>
+            <a href="{{ url('findUnidad') }}" class="btn btn-danger">CANCELAR</a>
+        </div>
       </form>
     </div>
   </div>
