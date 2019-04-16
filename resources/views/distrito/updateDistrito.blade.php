@@ -15,28 +15,45 @@
 @section('contenido')
 <div class="box box-primary">
     <div class="box-body">
-      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeDistrito') }}">
+      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateDistrito') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
             <label for="id_uni">Unidad Ejecutora:</label>
             <select name="id_uni" id="id_uni" class="form-control">
               <option value=""></option>
               @foreach ($unidad as $key => $u)
-                <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                @if ($distrito->id_uni == $u->id_uni)
+                    <option value="{{ $u->id_uni }}" selected>{{ $u->unidad_ejecutora }}</option>
+                @else
+                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                @endif
               @endforeach
             </select>
         </div>
         <div class="group-form-control">
             <label for="nombre">Nombre de Distrito:</label>
-            <input class="form-control" id="nombre" name="nombre" placeholder="Nombre de Distrito" type="text" required>
+            <input class="form-control" id="nombre" name="nombre" placeholder="Nombre de Distrito" type="text" value="{{ $distrito->nombre_dis }}" required>
+            <input type="hidden" name="id_dist" value="{{ $distrito->id_dist }}">
         </div>
         <div class="group-form-control">
             <label for="numero">Número de Distrito:</label>
-            <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="text" required>
+            <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="text" value="{{ $distrito->numero_dis }}" required>
         </div>
         <div class="group-form-control">
             <label for="ubicacion">Ubicación:</label>
-            <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" type="text" required>
+            <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" type="text" value="{{ $distrito->ubicacion }}" required>
+        </div>
+        <div class="group-form-control">
+            <label for="estado">Estado:</label>
+            <select name="estado" id="estado" class="form-control">
+                @if ($distrito->estado == 1)
+                    <option value="1" selected>Activo</option>
+                    <option value="0">Desactivado</option>
+                @else
+                    <option value="1">Activo</option>
+                    <option value="0" selected>Desactivado</option>
+                @endif
+            </select>
         </div>
         <br>
         <div class="group-form-control">

@@ -91,7 +91,9 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::find($id);
 
-        return view('distrito.updateDistrito',array('distrito' => $distrito));
+        $unidad = Unidad::all();
+
+        return view('distrito.updateDistrito',array('distrito' => $distrito, 'unidad' => $unidad));
     }
 
     /**
@@ -105,6 +107,7 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::find($request->id_dist);
 
+        $distrito->id_uni = $request->id_uni;
         $distrito->nombre_dis = $request->nombre;
         $distrito->numero_dis = $request->numero;
         $distrito->ubicacion = $request->ubicacion;
@@ -134,7 +137,7 @@ class DistritoController extends Controller
      */
     public function destroy(Request $request)
     {
-        $distrito = Distrito::find($request->id);
+        $distrito = Distrito::find($request->id_dist);
 
         $distrito->delete();
 
