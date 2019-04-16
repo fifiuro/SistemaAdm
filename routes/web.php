@@ -71,3 +71,22 @@ Route::get('confirmDistrito/{id}','DistritoController@confirm');
 // Elimina el registro de Distrito
 Route::post('destroyDistrito','DistritoController@destroy');
 /** FIN */
+
+/** ACCIONES PARA MODULO DE MONTO */
+//Muestra el formulario para buscar Monto
+Route::get('findMonto','MontoController@index');
+// Envia los datos a buscar un Monto
+Route::post('findMonto','MontoController@show');
+// Muestra el Formulario para nuevo Monto
+Route::get('createMonto','MontoController@create');
+// Recibe los datos de nuevo Monto
+Route::post('storeMonto','MontoController@store');
+// Formulario con los datos a modificar el Monto
+Route::get('editMonto/{id}','MontoController@edit');
+// Recibe los datos a modificar el Monto
+Route::post('updateMonto','MontoController@update');
+// Formulario de Confirmacion para eliminar Monto
+Route::get('confirmMonto/{id}','MontoController@confirm');
+// Elimina el registro de Monto
+Route::post('destroyMonto','MontoController@destroy');
+/** FIN */
