@@ -61,9 +61,9 @@ Route::post('findDistrito','DistritoCOntroller@show');
 // Muestra el Formulario para nuevo distrito
 Route::get('createDistrito','DistritoCOntroller@create');
 // Recibe los datos de nuevo Distrito
-Route::get('storeDistrito','DistritoCOntroller@store');
+Route::post('storeDistrito','DistritoCOntroller@store');
 // Formulario con los datos a modificar el Distrito
-Route::get('editDistrito','DistritoCOntroller@edit');
+Route::get('editDistrito/{id}','DistritoCOntroller@edit');
 // Recibe los datos a modificar el Distrito
 Route::post('updateDistrito','DistritoCOntroller@update');
 // Formulario de Confirmacion para eliminar Distrito

@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    MODIFICAR DISTRITO
+    NUEVO DISTRITO
 @endsection
 
 @section('subtituloPag')
