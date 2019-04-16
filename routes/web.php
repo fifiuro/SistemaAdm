@@ -51,3 +51,23 @@ Route::post('updateUnidad','UnidadController@update');
 Route::get('confirmUnidad/{id}','UnidadController@confirm');
 // ELimina el registro de Unida Ejecutora
 Route::post('destroyUnidad','UnidadController@destroy');
+/** FIN */
+
+/** ACCIONES PARA MODULO DE DISTRITO */
+//Muestra el formulario para buscar Distrito
+Route::get('findDistrito','DistritoCOntroller@index');
+// Envia los datos a buscar un Distrito
+Route::post('findDistrito','DistritoCOntroller@show');
+// Muestra el Formulario para nuevo distrito
+Route::get('createDistrito','DistritoCOntroller@create');
+// Recibe los datos de nuevo Distrito
+Route::get('storeDistrito','DistritoCOntroller@store');
+// Formulario con los datos a modificar el Distrito
+Route::get('editDistrito','DistritoCOntroller@edit');
+// Recibe los datos a modificar el Distrito
+Route::post('updateDistrito','DistritoCOntroller@update');
+// Formulario de Confirmacion para eliminar Distrito
+Route::get('confimrDistrito','DistritoCOntroller@confirm');
+// Elimina el registro de Distrito
+Route::get('destroyDistrito','DistritoCOntroller@destroy');
+/** FIN */
