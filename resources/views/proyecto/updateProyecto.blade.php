@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    NUEVA UNIDAD
+    NUEVO RPROYECTO
 @endsection
 
 @section('subtituloPag')
@@ -17,26 +17,27 @@
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateProyecto') }}">
         {{ csrf_field() }}
-        @foreach ($unidad as $key => $u)
+        @foreach ($proyecto as $key => $p)
             <div class="group-form-control">
-                <label for="gestion">Gestión:</label>
-                <input type="text" name="gestion" id="gestion" value="{{ $u->gestion }}" class="form-control" disabled>
-                <input type="hidden" name="id_uni" value="{{ $u->id_uni }}" required>
+                <label for="distrito">Distrito:</label>
+                <input type="text" name="distrito" id="distrito" value="{{ $p->distrito }}" class="form-control" disabled>
+                <input type="hidden" name="id_dist" value="{{ $p->id_pro }}" required>
             </div>
             <div class="group-form-control">
-                <label for="unidad">Unidad Ejecutora:</label>
-                <select name="unidad" id="estado" class="form-control">
-                        @if($u->estado)
-                            <option value="1" selected>Activo</option>
-                            <option value="0">Desactivado</option>
-                        @else
-                            <option value="1">Activo</option>
-                            <option value="0" selected>Desactivado</option>
-                        @endif
-                    </select>
+                <label for="nombre_pro">Nombre del Proyecto:</label>
+                <input class="form-control" id="nombre_pro" name="nombre_pro" placeholder="Nombre del Proyecto" type="text" value="{{ $u->unidad_ejecutora }}" required>
             </div>
             <div class="group-form-control">
-            <label for="estado">Estado:</label>
+                    <label for="ema">Codigo EMA:</label>
+                    <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $u->unidad_ejecutora }}" required>
+            </div>
+            <div class="group-form-control">
+                    <label for="presupuesto">Presupuesto:</label>
+                    <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" value="{{ $u->unidad_ejecutora }}" required>
+            </div>
+
+            <div class="group-form-control">
+                <label for="estado">Estado:</label>
                 <select name="estado" id="estado" class="form-control">
                     @if($u->estado)
                         <option value="1" selected>Activo</option>
