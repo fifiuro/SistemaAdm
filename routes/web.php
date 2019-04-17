@@ -71,3 +71,24 @@ Route::get('confimrDistrito','DistritoCOntroller@confirm');
 // Elimina el registro de Distrito
 Route::get('destroyDistrito','DistritoCOntroller@destroy');
 /** FIN */
+
+
+
+/** ACCIONES PARA MODULO DE PROYECTO */
+//Muestra el formulario para buscar proyecto
+Route::get('findProyecto','ProyectoController@index');
+// Envia los datos a buscar un proyecto
+Route::post('findProyecto','ProyectoController@show');
+// Muestra el Formulario para nuevo proyecto
+Route::get('createProyecto','ProyectoController@create');
+// Recibe los datos de nuevo Proyecto
+Route::get('storeProyecto','ProyectoController@store');
+// Formulario con los datos a modificar el Proyecto
+Route::get('editProyecto','ProyectoController@edit');
+// Recibe los datos a modificar el Proyecto
+Route::post('updateProyecto','ProyectoController@update');
+// Formulario de Confirmacion para eliminar Proyecto
+Route::get('confimrProyecto','ProyectoController@confirm');
+// Elimina el registro de Proyecto
+Route::get('destroyProyecto','ProyectoController@destroy');
+/** FIN */
