@@ -16,7 +16,10 @@ class CreateDistritosTable extends Migration
         Schema::create('distrito', function (Blueprint $table) {
             $table->bigIncrements('id_dist');
             $table->unsignedBigInteger('id_uni');
-            $table->foreign('id_uni')->references('id_uni')->on('unidad')->onDelete('cascade');
+            $table->foreign('id_uni')
+                  ->references('id_uni')
+                  ->on('unidad')
+                  ->onDelete('cascade');
             $table->string('nombre_dis');
             $table->string('numero_dis');
             $table->string('ubicacion');

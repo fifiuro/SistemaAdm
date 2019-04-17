@@ -15,7 +15,11 @@ class CreateUnidadTable extends Migration
     {
         Schema::create('unidad', function (Blueprint $table) {
             $table->bigIncrements('id_uni');
-            $table->integer('id_ges');
+            $table->unsignedBigInteger('id_ges');
+            $table->foreign('id_ges')
+                  ->references('id_ges')
+                  ->on('gestion')
+                  ->onDelete('cascade');
             $table->string('unidad_ejecutora');
             $table->date('fecha_reg');
             $table->boolean('estado');
