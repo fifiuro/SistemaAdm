@@ -72,8 +72,6 @@ Route::get('confimrDistrito','DistritoController@confirm');
 Route::get('destroyDistrito','DistritoController@destroy');
 /** FIN */
 
-
-
 /** ACCIONES PARA MODULO DE PROYECTO */
 //Muestra el formulario para buscar proyecto
 Route::get('findProyecto','ProyectoController@index');
