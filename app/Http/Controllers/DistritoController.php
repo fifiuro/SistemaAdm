@@ -30,8 +30,8 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::join('unidad','unidad.id_uni','=','distrito.id_uni')
                             ->where('nombre_dis','like','%'.$request->nombre.'%')
-                            ->where('id_uni','=',$request->id_uni)
-                            ->select('distrito.id_dist','nombre_dis','numero_dis','ubicacion','estado')
+                            ->where('unidad.id_uni','=',$request->id_uni)
+                            ->select('distrito.id_dist','unidad_ejecutora','nombre_dis','numero_dis','ubicacion','distrito.estado')
                             ->get();
 
         $unidad = Unidad::all();
@@ -91,7 +91,9 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::find($id);
 
-        return view('distrito.updateDistrito',array('distrito' => $distrito));
+        $unidad = Unidad::where('estado','=',1)->get();
+
+        return view('distrito.updateDistrito',array('distrito' => $distrito, 'unidad' => $unidad));
     }
 
     /**
@@ -134,7 +136,7 @@ class DistritoController extends Controller
      */
     public function destroy(Request $request)
     {
-        $distrito = Distrito::find($request->id);
+        $distrito = Distrito::find($request->id_dist);
 
         $distrito->delete();
 

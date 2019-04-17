@@ -63,13 +63,13 @@ Route::get('createDistrito','DistritoController@create');
 // Recibe los datos de nuevo Distrito
 Route::post('storeDistrito','DistritoController@store');
 // Formulario con los datos a modificar el Distrito
-Route::get('editDistrito','DistritoController@edit');
+Route::get('editDistrito/{id}','DistritoController@edit');
 // Recibe los datos a modificar el Distrito
 Route::post('updateDistrito','DistritoController@update');
 // Formulario de Confirmacion para eliminar Distrito
-Route::get('confimrDistrito','DistritoController@confirm');
+Route::get('confirmDistrito/{id}','DistritoController@confirm');
 // Elimina el registro de Distrito
-Route::get('destroyDistrito','DistritoController@destroy');
+Route::post('destroyDistrito','DistritoController@destroy');
 /** FIN */
 
 /** ACCIONES PARA MODULO DE PROYECTO */
