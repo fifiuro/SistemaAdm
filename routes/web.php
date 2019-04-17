@@ -74,7 +74,7 @@ Route::post('destroyDistrito','DistritoController@destroy');
 
 /** ACCIONES PARA MODULO DE MONTO */
 //Muestra el formulario para buscar Monto
-Route::get('findMonto','MontoController@index');
+Route::get('findMonto/{id}','MontoController@show');
 // Envia los datos a buscar un Monto
 Route::post('findMonto','MontoController@show');
 // Muestra el Formulario para nuevo Monto
