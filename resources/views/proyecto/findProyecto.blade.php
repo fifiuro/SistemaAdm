@@ -25,7 +25,7 @@
                     <select name="distrito" id="distrito" class="form-control">
                       <option value=""></option>
                       @foreach ($distrito as $key => $d)
-                      <option value="{{ $d->id_dis }}">{{ $d->distrito }}</option>
+                      <option value="{{ $d->id_dist }}">{{ $d->nombre_dis }}</option>
                       @endforeach
                     </select>
             </div>
@@ -51,13 +51,20 @@
           <table class="table">
             <tbody>
               <tr>
+                <th>Nombre de Distrito</th>
                 <th>Nombre del Proyecto</th>
                 <th>Codigo EMA</th>
                 <th>Presupuesto</th>
+                <th>Estado</th>
+                <th>Acciones</th>
               </tr>
               @foreach($proyecto as $key => $p)
               <tr>
-                <td>{{ $p->proyecto }}</td>
+                <td>{{ $p->nombre_dis }}</td>
+                <td>{{ $p->nombre_pro }}</td>
+                <td>{{ $p->ema }}</td>
+                <td>{{ $p->presupuesto }}</td>
+                
                 <td>
                   @if ($p->estado)
                     <i class="fa fa-fw fa-check" style="color:green"></i>
@@ -73,6 +80,10 @@
                   {{-- Boton Eliminar --}}
                   <a href="{{ url('confirmProyecto/'.$p->id_pro) }}" class="btn btn-danger">
                     <i class="glyphicon glyphicon-trash"></i>
+                  </a>
+                  {{-- Boton volumes --}}
+                  <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-danger">
+                    <i class="fa fa-area-chart"></i>
                   </a>
                 </td>
               </tr>

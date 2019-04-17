@@ -26,9 +26,28 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function show(Proyecto $proyecto)
+    public function show(Request $request)
     {
-        //
+       /*print_r($request);*/
+        $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
+        ->where('proyecto.nombre_pro','like','%'.$request->nombre_pro.'%')
+        ->where('distrito.id_dist','=',$request->distrito)
+        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
+        ->get();
+
+        $distrito = Distrito::all();
+
+        if(count($proyecto) > 0){
+        return view('proyecto.findProyecto',array('proyecto' => $proyecto,
+                                        'distrito' => $distrito,
+                                        'estado' => true));
+        }else{
+        return view('proyecto.findProyecto',array('proyecto' => '',
+                                        'distrito' => $distrito,
+                                        'estado' => false,
+                                        'mensaje' => 'No se tuvieron coincidencias con: '.$request->nombre_pro.' o '.$request->distrito));
+
+        }
     }
 
 
@@ -95,7 +114,7 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($request->id_pro);
 
-        $proyecto->id_dist = $request->id_dist;
+        /*$proyecto->id_dist = $request->id_dist;*/
         $proyecto->nombre_pro = $request->nombre_pro;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
@@ -113,8 +132,24 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Proyecto $proyecto)
+    public function destroy(Request $request)
     {
-        //
+        $proyecto = Proyecto::find($request->id_pro);
+
+        $proyecto->delete();
+
+        return redirect('findProyecto');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Proyecto  $proyecto
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm($id)
+    {
+        
+        return view('proyecto.deleteProyecto',array('id'=>$id));
     }
 }
