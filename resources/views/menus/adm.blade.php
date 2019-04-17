@@ -22,9 +22,3 @@
         <span>PROYECTO</span>
     </a>
 </li>
-<li>
-    <a href="{{ url('findVolumenes') }}">
-        <i class="fa fa-area-chart"></i>
-        <span>VOLUMEN</span>
-    </a>
-</li>
