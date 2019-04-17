@@ -55,21 +55,21 @@ Route::post('destroyUnidad','UnidadController@destroy');
 
 /** ACCIONES PARA MODULO DE DISTRITO */
 //Muestra el formulario para buscar Distrito
-Route::get('findDistrito','DistritoCOntroller@index');
+Route::get('findDistrito','DistritoController@index');
 // Envia los datos a buscar un Distrito
-Route::post('findDistrito','DistritoCOntroller@show');
+Route::post('findDistrito','DistritoController@show');
 // Muestra el Formulario para nuevo distrito
-Route::get('createDistrito','DistritoCOntroller@create');
+Route::get('createDistrito','DistritoController@create');
 // Recibe los datos de nuevo Distrito
-Route::get('storeDistrito','DistritoCOntroller@store');
+Route::post('storeDistrito','DistritoController@store');
 // Formulario con los datos a modificar el Distrito
-Route::get('editDistrito','DistritoCOntroller@edit');
+Route::get('editDistrito','DistritoController@edit');
 // Recibe los datos a modificar el Distrito
-Route::post('updateDistrito','DistritoCOntroller@update');
+Route::post('updateDistrito','DistritoController@update');
 // Formulario de Confirmacion para eliminar Distrito
-Route::get('confimrDistrito','DistritoCOntroller@confirm');
+Route::get('confimrDistrito','DistritoController@confirm');
 // Elimina el registro de Distrito
-Route::get('destroyDistrito','DistritoCOntroller@destroy');
+Route::get('destroyDistrito','DistritoController@destroy');
 /** FIN */
 
 

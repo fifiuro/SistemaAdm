@@ -15,7 +15,7 @@ class DistritoController extends Controller
      */
     public function index()
     {
-        $unidad = Unidad::find();
+        $unidad = Unidad::all();
 
         return view('distrito.findDistrito', array('unidad' => $unidad));
     }
@@ -28,15 +28,21 @@ class DistritoController extends Controller
      */
     public function show(Request $request)
     {
-        $distrito = Distrito::where('nombre_dis','like','%'.$request->nombre.'%')
+        $distrito = Distrito::join('unidad','unidad.id_uni','=','distrito.id_uni')
+                            ->where('nombre_dis','like','%'.$request->nombre.'%')
                             ->where('id_uni','=',$request->id_uni)
+                            ->select('distrito.id_dist','nombre_dis','numero_dis','ubicacion','estado')
                             ->get();
 
-        if(count($ditrito) > 0){
+        $unidad = Unidad::all();
+
+        if(count($distrito) > 0){
             return view('distrito.findDistrito',array('distrito' => $distrito,
+                                                      'unidad' => $unidad,
                                                       'estado' => true));
         }else{
             return view('distrito.findDistrito',array('distrito' => '',
+                                                    'unidad' => $unidad,
                                                     'estado' => false,
                                                     'mensaje' => 'No se tuvieron coincidencias con: '.$request->nombre.' o '.$request->distrito));
         }
