@@ -39,25 +39,33 @@
                     @endif
                 </div>
             </div>
-
+            <hr>
             <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
                 {{ csrf_field() }}
-                <fiv class="row">
+                <div class="row">
                     <div class="group-form-control col-xs-4">
                         <label for="fecha">Fecha: </label>
-                        <input type="text" name="" id="" class="form-control">
+                        <div class="input-group date">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control pull-right" name="fecha" id="datepicker" required>
+                        </div>
+                        <input type="hidden" name="id_pro" value="{{ $proy->id_pro }}">
                     </div>
                     <div class="group-form-control col-xs-4">
                         <label for="monto">Monto: </label>
-                        <input type="text" name="monto" id="monto" class="form-control">
+                        <input type="text" name="monto" id="monto" class="form-control" required>
                     </div>
                     <div class="group-form-control col-xs-4">
                         <button type="submit" class="btn btn-primary">GUARDAR</button>
                     </div>
-                </fiv>
+                </div>
             </form>
+            <hr>
             @if (isset($volumen))
                 @if ($estado)
+                    <table class="table">
                     <div class="box-footer">
                         <tbody>
                             <th>Fecha</th>
@@ -67,7 +75,7 @@
                     </div>
                     @foreach ($volumen as $key => $v)
                         <tr>
-                            <td>{{ $v->fecha }}</td>
+                            <td>{{ formatoFechaReporte($v->fecha) }}</td>
                             <td>{{ $v->monto }}</td>
                             <td>
                                 {{-- Boton Editar --}}
@@ -81,6 +89,7 @@
                             </td>
                         </tr>
                     @endforeach
+                    </table>
                 @else
                     <h3>
                         <p class="text-red" style="text-align:center;">
@@ -89,51 +98,42 @@
                     </h3>
                 @endif
             @endif
+            <hr>
             <div class="group-form-control">
                 <a href="{{ url('/') }}" class="btn btn-danger">CANCELAR</a>
             </div>
         </form>
     </div>
-    @if(isset($volumen))
-      @if($estado)
-        <div class="box-footer">
-          <table class="table">
-            <tbody>
-              <tr>
-                <th>Fecha</th>
-                <th>Monto</th>
-                <th>Acciones</th>
-              </tr>
-              @foreach($volumen as $key => $v)
-              <tr>
-                <td>{{ $v->fecha }}</td>
-                <td>{{ $v->monto }}</td>
-                <td>
-                  {{-- Boton Editar --}}
-                  <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </a>
-                  {{-- Boton Eliminar --}}
-                  <a href="{{ url('confirmVolumen/'.$v->id_mon) }}" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-trash"></i>
-                  </a>
-                </td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
-        </div>
-      @else
-        <h3>
-        <p class="text-red" style="text-align:center;">
-          {{ $mensaje }}
-        </p>
-        </h2>
-      @endif
-    @endif
   </div>
 @endsection
 
 @section('extra')
+
+// Campo de Fecha
+$('#datepicker').datepicker({
+    autoclose: true,
+    format: "dd/mm/yyyy"
+});
+
+// Validacion de campos requeridos
+$('#form input[id=monto]').on('change invalid', function() {
+    var campotexto = $(this).get(0);
+
+    campotexto.setCustomValidity('');
+
+    if (!campotexto.validity.valid) {
+      campotexto.setCustomValidity('Esta información es requerida, por favor ingrese un número.');  
+    }
+});
+
+$('#form input[id=datepicker]').on('change invalid', function() {
+    var campotexto = $(this).get(0);
+
+    campotexto.setCustomValidity('');
+
+    if (!campotexto.validity.valid) {
+      campotexto.setCustomValidity('Ingrese la fecha es un campo requerido.');  
+    }
+});
 
 @endsection

@@ -17,7 +17,20 @@ class VolumenController extends Controller
     {
         $proy = Proyecto::find($id);
 
-        return view('volumen.findVolumen', array('proy' => $proy));
+        $volumen = Volumen::where('id_pro','=',$id)
+                          ->orderBy('fecha','asc')
+                          ->get();
+
+        if(count($volumen) > 0){
+            return view('volumen.findVolumen', array('proy' => $proy, 
+                                                     'volumen' => $volumen, 
+                                                     'estado' => true));
+        }else{
+            return view('volumen.findVolumen', array('proy' => $proy, 
+                                                     'volumen' => '', 
+                                                     'estado' => false,
+                                                     'mensaje' => 'No se tiene niguna Volumen registrado para el Proyecto'));
+        }
     }
 
     /**
@@ -38,7 +51,15 @@ class VolumenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $volumen = new Volumen;
+
+        $volumen->id_pro = $request->id_pro;
+        $volumen->fecha = formatoFecha($request->fecha);
+        $volumen->monto = $request->monto;
+
+        $volumen->save();
+
+        return redirect('findVolumen/'.$request->id_pro);
     }
 
     /**
@@ -58,9 +79,11 @@ class VolumenController extends Controller
      * @param  \App\Volumen  $volumen
      * @return \Illuminate\Http\Response
      */
-    public function edit(Volumen $volumen)
+    public function edit($id)
     {
-        //
+        $volumen = Volumen::find($id);
+
+        return view('volumen.updateVolumen', array('volumen' => $volumen));
     }
 
     /**
@@ -70,9 +93,16 @@ class VolumenController extends Controller
      * @param  \App\Volumen  $volumen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Volumen $volumen)
+    public function update(Request $request)
     {
-        //
+        $volumen = Volumen::find($request->id_mon);
+
+        $volumen->fecha = $request->fecha;
+        $volumen->monto = $request->monto;
+
+        $volumen->save();
+
+        return redirect('findVolumen/'.$request->id_pro);
     }
 
     /**
@@ -81,8 +111,23 @@ class VolumenController extends Controller
      * @param  \App\Volumen  $volumen
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Volumen $volumen)
+    public function confirm($di)
     {
-        //
+        return view('volumen.deleteVolumen', array('id' => $id));
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Volumen  $volumen
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request)
+    {
+        $volumen = Volumen::find($request->id_mon);
+
+        $volumen->delete();
+
+        return redirect('findVolumen/'.$request->id_pro);
     }
 }
