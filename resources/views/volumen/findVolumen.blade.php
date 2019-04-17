@@ -83,7 +83,7 @@
                                     <i class="glyphicon glyphicon-pencil"></i>
                                 </a>
                                 {{-- Boton Eliminar --}}
-                                <a href="{{ url('confirmVolumen/'.$v->id_mon) }}" class="btn btn-danger">
+                                <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy->id_pro) }}" class="btn btn-danger">
                                     <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>

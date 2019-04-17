@@ -18,7 +18,7 @@ class VolumenController extends Controller
         $proy = Proyecto::find($id);
 
         $volumen = Volumen::where('id_pro','=',$id)
-                          ->orderBy('fecha','asc')
+                          ->orderBy('fecha','desc')
                           ->get();
 
         if(count($volumen) > 0){
@@ -97,7 +97,7 @@ class VolumenController extends Controller
     {
         $volumen = Volumen::find($request->id_mon);
 
-        $volumen->fecha = $request->fecha;
+        $volumen->fecha = formatoFecha($request->fecha);
         $volumen->monto = $request->monto;
 
         $volumen->save();
@@ -111,9 +111,9 @@ class VolumenController extends Controller
      * @param  \App\Volumen  $volumen
      * @return \Illuminate\Http\Response
      */
-    public function confirm($di)
+    public function confirm($id,$id_pro)
     {
-        return view('volumen.deleteVolumen', array('id' => $id));
+        return view('volumen.deleteVolumen', array('id' => $id, 'id_pro' => $id_pro));
     }
 
     /**

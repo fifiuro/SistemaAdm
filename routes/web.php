@@ -100,9 +100,9 @@ Route::post('storeVolumen','VolumenController@store');
 // Muestra el formulario con los datos a modificar
 Route::get('editVolumen/{id}','VolumenController@edit');
 // Envia los datos modificados de Volumen
-Route::post('udateVolumen','VolumenController@update');
+Route::post('updateVolumen','VolumenController@update');
 // Formulario de Confirmacion de eliminar Volumen
-Route::get('confirmVolumen/{id}','VolumenController@confirm');
+Route::get('confirmVolumen/{id}/{id_pro}','VolumenController@confirm');
 // Elimina el registro de Volumen
 Route::post('destroyVolumen','VolumenController@destroy');
 /** FIN */
