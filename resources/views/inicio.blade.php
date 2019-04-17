@@ -13,7 +13,7 @@
 @endsection
 
 @section('contenido')
-    chrisyias
+    
 @endsection
 
 @section('extra')
