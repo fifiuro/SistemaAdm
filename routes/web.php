@@ -90,3 +90,19 @@ Route::get('confimrProyecto','ProyectoController@confirm');
 // Elimina el registro de Proyecto
 Route::get('destroyProyecto','ProyectoController@destroy');
 /** FIN */
+
+/** ACCIONES PARA MODULO DE VOLUMEN */
+// Muestra el formulario con los datos de Proyecto y el 
+// formulario de ingresae el volumen por fecha
+Route::get('findVolumen/{id}','VolumenController@index');
+// Envia los datos para se guardados del Volumen
+Route::post('storeVolumen','VolumenController@store');
+// Muestra el formulario con los datos a modificar
+Route::get('editVolumen/{id}','VolumenController@edit');
+// Envia los datos modificados de Volumen
+Route::post('udateVolumen','VolumenController@update');
+// Formulario de Confirmacion de eliminar Volumen
+Route::get('confirmVolumen/{id}','VolumenController@confirm');
+// Elimina el registro de Volumen
+Route::post('destroyVolumen','VolumenController@destroy');
+/** FIN */
