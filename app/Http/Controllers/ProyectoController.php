@@ -75,9 +75,13 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function edit(Proyecto $proyecto)
+    public function edit($id)
     {
-        //
+        $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->where('id_pro','=',$id)
+                        ->get();
+
+        return view('proyecto.updateProyecto',array('proyecto' => $proyecto));
     }
 
     /**
@@ -89,7 +93,18 @@ class ProyectoController extends Controller
      */
     public function update(Request $request, Proyecto $proyecto)
     {
-        //
+        $proyecto = Proyecto::find($request->id_pro);
+
+        $proyecto->id_dist = $request->id_dist;
+        $proyecto->nombre_pro = $request->nombre_pro;
+        $proyecto->ema = $request->ema;
+        $proyecto->presupuesto = $request->presupuesto;
+        
+        $proyecto->estado = $request->estado;;
+
+        $proyecto->save();
+
+        return redirect('findProyecto');
     }
 
     /**
