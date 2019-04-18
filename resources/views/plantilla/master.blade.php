@@ -54,11 +54,11 @@
             <a href="{{ url('home') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">
-                    <img src="{{ asset('assets/img/cognosLogo.png') }}">
+                    <img src="{{ asset('assets/img/logo.jpg') }}">
                 </span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
-                    <img src="{{ asset('assets/img/cognos.png') }}">
+                    <img src="{{ asset('assets/img/logo.jpg') }}" style="width:50%">
             </a>
             <!-- Final Logo -->
 
