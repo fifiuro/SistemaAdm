@@ -55,7 +55,10 @@ class UnidadController extends Controller
      */
     public function create()
     {
-        $gestion = Gestion::where('estado','=',true)->get();
+        $gestion = Gestion::where('estado','=',true)
+                          ->limit(1)
+                          ->orderBy('gestion','desc')
+                          ->get();
 
         return view('unidad.createUnidad', array('gestion' => $gestion));
     }

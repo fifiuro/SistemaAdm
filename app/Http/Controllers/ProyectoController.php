@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Proyecto;
 use App\Distrito;
+use App\Volumen;
+use App\Gestion;
+use App\Unidad;
 use Illuminate\Http\Request;
 
 class ProyectoController extends Controller
@@ -86,8 +89,6 @@ class ProyectoController extends Controller
         return redirect('findProyecto');
     }
 
-    
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -152,4 +153,30 @@ class ProyectoController extends Controller
         
         return view('proyecto.deleteProyecto',array('id'=>$id));
     }
+
+    /** Reporte por proyecto y sus volumenes */
+    public function reporteProyecto($id)
+    {
+        $proy = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->join('unidad','unidad.id_uni','=','distrito.id_uni')
+                        ->join('gestion','gestion.id_ges','=','unidad.id_ges')
+                        ->where('proyecto.id_pro','=',$id)
+                        ->select('gestion.gestion',
+                                 'unidad.unidad_ejecutora',
+                                 'distrito.nombre_dis',
+                                 'distrito.numero_dis',
+                                 'distrito.ubicacion',
+                                 'proyecto.nombre_pro',
+                                 'proyecto.ema',
+                                 'proyecto.presupuesto')
+                        ->get();
+        
+        $volumen = Volumen::where('id_pro','=',$id)->get();
+        
+        $pdf = \PDF::loadView('proyecto.reporte',array('proy' => $proy, 'volumen' => $volumen));
+
+        //return $pdf->download('ReporteProyecto.pdf');
+        return $pdf->stream('ReporteProyecyo');
+    }
+
 }

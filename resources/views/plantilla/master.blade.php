@@ -46,15 +46,16 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
 
-<body class="skin-blue sidebar-mini">
+<body class="skin-blue sidebar-mini" @if (Auth::check()) @else style="background-color: #ecf0f5" @endif>
     <div class="wrapper">
 
+        @if (Auth::check())
         <header class="main-header">
             <!-- Logo -->
             <a href="{{ url('home') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini">
-                    <img src="{{ asset('assets/img/logo.jpg') }}">
+                    <img src="{{ asset('assets/img/logo.jpg') }}" style="width:100%">
                 </span>
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">
@@ -74,16 +75,16 @@
                         <!-- User Account: style can be found in dropdown.less -->
                         <li class="dropdown user user-menu">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
-                                <span class="hidden-xs">Nombre de Usuario</span>
+                                <i class="fa fa-user"></i>
+                                <span class="hidden-xs">{{ Auth::user()->name }}</span>
                             </a>
                             <ul class="dropdown-menu">
                                 <!-- User image -->
                                 <li class="user-header">
-                                    <img src="{{ asset('assets/dist/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                    <h1><i class="fa fa-user" style="color:white"></i></h1>
                                     <p>
-                                        Nombre de Usuario
-                                        <small>Correo Electronico</small>
+                                        {{ Auth::user()->cargo }}
+                                        <small>{{ Auth::user()->email }}</small>
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -98,9 +99,10 @@
                                             {{ __('Cerrar Sesión') }}
                                         </a>
     
-                                        <form id="logout-form" action="#" method="POST" style="display: none;">
+                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             @csrf
                                         </form>
+
                                     </div>
                                 </li>
                             </ul>
@@ -109,6 +111,7 @@
                 </div>
             </nav>
         </header>
+        
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="main-sidebar">
             <!-- sidebar: style can be found in sidebar.less -->
@@ -121,9 +124,10 @@
             </section>
             <!-- /.sidebar -->
         </aside>
+        @endif
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" @if (Auth::check()) @else style="margin-left: 0px" @endif>
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -139,6 +143,7 @@
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->
+        @if (Auth::check())
         <footer class="main-footer">
             <div class="pull-right hidden-xs">
                 <b>Version</b> 2.4.0
@@ -149,6 +154,7 @@
         <!-- Add the sidebar s background. This div must be placed
        immediately after the control sidebar -->
         <div class="control-sidebar-bg"></div>
+        @endif
     </div>
     <!-- ./wrapper -->
 

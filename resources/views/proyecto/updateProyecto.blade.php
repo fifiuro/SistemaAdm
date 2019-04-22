@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    NUEVO PROYECTO
+    MODIFICAR PROYECTO
 @endsection
 
 @section('subtituloPag')
@@ -13,7 +13,7 @@
 @endsection
 
 @section('contenido')
-<div class="box box-primary">
+<div class="box box-danger">
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateProyecto') }}">
         {{ csrf_field() }}

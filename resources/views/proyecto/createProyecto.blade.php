@@ -13,7 +13,8 @@
 @endsection
 
 @section('contenido')
-<div class="box box-primary">
+
+<div class="box box-danger">
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeProyecto') }}">
         {{ csrf_field() }}
@@ -41,7 +42,7 @@
         <div class="group-form-control">
         <br>
         <button type="submit" class="btn btn-primary" name="guardar" id="guardar">GUARDAR</button>
-        <a href="{{ url('findUnidad') }}" class="btn btn-danger">CANCELAR</a>
+        <a href="{{ url('findProyecto') }}" class="btn btn-danger">CANCELAR</a>
         </div>
       </form>
     </div>

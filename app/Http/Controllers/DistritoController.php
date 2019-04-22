@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Distrito;
 use App\Unidad;
+use App\Gestion;
+use App\Proyecto;
+use App\Volumen;
 use Illuminate\Http\Request;
 
 class DistritoController extends Controller
@@ -142,4 +145,35 @@ class DistritoController extends Controller
 
         return redirect('findDistrito');
     }
+
+    /** Supervision de Proyectos */
+    public function supervisar($id, $id_pro)
+    {
+        $distrito = Distrito::find($id);
+        $numProyecto = Distrito::join('proyecto','proyecto.id_dist','=','distrito.id_dist')
+                               ->groupBy('distrito.id_dist')
+                               ->selectRaw('count(*) as total')
+                               ->where('distrito.id_dist','=',$id)
+                               ->get();
+
+        $proyecto = Proyecto::where('id_dist','=',$id)
+                            ->select('id_pro','nombre_pro')
+                            ->get();
+
+        if($id_pro == 0){
+            $id_pro = $proyecto[0]->id_pro;
+        }elseif($id_pro != 0){
+
+        }
+        $volumen = Volumen::where('id_pro','=',$id_pro)
+                          ->orderBy('fecha','desc')
+                          ->get();
+        
+        return view('distrito.supervision',array('distrito' => $distrito,
+                                                 'numProyecto' => $numProyecto,
+                                                 'proyecto' => $proyecto,
+                                                 'id_pro' => $id_pro,
+                                                 'volumen' => $volumen));
+    }
+
 }

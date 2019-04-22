@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    ELIMINAR DISTRITO
+    ELIMINAR USUARIO
 @endsection
 
 @section('subtituloPag')
@@ -16,17 +16,17 @@
     
 <div class="box box-danger">
     <div class="box-body">
-      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('destroyDistrito') }}">
+      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('destroyUsuario') }}">
         {{ csrf_field() }}
         <div class="box-body">
             <div class="text-center">
-                <h2>Estas seguro de eliminar el Distrito?</h2>
-                <input type="hidden" class="form-control" id="id_dist" name="id_dist" value="{{$id}}">
+                <h2>Estas seguro de eliminar al Usuario?</h2>
+                <input type="hidden" class="form-control" id="id" name="id" value="{{$id}}">
             </div>
         </div>   
         <div class="box-footer">
             <button type="submit" class="btn btn-primary" name="si" id="si">SI</button>
-               <a href="{{ url('findDistrito') }}" class="btn btn-danger">NO</a>
+               <a href="{{ url('findUsuario') }}" class="btn btn-danger">NO</a>
         </div>
       </form>
     </div>

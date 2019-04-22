@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    NUEVA GESTION
+    MODIFICAR GESTION
 @endsection
 
 @section('subtituloPag')
@@ -14,7 +14,7 @@
 
 @section('contenido')
     
-<div class="box box-primary">
+<div class="box box-danger">
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateGestion') }}">
         {{ csrf_field() }}        

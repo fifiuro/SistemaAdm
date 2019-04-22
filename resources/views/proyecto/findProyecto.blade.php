@@ -14,7 +14,7 @@
 
 @section('contenido')
     
-<div class="box box-primary">
+<div class="box box-danger">
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findProyecto') }}">
         {{ csrf_field() }}
@@ -82,8 +82,12 @@
                     <i class="glyphicon glyphicon-trash"></i>
                   </a>
                   {{-- Boton volumes --}}
-                  <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-danger">
+                  <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
                     <i class="fa fa-area-chart"></i>
+                  </a>
+                  {{-- Boton imprmir --}}
+                  <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
+                    <i class="fa fa-print"></i>
                   </a>
                 </td>
               </tr>

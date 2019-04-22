@@ -109,4 +109,5 @@ class GestionController extends Controller
     {
         return view('gestion.deleteGestion',array('id'=>$id));
     }
+
 }
