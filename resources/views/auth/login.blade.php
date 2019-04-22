@@ -2,7 +2,7 @@
 
 @section('contenido')
 
-<div class="box box-primary login-box">
+<div class="box box-danger login-box">
   <div class="login-logo">
     <a href="../../index2.html"><b>Plan Asfalto</b></a>
   </div>
