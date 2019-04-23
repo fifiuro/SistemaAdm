@@ -33,15 +33,18 @@
         <div class="group-form-control">
             <label for="nombre">Nombre de Distrito:</label>
             <input class="form-control" id="nombre" name="nombre" placeholder="Nombre de Distrito" type="text" value="{{ $distrito->nombre_dis }}" required>
+            <input type="hidden" name="nombreA" value="{{ $distrito->nombre_dis }}">
             <input type="hidden" name="id_dist" value="{{ $distrito->id_dist }}">
         </div>
         <div class="group-form-control">
             <label for="numero">Número de Distrito:</label>
             <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="number" value="{{ $distrito->numero_dis }}" required>
+            <input type="hidden" name="numeroA" value="{{ $distrito->numero_dis }}">
         </div>
         <div class="group-form-control">
             <label for="ubicacion">Ubicación:</label>
             <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" type="text" value="{{ $distrito->ubicacion }}" required>
+            <input type="hidden" name="ubicacionA" value="{{ $distrito->ubicacion }}">
         </div>
         <div class="group-form-control">
             <label for="estado">Estado:</label>
@@ -54,6 +57,7 @@
                     <option value="0" selected>Desactivado</option>
                 @endif
             </select>
+            <input type="hidden" name="estadoA" value="{{ $distrito->estado }}">
         </div>
         <br>
         <div class="group-form-control">

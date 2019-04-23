@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Gestion;
+use App\Modificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class GestionController extends Controller
@@ -62,8 +64,6 @@ class GestionController extends Controller
         
     }
 
-    
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -86,10 +86,33 @@ class GestionController extends Controller
     public function update(Request $request)
     {
         $gestion= Gestion::find($request->id_ges);
-        $gestion->gestion =$request->gestion;
-        $gestion->estado =$request->estado;
-        $gestion->save();
+        if($this->modificacion('gestion',$request->id_ges,$request->gestion,$request->gestionA)){
+            $gestion->gestion =$request->gestion;
+        }
+        if($this->modificacion('gestion',$request->id_ges,$request->estado,$request->estadoA)){
+            $gestion->estado =$request->estado;
+        }
+        $gestion->save();       
+
         return redirect('findGestion');
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

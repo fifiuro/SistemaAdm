@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Volumen;
 use App\Proyecto;
+use App\Modificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class VolumenController extends Controller
@@ -97,12 +99,34 @@ class VolumenController extends Controller
     {
         $volumen = Volumen::find($request->id_mon);
 
-        $volumen->fecha = formatoFecha($request->fecha);
-        $volumen->monto = $request->monto;
+        if($this->modificacion('monto',$request->id_mon,formatoFecha($request->fecha),$request->fechaA)){
+            $volumen->fecha = formatoFecha($request->fecha);
+        }
+        if($this->modificacion('monto',$request->id_mon,$request->monto,$request->montoA)){
+            $volumen->monto = $request->monto;
+        }
 
         $volumen->save();
 
         return redirect('findVolumen/'.$request->id_pro);
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

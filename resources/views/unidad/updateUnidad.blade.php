@@ -26,6 +26,7 @@
             <div class="group-form-control">
                 <label for="unidad">Unidad Ejecutora:</label>
                 <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" value="{{ $u->unidad_ejecutora }}" required>
+                <input type="hidden" name="unidadA" value="{{ $u->unidad_ejecutora }}">
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>
@@ -38,6 +39,7 @@
                         <option value="0" selected>Desactivado</option>
                     @endif
                 </select>
+                <input type="hidden" name="estadoA" value="{{ $u->estado }}">
             </div>    
         @endforeach
         <br>

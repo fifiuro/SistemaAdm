@@ -25,12 +25,14 @@
                 </div>
                 <input type="text" class="form-control pull-right" name="fecha" id="datepicker" value="{{ formatoFechaReporte($volumen->fecha) }}" required>
             </div>
+            <input type="hidden" name="fechaA" value="{{ $volumen->fecha }}">
             <input type="hidden" name="id_mon" value="{{ $volumen->id_mon }}">
             <input type="hidden" name="id_pro" value="{{ $volumen->id_pro }}">
         </div>
         <div class="group-form-control">
             <label for="monto">Monto: </label>
             <input type="text" name="monto" id="monto" class="form-control" value="{{ $volumen->monto }}" required>
+            <input type="hidden" name="montoA" value="{{ $volumen->monto }}">
         </div>
         <hr>
         <div class="group-form-control">

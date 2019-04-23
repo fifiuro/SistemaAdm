@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Unidad;
 use App\Gestion;
+use App\Modificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UnidadController extends Controller
@@ -110,12 +112,34 @@ class UnidadController extends Controller
     {
         $unidad = Unidad::find($request->id_uni);
 
-        $unidad->unidad_ejecutora = $request->unidad;
-        $unidad->estado = $request->estado;
+        if($this->modificacion('unidad',$request->id_uni,$request->unidad,$request->unidadA)){
+            $unidad->unidad_ejecutora = $request->unidad;
+        }
+        if($this->modificacion('unidad',$request->id_uni,$request->estado,$request->estadoA)){
+            $unidad->estado = $request->estado;
+        }
 
         $unidad->save();
 
         return redirect('findUnidad');
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public function confirm($id)

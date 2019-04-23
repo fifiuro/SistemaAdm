@@ -26,16 +26,18 @@
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>
                 <input class="form-control" id="nombre_pro" name="nombre_pro" placeholder="Nombre del Proyecto" type="text" value="{{ $p->nombre_pro }}" required>
+                <input type="hidden" name="nombre_proA" value="{{ $p->nombre_pro }}">
             </div>
             <div class="group-form-control">
-                    <label for="ema">Codigo EMA:</label>
-                    <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $p->ema}}" required>
+                <label for="ema">Codigo EMA:</label>
+                <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $p->ema}}" required>
+                <input type="hidden" name="emaA" value="{{ $p->ema }}">
             </div>
             <div class="group-form-control">
-                    <label for="presupuesto">Presupuesto:</label>
-                    <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" value="{{ $p->presupuesto }}" required>
+                <label for="presupuesto">Presupuesto:</label>
+                <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" value="{{ $p->presupuesto }}" required>
+                <input type="hidden" name="presupuestoA" value="{{ $p->presupuesto }}">
             </div>
-
             <div class="group-form-control">
                 <label for="estado">Estado:</label>
                 <select name="estado" id="estado" class="form-control">
@@ -47,6 +49,7 @@
                         <option value="0" selected>Desactivado</option>
                     @endif
                 </select>
+                <input type="hidden" name="estadoA" value="{{ $p->estado }}">
             </div>    
         @endforeach
         <br>

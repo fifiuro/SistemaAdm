@@ -7,6 +7,8 @@ use App\Distrito;
 use App\Volumen;
 use App\Gestion;
 use App\Unidad;
+use App\Modificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class ProyectoController extends Controller
@@ -116,16 +118,40 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($request->id_pro);
 
-        /*$proyecto->id_dist = $request->id_dist;*/
-        $proyecto->nombre_pro = $request->nombre_pro;
-        $proyecto->ema = $request->ema;
-        $proyecto->presupuesto = $request->presupuesto;
-        
-        $proyecto->estado = $request->estado;;
+        if($this->modificacion('proyecto',$request->id_pro,$request->nombre_pro,$request->nombre_proA)){
+            $proyecto->nombre_pro = $request->nombre_pro;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->ema,$request->emaA)){
+            $proyecto->ema = $request->ema;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->presupuesto,$request->presupuestoA)){
+            $proyecto->presupuesto = $request->presupuesto;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->estado,$request->estadoA)){
+            $proyecto->estado = $request->estado;
+        }
 
         $proyecto->save();
 
         return redirect('findProyecto');
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

@@ -7,6 +7,8 @@ use App\Unidad;
 use App\Gestion;
 use App\Proyecto;
 use App\Volumen;
+use App\Modificacion;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class DistritoController extends Controller
@@ -110,14 +112,40 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::find($request->id_dist);
 
-        $distrito->nombre_dis = $request->nombre;
-        $distrito->numero_dis = $request->numero;
-        $distrito->ubicacion = $request->ubicacion;
-        $distrito->estado = $request->estado;
+        if($this->modificacion('distrito',$request->id_dist,$request->nombre,$request->nombreA)){
+            $distrito->nombre_dis = $request->nombre;
+        }
+        if($this->modificacion('distrito',$request->id_dist,$request->numero,$request->numeroA)){
+            $distrito->numero_dis = $request->numero;
+        }
+        if($this->modificacion('distrito',$request->id_dist,$request->ubicacion,$request->ubicacionA)){
+            $distrito->ubicacion = $request->ubicacion;
+        }
+        if($this->modificacion('distrito',$request->id_dist,$request->estado,$request->estadoA)){
+            $distrito->estado = $request->estado;
+        }
 
         $distrito->save();
 
         return redirect('findDistrito');
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
     /**

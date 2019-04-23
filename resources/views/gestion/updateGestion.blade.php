@@ -21,6 +21,7 @@
         <div class="group-from-control">
             <label for="unidad">Gestion:</label>
             <input class="form-control" id="gestion" name="gestion" placeholder="Gestion" type="text" value="{{ $gestion->gestion }}">
+            <input type="hidden" name="gestionA" value="{{ $gestion->gestion }}">
             <input type="hidden" name="id_ges" value="{{$gestion->id_ges}}">
         </div>
         <div class="group-from-control">
@@ -34,6 +35,7 @@
                 <option value="0"selected>Desactivado</option>
                 @endif
             </select>
+            <input type="hidden" name="estadoA" value="{{ $gestion->estado }}">
         </div>
         <br>
         <div class="group-from-control">

@@ -54,7 +54,7 @@
     @case(3)
         <li>
             <a href="{{ url('findSeguimiento') }}">
-                <i class="fa fa-calendar"></i>
+                <i class="fa fa-eye"></i>
                 <span>SEGUIMIENTO PROYECTOS</span>
             </a>
         </li>
