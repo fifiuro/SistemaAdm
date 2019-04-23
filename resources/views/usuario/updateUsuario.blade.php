@@ -56,8 +56,31 @@
                 @endif
             </div>
             <div class="group-from-control">
+                <label for="tipo">Tipo Usuario: </label>
+                <select name="tipo" id="tipo" class="form-control" required>
+                    <option value=""></option>
+                    @if ($usuario->tipo == 1)
+                        <option value="1" selected>Administrador</option>
+                        <option value="2">Estandar</option>
+                        <option value="3">Gerencial</option>
+                    @elseif($usuario->tipo == 2)
+                        <option value="1">Administrador</option>
+                        <option value="2" selected>Estandar</option>
+                        <option value="3">Gerencial</option>
+                    @elseif($usuario->tipo == 3)
+                        <option value="1">Administrador</option>
+                        <option value="2">Estandar</option>
+                        <option value="3" selected>Gerencial</option>
+                    @else
+                        <option value="1">Administrador</option>
+                        <option value="2">Estandar</option>
+                        <option value="3">Gerencial</option>
+                    @endif
+                </select>
+            </div>
+            <div class="group-from-control">
                 <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña: </label>
-                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">
+                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" autocomplete="new-password">
                 @if ($errors->has('password'))
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $errors->first('password') }}</strong>

@@ -55,6 +55,15 @@
                 @endif
             </div>
             <div class="group-from-control">
+                <label for="tipo">Tipo Usuario: </label>
+                <select name="tipo" id="tipo" class="form-control" required>
+                    <option value=""></option>
+                    <option value="1">Administrador</option>
+                    <option value="2">Estandar</option>
+                    <option value="3">Gerencial</option>
+                </select>
+            </div>
+            <div class="group-from-control">
                 <label for="password" class="col-md-4 col-form-label text-md-right">Contraseña: </label>
                 <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required autocomplete="new-password">
                 @if ($errors->has('password'))

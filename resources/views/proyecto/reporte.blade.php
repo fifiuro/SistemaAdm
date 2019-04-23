@@ -40,15 +40,20 @@
     <br>
     <table style="width:100%; font-size:12px" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>FECHA</strong></td>
+            <td colspan="2" style="border:1px #000000 solid; padding:5px; text-align:center"><strong>FECHA</strong></td>
             <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>MONTO</strong></td>
         </tr>
         @foreach ($volumen as $key => $v)
             <tr>
-                <td style="border:1px #000000 solid; padding:3px">{{ formatoFechaReporte($v->fecha) }}</td>
+                <td colspan="2" style="border:1px #000000 solid; padding:3px">{{ formatoFechaReporte($v->fecha) }}</td>
                 <td style="border:1px #000000 solid; padding:3px">{{ $v->monto }}</td>
             </tr>
         @endforeach
+        <tr>
+            <td style="border:1px #000000 solid; padding:3px"><strong>Área:</strong> {{ $area }}</td>
+            <td style="border:1px #000000 solid; padding:3px"><strong>Volumen:</strong> {{ $vol }}</td>
+            <td style="border:1px #000000 solid; padding:3px"><strong>Sumatoria: </strong> {{ $sumatoria }}</td>
+        </tr>
     </table>
 
 </body>

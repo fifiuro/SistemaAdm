@@ -89,8 +89,11 @@ class UsuarioController extends Controller
         $usuario->email = $request->email;
         $usuario->cargo = $request->cargo;
         $usuario->unidad = $request->unidad;
-        $usuario->password = Hash::make($request->password);
+        if($request->password != ''){
+            $usuario->password = Hash::make($request->password);
+        }
         $usuario->estado = $request->estado;
+        $usuario->tipo = $request->tipo;
 
         $usuario->save();
 

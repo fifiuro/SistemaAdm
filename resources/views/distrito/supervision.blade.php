@@ -15,44 +15,6 @@
 @section('contenido')
 <div class="box box-danger">
     <div class="box-body">
-        {{-- <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('BuscarSuperProyecto') }}">
-            {{ csrf_field() }}
-            <div class="row">
-                <div class="col-xs-3">
-                    <label for="gestion">Gestión:</label>
-                    <select name="gestion" id="gestion" class="form-control">
-                        <option value=""></option>
-                        @foreach ($gestion as $key => $g)
-                            <option value="{{ $g->id_ges }}">{{ $g->gestion }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-xs-3">
-                    <label for="unidad">Unidad Ejecutora:</label>
-                    <select name="unidad" id="unidad" class="form-control">
-                        <option value=""></option>
-                        @foreach ($unidad as $key => $u)
-                            <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-xs-4">
-                    <label for="distrito">Distrito:</label>
-                    <select name="distrito" id="distrito" class="form-control">
-                        <option value=""></option>
-                        @foreach ($distrito as $key => $d)
-                            <option value="{{ $d->id_dist }}">{{ $d->nombre_dis }}</option>
-                        @endforeach
-                    </select>
-                </div>                
-                <div class="col-xs-2">
-                    {{-- Boton Buscar --}}
-                    {{-- <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-                    {{-- Boton Nuevo --}}
-                    {{-- <a href="{{ url('createUnidad') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
-                </div>
-            </div>
-        </form> --}}
 
         <!-- Content Header (Page header) -->
         <section class="content-header">
@@ -89,9 +51,15 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-md-9">
-                    <div class="box box-primary">
+                    <div class="box box-danger">
                         <div class="box-header with-border">
-                            <h3 class="box-title"><strong>VOLUMENES</strong></h3>
+                            <h3 class="box-title">
+                                <strong>VOLUMENES</strong>
+                                {{-- Boton imprmir --}}
+                                <a href="{{ url('reporteProyecto/'.$id_pro) }}" target="_blank" class="btn btn-success">
+                                    <i class="fa fa-print"></i>
+                                </a>
+                            </h3>
                         </div>
                         <!-- /.box-header -->
                         <div class="box-body no-padding">
@@ -100,18 +68,16 @@
                                     <tbody>
                                         @foreach ($volumen as $key => $v)
                                             <tr>
-                                                <td>{{ formatoFechaReporte($v->fecha) }}</td>
-                                                <td>{{ $v->monto }}</td>
+                                                <td colspan="2">{{ formatoFechaReporte($v->fecha) }}</td>
+                                                <td colspan="2" style="text-align: center">{{ $v->monto }}</td>
                                             </tr>
                                         @endforeach
-                                        <!-- <tr>
-                                            <td><input type="checkbox"></td>
-                                            <td class="mailbox-star"><a href="#"><i class="fa fa-star text-yellow"></i></a></td>
-                                            <td class="mailbox-name"><a href="read-mail.html">Alexander Pierce</a></td>
-                                            <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...</td>
-                                            <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                                            <td class="mailbox-date">15 days ago</td>
-                                        </tr> -->
+                                        <tr>
+                                            <td><strong>Área: </strong>{{ $area }}</td>
+                                            <td><strong>Volumen: </strong>{{ $vol }}</td>
+                                            <td><strong>Presupuesto: </strong>{{ $presupuesto }}</td>
+                                            <td><strong>Sumatoria: </strong>{{ $sumatoria }}</td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <!-- /.table -->
@@ -127,6 +93,9 @@
             <!-- /.row -->
         </section>
         <!-- /.content -->
+        <div class="group-form-control">
+            <a href="{{ url('findDistrito') }}" class="btn btn-danger">VOLVER</a>
+        </div>
     </div>
 </div>
 @endsection

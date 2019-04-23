@@ -171,12 +171,27 @@ class ProyectoController extends Controller
                                  'proyecto.presupuesto')
                         ->get();
         
-        $volumen = Volumen::where('id_pro','=',$id)->get();
+        $volumen = Volumen::where('id_pro','=',$id)->orderBy('fecha','desc')->get();
+
+        foreach($proy as $key => $p){
+            $presupuesto = $p->presupuesto;
+        }
+        /** Calculo del Area */
+        $area = $presupuesto / 200;
+        /** Calculo del Volumen */
+        $vol = $area * 0.07;
+        /** Sumatoria de Volumenes */
+        $sumatoria = Volumen::where('id_pro','=',$id)
+                            ->sum('monto');
         
-        $pdf = \PDF::loadView('proyecto.reporte',array('proy' => $proy, 'volumen' => $volumen));
+        $pdf = \PDF::loadView('proyecto.reporte',array('proy' => $proy,
+                                                       'volumen' => $volumen,
+                                                       'area' => $area,
+                                                       'vol' => $vol,
+                                                       'sumatoria' => $sumatoria));
 
         //return $pdf->download('ReporteProyecto.pdf');
-        return $pdf->stream('ReporteProyecyo');
+        return $pdf->stream('ReporteProyecto');
     }
 
 }

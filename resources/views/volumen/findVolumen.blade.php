@@ -78,14 +78,27 @@
                             <td>{{ formatoFechaReporte($v->fecha) }}</td>
                             <td>{{ $v->monto }}</td>
                             <td>
-                                {{-- Boton Editar --}}
-                                <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
-                                    <i class="glyphicon glyphicon-pencil"></i>
-                                </a>
-                                {{-- Boton Eliminar --}}
-                                <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy->id_pro) }}" class="btn btn-danger">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                </a>
+                                @switch(Auth::user()->tipoUser(Auth::user()->id))
+                                    @case(1)
+                                        {{-- Boton Editar --}}
+                                        <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                        {{-- Boton Eliminar --}}
+                                        <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy->id_pro) }}" class="btn btn-danger">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </a>
+                                        @break
+                                    @case(2)
+                                        {{-- Boton Editar --}}
+                                        <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
+                                            <i class="glyphicon glyphicon-pencil"></i>
+                                        </a>
+                                        @break
+                                    @case(3)
+                                        @break
+                                        
+                                @endswitch
                             </td>
                         </tr>
                     @endforeach

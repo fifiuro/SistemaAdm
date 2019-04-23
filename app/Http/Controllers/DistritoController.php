@@ -157,23 +157,44 @@ class DistritoController extends Controller
                                ->get();
 
         $proyecto = Proyecto::where('id_dist','=',$id)
-                            ->select('id_pro','nombre_pro')
+                            ->select('id_pro','nombre_pro','presupuesto')
+                            ->orderBy('id_pro','asc')
                             ->get();
 
         if($id_pro == 0){
             $id_pro = $proyecto[0]->id_pro;
+            $presupuesto = $proyecto[0]->presupuesto;
         }elseif($id_pro != 0){
-
+            foreach($proyecto as $key => $p)
+            {
+                if($id_pro == $p->id_pro){
+                    $presupuesto = $p->presupuesto;
+                    break;
+                }
+            }
         }
+
         $volumen = Volumen::where('id_pro','=',$id_pro)
                           ->orderBy('fecha','desc')
                           ->get();
+        
+        /** Calculo del Area */
+        $area = $presupuesto / 200;
+        /** Calculo del Volumen */
+        $vol = $area * 0.07;
+        /** Sumatoria de Volumenes */
+        $sumatoria = Volumen::where('id_pro','=',$id_pro)
+                            ->sum('monto');
         
         return view('distrito.supervision',array('distrito' => $distrito,
                                                  'numProyecto' => $numProyecto,
                                                  'proyecto' => $proyecto,
                                                  'id_pro' => $id_pro,
-                                                 'volumen' => $volumen));
+                                                 'volumen' => $volumen,
+                                                 'presupuesto' => $presupuesto,
+                                                 'area' => $area,
+                                                 'vol' => $vol,
+                                                 'sumatoria' => $sumatoria));
     }
 
 }

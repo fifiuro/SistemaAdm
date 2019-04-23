@@ -73,22 +73,42 @@
                   @endif
                 </td>
                 <td>
-                  {{-- Boton Editar --}}
-                  <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
-                    <i class="glyphicon glyphicon-pencil"></i>
-                  </a>
-                  {{-- Boton Eliminar --}}
-                  <a href="{{ url('confirmProyecto/'.$p->id_pro) }}" class="btn btn-danger">
-                    <i class="glyphicon glyphicon-trash"></i>
-                  </a>
-                  {{-- Boton volumes --}}
-                  <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
-                    <i class="fa fa-area-chart"></i>
-                  </a>
-                  {{-- Boton imprmir --}}
-                  <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
-                    <i class="fa fa-print"></i>
-                  </a>
+                  @switch(Auth::user()->tipoUser(Auth::user()->id))
+                      @case(1)
+                          {{-- Boton Editar --}}
+                          <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                          </a>
+                          {{-- Boton Eliminar --}}
+                          <a href="{{ url('confirmProyecto/'.$p->id_pro) }}" class="btn btn-danger">
+                            <i class="glyphicon glyphicon-trash"></i>
+                          </a>
+                          {{-- Boton volumes --}}
+                          <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
+                            <i class="fa fa-area-chart"></i>
+                          </a>
+                          {{-- Boton imprmir --}}
+                          <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
+                            <i class="fa fa-print"></i>
+                          </a>
+                          @break
+                      @case(2)
+                          {{-- Boton Editar --}}
+                          <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
+                            <i class="glyphicon glyphicon-pencil"></i>
+                          </a>
+                          {{-- Boton volumes --}}
+                          <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
+                            <i class="fa fa-area-chart"></i>
+                          </a>
+                          {{-- Boton imprmir --}}
+                          <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
+                            <i class="fa fa-print"></i>
+                          </a>
+                          @break
+                      @default
+                          
+                  @endswitch
                 </td>
               </tr>
               @endforeach
