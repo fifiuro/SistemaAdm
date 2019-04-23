@@ -39,29 +39,31 @@
                     @endif
                 </div>
             </div>
-            <hr>
-            <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
-                {{ csrf_field() }}
-                <div class="row">
-                    <div class="group-form-control col-xs-4">
-                        <label for="fecha">Fecha: </label>
-                        <div class="input-group date">
-                            <div class="input-group-addon">
-                                <i class="fa fa-calendar"></i>
+            @if ($proy->estado == 1)
+                <hr>
+                <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
+                    {{ csrf_field() }}
+                    <div class="row">
+                        <div class="group-form-control col-xs-4">
+                            <label for="fecha">Fecha: </label>
+                            <div class="input-group date">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control pull-right" name="fecha" id="datepicker" required>
                             </div>
-                            <input type="text" class="form-control pull-right" name="fecha" id="datepicker" required>
+                            <input type="hidden" name="id_pro" value="{{ $proy->id_pro }}">
                         </div>
-                        <input type="hidden" name="id_pro" value="{{ $proy->id_pro }}">
+                        <div class="group-form-control col-xs-4">
+                            <label for="monto">Monto: </label>
+                            <input type="text" name="monto" id="monto" class="form-control" required>
+                        </div>
+                        <div class="group-form-control col-xs-4">
+                            <button type="submit" class="btn btn-primary">GUARDAR</button>
+                        </div>
                     </div>
-                    <div class="group-form-control col-xs-4">
-                        <label for="monto">Monto: </label>
-                        <input type="text" name="monto" id="monto" class="form-control" required>
-                    </div>
-                    <div class="group-form-control col-xs-4">
-                        <button type="submit" class="btn btn-primary">GUARDAR</button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            @endif
             <hr>
             @if (isset($volumen))
                 @if ($estado)
@@ -113,7 +115,7 @@
             @endif
             <hr>
             <div class="group-form-control">
-                <a href="{{ url('/') }}" class="btn btn-danger">CANCELAR</a>
+                <a href="{{ url('findProyecto') }}" class="btn btn-danger">VOLVER</a>
             </div>
         </form>
     </div>

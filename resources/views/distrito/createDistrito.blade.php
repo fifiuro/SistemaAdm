@@ -32,7 +32,7 @@
         </div>
         <div class="group-form-control">
             <label for="numero">Número de Distrito:</label>
-            <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="text" required>
+            <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="number" required>
         </div>
         <div class="group-form-control">
             <label for="ubicacion">Ubicación:</label>
@@ -49,5 +49,11 @@
 @endsection
 
 @section('extra')
+$("input").on("keypress",function(){
+  $input = $(this);
 
+  setTimeout(function(){
+    $input.val($input.val().toUpperCase());
+  },50);
+});
 @endsection

@@ -99,6 +99,7 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
                         ->where('id_pro','=',$id)
+                        ->select('distrito.nombre_dis','proyecto.id_pro','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
                         ->get();
 
         return view('proyecto.updateProyecto',array('proyecto' => $proyecto));

@@ -50,5 +50,11 @@
 @endsection
 
 @section('extra')
+$("input").on("keypress",function(){
+  $input = $(this);
 
+  setTimeout(function(){
+    $input.val($input.val().toUpperCase());
+  },50);
+});
 @endsection

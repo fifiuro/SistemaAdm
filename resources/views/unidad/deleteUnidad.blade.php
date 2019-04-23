@@ -5,7 +5,7 @@
 @endsection
 
 @section('tituloPag')
-    ELIMINAR UNIDAD
+    ELIMINAR UNIDAD EJECUTORA
 @endsection
 
 @section('subtituloPag')
@@ -20,7 +20,7 @@
         {{ csrf_field() }}
         <div class="box-body">
             <div class="text-center">
-                <h2>Estas seguro de eliminar la Unidad?</h2>
+                <h2>Estas seguro de eliminar la Unidad Ejecutora?</h2>
                 <input type="hidden" class="form-control" id="id_uni" name="id_uni" value="{{$id}}">
             </div>
         </div>   

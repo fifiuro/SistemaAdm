@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $u->password = Hash::make('12345678');
         $u->cargo = 'asd';
         $u->unidad = 'asd';
+        $u->tipo = 1;
         $u->estado = 1;
         $u->save();
     }

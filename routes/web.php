@@ -136,6 +136,14 @@ Route::group(['middleware' => 'auth'], function(){
     // Elimina el registro de Usuario
     Route::post('destroyUsuario','UsuarioCOntroller@destroy');
     /** FIN */
+
+    /** ACCIONES EN EL SEGUIMIENTO DE PROYECTOS */
+    // Formulario de busqueda de Seguimiento de Proyectos
+    Route::get('findSeguimiento', 'SeguimientoController@index');
+    // Datos para hacer la gusqueda de del Proyecto hacer el seguimiento
+    Route::post('findSeguimiento', 'SeguimientoController@show');
+    
+    /** FIN */
 });
 
 Auth::routes();

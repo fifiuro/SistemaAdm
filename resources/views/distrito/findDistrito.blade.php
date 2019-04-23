@@ -50,6 +50,7 @@
                 <th>Distrito</th>
                 <th>Número</th>
                 <th>Ubicacion</th>
+                <th>Estado</th>
                 <th>Acciones</th>
               </tr>
               @foreach($distrito as $key => $d)

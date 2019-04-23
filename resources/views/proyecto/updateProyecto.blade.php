@@ -39,7 +39,7 @@
             <div class="group-form-control">
                 <label for="estado">Estado:</label>
                 <select name="estado" id="estado" class="form-control">
-                    @if($p->estado)
+                    @if($p->estado == 1)
                         <option value="1" selected>Activo</option>
                         <option value="0">Desactivado</option>
                     @else
@@ -52,7 +52,7 @@
         <br>
         <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>
-            <a href="{{ url('findUnidad') }}" class="btn btn-danger">CANCELAR</a>
+            <a href="{{ url('findProyecto') }}" class="btn btn-danger">CANCELAR</a>
         </div>
       </form>
     </div>
@@ -60,5 +60,11 @@
 @endsection
 
 @section('extra')
-
+$("input").on("keypress",function(){
+    $input = $(this);
+  
+    setTimeout(function(){
+      $input.val($input.val().toUpperCase());
+    },50);
+  });
 @endsection

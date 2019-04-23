@@ -32,7 +32,7 @@ class DistritoController extends Controller
     public function show(Request $request)
     {
         $distrito = Distrito::join('unidad','unidad.id_uni','=','distrito.id_uni')
-                            ->where('nombre_dis','like','%'.$request->nombre.'%')
+                            ->where('nombre_dis','like','%'.$request->distrito.'%')
                             ->where('unidad.id_uni','=',$request->id_uni)
                             ->select('distrito.id_dist','unidad_ejecutora','nombre_dis','numero_dis','ubicacion','distrito.estado')
                             ->get();
@@ -161,30 +161,42 @@ class DistritoController extends Controller
                             ->orderBy('id_pro','asc')
                             ->get();
 
-        if($id_pro == 0){
-            $id_pro = $proyecto[0]->id_pro;
-            $presupuesto = $proyecto[0]->presupuesto;
-        }elseif($id_pro != 0){
-            foreach($proyecto as $key => $p)
-            {
-                if($id_pro == $p->id_pro){
-                    $presupuesto = $p->presupuesto;
-                    break;
+        if(count($proyecto) > 0){
+            if($id_pro == 0){
+                $id_pro = $proyecto[0]->id_pro;
+                $presupuesto = $proyecto[0]->presupuesto;
+            }elseif($id_pro != 0){
+                foreach($proyecto as $key => $p)
+                {
+                    if($id_pro == $p->id_pro){
+                        $presupuesto = $p->presupuesto;
+                        break;
+                    }
                 }
             }
+    
+            $volumen = Volumen::where('id_pro','=',$id_pro)
+                              ->orderBy('fecha','desc')
+                              ->get();
+            
+            /** Calculo del Area */
+            $area = $presupuesto / 200;
+            /** Calculo del Volumen */
+            $vol = $area * 0.07;
+            /** Sumatoria de Volumenes */
+            $sumatoria = Volumen::where('id_pro','=',$id_pro)
+                                ->sum('monto');
+            
+            $estado = true;
+        }else{
+            $volumen = '';
+            $presupuesto = 0;
+            $area = 0;
+            $vol = 0;
+            $sumatoria = 0;
+            $estado = false;
         }
 
-        $volumen = Volumen::where('id_pro','=',$id_pro)
-                          ->orderBy('fecha','desc')
-                          ->get();
-        
-        /** Calculo del Area */
-        $area = $presupuesto / 200;
-        /** Calculo del Volumen */
-        $vol = $area * 0.07;
-        /** Sumatoria de Volumenes */
-        $sumatoria = Volumen::where('id_pro','=',$id_pro)
-                            ->sum('monto');
         
         return view('distrito.supervision',array('distrito' => $distrito,
                                                  'numProyecto' => $numProyecto,
@@ -194,7 +206,8 @@ class DistritoController extends Controller
                                                  'presupuesto' => $presupuesto,
                                                  'area' => $area,
                                                  'vol' => $vol,
-                                                 'sumatoria' => $sumatoria));
+                                                 'sumatoria' => $sumatoria,
+                                                 'estado' => $estado));
     }
 
 }
