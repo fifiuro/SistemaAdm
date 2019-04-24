@@ -21,7 +21,7 @@ class CreateMontoTable extends Migration
                   ->on('proyecto')
                   ->onDelete('cascade');
             $table->date('fecha');
-            $table->float('monto');
+            $table->double('monto','15','4');
             $table->timestamps();
         });
     }
