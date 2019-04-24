@@ -46,7 +46,7 @@ class UnidadController extends Controller
             return view('unidad.findUnidad',array('unidad' => '',
                                                   'gestion' => $gestion,
                                                   'estado' => false,
-                                                  'mensaje' => 'No se tuvieron coincidencias con: '.$request->unidad.' o '.$request->gestion));
+                                                  'mensaje' => 'No se tuvieron coincidencias.'));
 
         }
     }

@@ -32,7 +32,7 @@ class GestionController extends Controller
         if(count($gestion) > 0){
             return view('Gestion.findGestion',array('gestion'=>$gestion,'estado'=>true));
         }else{
-            return view('Gestion.findGestion',array('gestion'=>'','estado'=>false,'mensaje'=>'no se tuvieron coincidencias con:'.$request->gestion));
+            return view('Gestion.findGestion',array('gestion'=>'','estado'=>false,'mensaje'=>'no se tuvieron coincidencias'));
         }
     }
 

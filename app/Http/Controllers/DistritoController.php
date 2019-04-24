@@ -49,7 +49,7 @@ class DistritoController extends Controller
             return view('distrito.findDistrito',array('distrito' => '',
                                                     'unidad' => $unidad,
                                                     'estado' => false,
-                                                    'mensaje' => 'No se tuvieron coincidencias con: '.$request->nombre.' o '.$request->distrito));
+                                                    'mensaje' => 'No se tuvieron coincidencias.'));
         }
     }
 

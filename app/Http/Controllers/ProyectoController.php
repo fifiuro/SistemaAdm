@@ -50,7 +50,7 @@ class ProyectoController extends Controller
         return view('proyecto.findProyecto',array('proyecto' => '',
                                         'distrito' => $distrito,
                                         'estado' => false,
-                                        'mensaje' => 'No se tuvieron coincidencias con: '.$request->nombre_pro.' o '.$request->distrito));
+                                        'mensaje' => 'No se tuvieron coincidencias.'));
 
         }
     }
