@@ -17,9 +17,6 @@ class GestionTableSeeder extends Seeder
 
         Gestion::create(array('gestion' => '2016',
                               'estado' => 0));
-        
-        Gestion::create(array('gestion' => '2016',
-                              'estado' => 0));
 
         Gestion::create(array('gestion' => '2017',
                               'estado' => 0));
