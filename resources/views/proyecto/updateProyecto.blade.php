@@ -22,6 +22,7 @@
                 <label for="distrito">Distrito:</label>
                 <input type="text" name="distrito" id="distrito" value="{{ $p->nombre_dis }}" class="form-control" disabled>
                 <input type="hidden" name="id_pro" value="{{ $p->id_pro }}" required>
+                <input type="hidden" name="id_dist" id="id_dist" value="{{ $p->id_dist }}">
             </div>
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>

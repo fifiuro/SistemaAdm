@@ -61,7 +61,7 @@
         </div>
         <br>
         <div class="group-form-control">
-          <button type="submit" class="btn btn-primary" name="guardar" id="guardar">GUARDAR</button>
+          <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>
           <a href="{{ url('findDistrito') }}" class="btn btn-danger">CANCELAR</a>
         </div>
       </form>

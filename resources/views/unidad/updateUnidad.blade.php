@@ -22,6 +22,7 @@
                 <label for="gestion">Gestión:</label>
                 <input type="text" name="gestion" id="gestion" value="{{ $u->gestion }}" class="form-control" disabled>
                 <input type="hidden" name="id_uni" value="{{ $u->id_uni }}" required>
+                <input type="hidden" name="id_ges" id="id_ges" value="{{ $u->id_ges }}">
             </div>
             <div class="group-form-control">
                 <label for="unidad">Unidad Ejecutora:</label>

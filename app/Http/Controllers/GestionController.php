@@ -6,6 +6,7 @@ use App\Gestion;
 use App\Modificacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarGestionRequest;
 
 class GestionController extends Controller
 {
@@ -53,7 +54,8 @@ class GestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    //public function store(Request $request)
+    public function store(ValidarGestionRequest $request)
     {
         $gestion=new Gestion;
         $gestion->gestion =$request->gestion;
@@ -83,7 +85,7 @@ class GestionController extends Controller
      * @param  \App\Gestion  $gestion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ValidarGestionRequest $request)
     {
         $gestion= Gestion::find($request->id_ges);
         if($this->modificacion('gestion',$request->id_ges,$request->gestion,$request->gestionA)){

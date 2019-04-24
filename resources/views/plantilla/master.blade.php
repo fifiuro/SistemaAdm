@@ -138,6 +138,19 @@
 
             <!-- Main content -->
             <section class="content">
+                @if($errors->any())
+                    <div class="alert alert-danger alert-dismissible">
+                        <h4>
+                            <i class="icon fa fa-ban"></i>
+                            Error
+                        </h4>
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
                 @yield('contenido')
             </section>
             <!-- /.content -->

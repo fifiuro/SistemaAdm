@@ -7,6 +7,7 @@ use App\Proyecto;
 use App\Modificacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarVolumenRequest;
 
 class VolumenController extends Controller
 {
@@ -51,7 +52,7 @@ class VolumenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarVolumenRequest $request)
     {
         $volumen = new Volumen;
 
@@ -95,7 +96,7 @@ class VolumenController extends Controller
      * @param  \App\Volumen  $volumen
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ValidarVolumenRequest $request)
     {
         $volumen = Volumen::find($request->id_mon);
 

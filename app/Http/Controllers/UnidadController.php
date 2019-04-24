@@ -7,6 +7,7 @@ use App\Gestion;
 use App\Modificacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarUnidadRequest;
 
 class UnidadController extends Controller
 {
@@ -71,7 +72,7 @@ class UnidadController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarUnidadRequest $request)
     {
         $unidad = new Unidad;
 
@@ -108,7 +109,7 @@ class UnidadController extends Controller
      * @param  \App\Unidad  $unidad
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ValidarUnidadRequest $request)
     {
         $unidad = Unidad::find($request->id_uni);
 

@@ -10,6 +10,7 @@ use App\Volumen;
 use App\Modificacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarDistritoRequest;
 
 class DistritoController extends Controller
 {
@@ -71,7 +72,7 @@ class DistritoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarDistritoRequest $request)
     {
         $distrito = new Distrito;
 
@@ -108,7 +109,7 @@ class DistritoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(ValidarDistritoRequest $request)
     {
         $distrito = Distrito::find($request->id_dist);
 

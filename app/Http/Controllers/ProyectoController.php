@@ -10,6 +10,7 @@ use App\Unidad;
 use App\Modificacion;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarProyectoRequest;
 
 class ProyectoController extends Controller
 {
@@ -75,7 +76,7 @@ class ProyectoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarProyectoRequest $request)
     {
         $proyecto = new Proyecto;
 
@@ -101,7 +102,7 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
                         ->where('id_pro','=',$id)
-                        ->select('distrito.nombre_dis','proyecto.id_pro','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
+                        ->select('distrito.id_dist','distrito.nombre_dis','proyecto.id_pro','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
                         ->get();
 
         return view('proyecto.updateProyecto',array('proyecto' => $proyecto));
@@ -114,7 +115,7 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Proyecto $proyecto)
+    public function update(ValidarProyectoRequest $request)
     {
         $proyecto = Proyecto::find($request->id_pro);
 
