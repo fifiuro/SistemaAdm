@@ -61,6 +61,11 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('destroyUnidad','UnidadController@destroy');
     /** FIN */
 
+    /** ACCIONES PARA EL MODULO DE MACRO DISTRITO */
+    // Muestra el formulario para buscar Macro Distrito
+    Route::get('findMacro','MacroController@index');
+    /** FIN */
+
     /** ACCIONES PARA MODULO DE DISTRITO */
     //Muestra el formulario para buscar Distrito
     Route::get('findDistrito','DistritoController@index');

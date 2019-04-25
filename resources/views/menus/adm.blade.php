@@ -19,6 +19,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ url('findMacro') }}">
+                <i class="fa fa-building-o"></i>
+                <span>MACRO DISTRITO</span>
+            </a>
+        </li>
+        <li>
             <a href="{{ url('findDistrito') }}">
                 <i class="fa fa-building-o"></i>
                 <span>DISTRITO</span>
