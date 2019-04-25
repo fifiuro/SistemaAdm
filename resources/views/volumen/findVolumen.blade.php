@@ -27,7 +27,7 @@
                     {{ $proy->ema }}
                 </div>
                 <div class="col-xs-4">
-                    <label for="presupuesto">Presupuesto:</label>
+                    <label for="presupuesto">Volumen Presupuestado:</label>
                     {{ $proy->presupuesto }}
                 </div>
                 <div class="col-xs-4">
@@ -55,7 +55,7 @@
                             <input type="hidden" name="id_pro" value="{{ $proy->id_pro }}">
                         </div>
                         <div class="group-form-control col-xs-4">
-                            <label for="monto">Monto: </label>
+                            <label for="monto">Volumen: </label>
                             <input type="text" name="monto" id="monto" class="form-control" required>
                         </div>
                         <div class="group-form-control col-xs-4">
@@ -71,7 +71,7 @@
                     <div class="box-footer">
                         <tbody>
                             <th>Fecha</th>
-                            <th>Monto</th>
+                            <th>Volumen</th>
                             <th>Acciones</th>
                         </tbody>
                     </div>

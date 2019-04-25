@@ -35,7 +35,7 @@
             <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" required>
         </div>
         <div class="group-form-control">
-            <label for="presupuesto">Presupuesto:</label>
+            <label for="presupuesto">Volumen Presupuestario:</label>
             <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" required>
         </div>
 
