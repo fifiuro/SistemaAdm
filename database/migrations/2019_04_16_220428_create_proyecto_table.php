@@ -19,7 +19,7 @@ class CreateProyectoTable extends Migration
             $table->foreign('id_dist')->references('id_dist')->on('distrito')->onDelete('cascade');
             $table->string('nombre_pro');
             $table->integer('ema');
-            $table->double('presupuesto','15','4');
+            $table->double('presupuesto','20','4');
             $table->date('fecha_reg');
             $table->boolean('estado');
             $table->timestamps();
