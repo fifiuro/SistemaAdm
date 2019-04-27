@@ -18,11 +18,11 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeDistrito') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
-            <label for="id_uni">Unidad Ejecutora:</label>
-            <select name="id_uni" id="id_uni" class="form-control">
+            <label for="id_mac">Macro Distrito:</label>
+            <select name="id_mac" id="id_mac" class="form-control">
               <option value=""></option>
-              @foreach ($unidad as $key => $u)
-                <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+              @foreach ($macro as $key => $m)
+                <option value="{{ $m->id_mac }}">{{ $m->nombre_mac }}</option>
               @endforeach
             </select>
         </div>

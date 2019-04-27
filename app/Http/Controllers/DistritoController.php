@@ -8,6 +8,7 @@ use App\Gestion;
 use App\Proyecto;
 use App\Volumen;
 use App\Modificacion;
+use App\Macro;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidarDistritoRequest;
@@ -21,34 +22,33 @@ class DistritoController extends Controller
      */
     public function index()
     {
-        $unidad = Unidad::all();
+        $macro = Macro::all();
 
-        return view('distrito.findDistrito', array('unidad' => $unidad));
+        return view('distrito.findDistrito', array('macro' => $macro));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $id|
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {
-        $distrito = Distrito::join('unidad','unidad.id_uni','=','distrito.id_uni')
-                            ->where('nombre_dis','like','%'.$request->distrito.'%')
-                            ->where('unidad.id_uni','=',$request->id_uni)
-                            ->select('distrito.id_dist','unidad_ejecutora','nombre_dis','numero_dis','ubicacion','distrito.estado')
+    {        
+        $distrito = Distrito::join('macro','macro.id_mac','=','distrito.id_mac')
+                            ->where('macro.id_mac','=',$request->id_mac)
+                            ->where('distrito.nombre_dis','like','%'.$request->distrito.'%')
                             ->get();
 
-        $unidad = Unidad::all();
+        $macro = Macro::all();
 
         if(count($distrito) > 0){
             return view('distrito.findDistrito',array('distrito' => $distrito,
-                                                      'unidad' => $unidad,
+                                                      'macro' => $macro,
                                                       'estado' => true));
         }else{
             return view('distrito.findDistrito',array('distrito' => '',
-                                                    'unidad' => $unidad,
+                                                    'macro' => $macro,
                                                     'estado' => false,
                                                     'mensaje' => 'No se tuvieron coincidencias.'));
         }
@@ -61,9 +61,9 @@ class DistritoController extends Controller
      */
     public function create()
     {
-        $unidad = Unidad::where('estado','=',1)->get();
+        $macro = Macro::all();
 
-        return view('distrito.createDistrito', array('unidad' => $unidad));
+        return view('distrito.createDistrito', array('macro' => $macro));
     }
 
     /**
@@ -76,7 +76,7 @@ class DistritoController extends Controller
     {
         $distrito = new Distrito;
 
-        $distrito->id_uni = $request->id_uni;
+        $distrito->id_mac = $request->id_mac;
         $distrito->nombre_dis = $request->nombre;
         $distrito->numero_dis = $request->numero;
         $distrito->ubicacion = $request->ubicacion;
@@ -84,7 +84,9 @@ class DistritoController extends Controller
 
         $distrito->save();
 
-        return redirect('findDistrito');
+        $macro = Macro::all();
+
+        return view('distrito.findDistrito', array('macro' => $macro));
     }
 
     /**
@@ -97,9 +99,9 @@ class DistritoController extends Controller
     {
         $distrito = Distrito::find($id);
 
-        $unidad = Unidad::where('estado','=',1)->get();
+        $macro = Macro::all();
 
-        return view('distrito.updateDistrito',array('distrito' => $distrito, 'unidad' => $unidad));
+        return view('distrito.updateDistrito',array('distrito' => $distrito, 'macro' => $macro));
     }
 
     /**

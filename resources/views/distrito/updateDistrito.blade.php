@@ -18,14 +18,14 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateDistrito') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
-            <label for="id_uni">Unidad Ejecutora:</label>
-            <select name="id_uni" id="id_uni" class="form-control">
+            <label for="id_mac">Macro Distrito:</label>
+            <select name="id_mac" id="id_mac" class="form-control" required>
               <option value=""></option>
-              @foreach ($unidad as $key => $u)
-                @if ($distrito->id_uni == $u->id_uni)
-                    <option value="{{ $u->id_uni }}" selected>{{ $u->unidad_ejecutora }}</option>
+              @foreach ($macro as $key => $m)
+                @if ($distrito->id_mac == $m->id_mac)
+                    <option value="{{ $m->id_mac }}" selected>{{ $m->nombre_mac }}</option>
                 @else
-                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                    <option value="{{ $m->id_mac }}">{{ $m->nombre_mac }}</option>
                 @endif
               @endforeach
             </select>

@@ -24,7 +24,7 @@ class ValidarDistritoRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_uni' => 'required|numeric',
+            'id_mac' => 'required|numeric',
             'nombre' => 'required',
             'numero' => 'required|numeric',
             'ubicacion' => 'required',
@@ -34,7 +34,7 @@ class ValidarDistritoRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_uni.required' => 'Elija una :attribute.',
+            'id_mac.required' => 'Elija un :attribute.',
             'nombre' => 'Ingrese el :attribute.',
             'numero' => 'Ingrese el :attribute.',
             'ubicacion' => 'Ingrese la :attribute.'
@@ -44,7 +44,7 @@ class ValidarDistritoRequest extends FormRequest
     public function attributes()
     {
         return [
-            'id_uni' => 'Unidad Ejecutora',
+            'id_mac' => 'Macro Distrito',
             'nombre' => 'nombre de Distrito',
             'numero' => 'Número de Distrito',
             'ubicacion' => 'Ubicación'

@@ -19,11 +19,11 @@
         {{ csrf_field() }}
         <div class="row">
             <div class="col-xs-5">
-                <label for="id_uni">Unidad:</label>
-                <select name="id_uni" id="id_uni" class="form-control">
+                <label for="id_mac">Macro Distrito:</label>
+                <select name="id_mac" id="id_mac" class="form-control" required>
                   <option value=""></option>
-                  @foreach ($unidad as $key => $u)
-                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                  @foreach ($macro as $key => $m)
+                    <option value="{{ $m->id_mac }}">{{ $m->nombre_mac }}</option>
                   @endforeach
                 </select>
             </div>
@@ -46,7 +46,7 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>Unidad Ejecutora</th>
+                <th>Macro Distrito</th>
                 <th>Distrito</th>
                 <th>Número</th>
                 <th>Ubicacion</th>
@@ -55,7 +55,7 @@
               </tr>
               @foreach($distrito as $key => $d)
               <tr>
-                <td>{{ $d->unidad_ejecutora }}</td>
+                <td>{{ $d->nombre_mac }}</td>
                 <td>{{ $d->nombre_dis }}</td>
                 <td>{{ $d->numero_dis }}</td>
                 <td>{{ $d->ubicacion }}</td>
