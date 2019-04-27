@@ -18,16 +18,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findUnidad') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-5">
-                <label for="gestion">Gestión:</label>
-                <select name="gestion" id="gestion" class="form-control">
-                  <option value=""></option>
-                  @foreach ($gestion as $key => $g)
-                    <option value="{{ $g->id_ges }}">{{ $g->gestion }}</option>
-                  @endforeach
-                </select>
-            </div>
-            <div class="col-xs-5">
+            <div class="col-xs-10">
                 <label for="unidad">Unidad Ejecutora:</label>
                 <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text">
             </div>
@@ -46,14 +37,12 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>Gestión</th>
                 <th>Unidad Ejecutora</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
               @foreach($unidad as $key => $u)
               <tr>
-                <td>{{ $u->gestion }}</td>
                 <td>{{ $u->unidad_ejecutora }}</td>
                 <td>
                   @if ($u->estado == 1)

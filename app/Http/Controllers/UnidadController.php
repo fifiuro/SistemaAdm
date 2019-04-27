@@ -18,9 +18,7 @@ class UnidadController extends Controller
      */
     public function index()
     {
-        $gestion = Gestion::all();
-
-        return view('unidad.findUnidad', array('gestion' => $gestion));
+        return view('unidad.findUnidad');
     }
 
     /**
@@ -30,22 +28,14 @@ class UnidadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request)
-    {
-        $unidad = Unidad::join('gestion','gestion.id_ges','=','unidad.id_ges')
-                        ->where('unidad_ejecutora','like','%'.$request->unidad.'%')
-                        ->where('gestion.id_ges','=',$request->gestion)
-                        ->select('unidad.id_uni','gestion.gestion','unidad.unidad_ejecutora','unidad.estado')
-                        ->get();
-                
-        $gestion = Gestion::all();
+    {   
+        $unidad = Unidad::where('unidad_ejecutora','like','%'.$request->unidad.'%')->get();
 
         if(count($unidad) > 0){
             return view('unidad.findUnidad',array('unidad' => $unidad,
-                                                  'gestion' => $gestion,
                                                   'estado' => true));
         }else{
             return view('unidad.findUnidad',array('unidad' => '',
-                                                  'gestion' => $gestion,
                                                   'estado' => false,
                                                   'mensaje' => 'No se tuvieron coincidencias.'));
 
@@ -58,12 +48,7 @@ class UnidadController extends Controller
      */
     public function create()
     {
-        $gestion = Gestion::where('estado','=',true)
-                          ->limit(1)
-                          ->orderBy('gestion','desc')
-                          ->get();
-
-        return view('unidad.createUnidad', array('gestion' => $gestion));
+        return view('unidad.createUnidad');
     }
 
     /**
@@ -76,7 +61,6 @@ class UnidadController extends Controller
     {
         $unidad = new Unidad;
 
-        $unidad->id_ges = $request->id_ges;
         $unidad->unidad_ejecutora = $request->unidad;
         $unidad->fecha_reg = date('Y-m-d');
         $unidad->estado = true;
@@ -95,9 +79,7 @@ class UnidadController extends Controller
      */
     public function edit($id)
     {
-        $unidad = Unidad::join('gestion','gestion.id_ges','=','unidad.id_ges')
-                        ->where('id_uni','=',$id)
-                        ->get();
+        $unidad = Unidad::find($id);
 
         return view('unidad.updateUnidad',array('unidad' => $unidad));
     }

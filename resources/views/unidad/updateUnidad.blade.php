@@ -17,32 +17,26 @@
     <div class="box-body">
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateUnidad') }}">
         {{ csrf_field() }}
-        @foreach ($unidad as $key => $u)
-            <div class="group-form-control">
-                <label for="gestion">Gestión:</label>
-                <input type="text" name="gestion" id="gestion" value="{{ $u->gestion }}" class="form-control" disabled>
-                <input type="hidden" name="id_uni" value="{{ $u->id_uni }}" required>
-                <input type="hidden" name="id_ges" id="id_ges" value="{{ $u->id_ges }}">
-            </div>
-            <div class="group-form-control">
-                <label for="unidad">Unidad Ejecutora:</label>
-                <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" value="{{ $u->unidad_ejecutora }}" required>
-                <input type="hidden" name="unidadA" value="{{ $u->unidad_ejecutora }}">
-            </div>
-            <div class="group-form-control">
-                <label for="estado">Estado:</label>
-                <select name="estado" id="estado" class="form-control">
-                    @if($u->estado)
-                        <option value="1" selected>Activo</option>
-                        <option value="0">Desactivado</option>
-                    @else
-                        <option value="1">Activo</option>
-                        <option value="0" selected>Desactivado</option>
-                    @endif
-                </select>
-                <input type="hidden" name="estadoA" value="{{ $u->estado }}">
-            </div>    
-        @endforeach
+
+        <div class="group-form-control">
+            <label for="unidad">Unidad Ejecutora:</label>
+            <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" value="{{ $unidad->unidad_ejecutora }}" required>
+            <input type="hidden" name="unidadA" value="{{ $unidad->unidad_ejecutora }}">
+            <input type="hidden" name="id_uni" value="{{ $unidad->id_uni }}">
+        </div>
+        <div class="group-form-control">
+            <label for="estado">Estado:</label>
+            <select name="estado" id="estado" class="form-control">
+                @if($unidad->estado)
+                    <option value="1" selected>Activo</option>
+                    <option value="0">Desactivado</option>
+                @else
+                    <option value="1">Activo</option>
+                    <option value="0" selected>Desactivado</option>
+                @endif
+            </select>
+            <input type="hidden" name="estadoA" value="{{ $unidad->estado }}">
+        </div>    
         <br>
         <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>

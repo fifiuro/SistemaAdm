@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Macro;
 use App\Unidad;
+use App\UnidadMacro;
 use Illuminate\Http\Request;
+use App\Http\Requests\ValidarMacroRequest;
 
 class MacroController extends Controller
 {
@@ -28,10 +30,12 @@ class MacroController extends Controller
      */
     public function show(Request $request)
     {
-        $macro = Macro::join('unidad','unidad.id_uni','=','macro.id_uni')
-                      ->where('id_uni','=',$request->id-uni)
-                      ->where('nombre_mac','like','%'.$request->nombre.'%')
-                      ->get();
+                    
+        $macro = Unidad::join('unidad_macro','unidad_macro.id_uni','=','unidad.id_uni')
+                       ->join('macro','macro.id_mac','=','unidad_macro.id_mac')
+                       ->where('unidad.id_uni','=',$request->id_uni)
+                       ->where('nombre_mac','like','%'.$request->nombre.'%')
+                       ->get();
 
         $unidad = Unidad::all();
 
@@ -55,6 +59,9 @@ class MacroController extends Controller
      */
     public function create()
     {
+        $unidad = Unidad::all();
+
+        return view('macro.createMacro',array('unidad' => $unidad));
     }
 
     /**
@@ -63,7 +70,7 @@ class MacroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ValidarMacroRequest $request)
     {
         $macro = new Macro;
 
@@ -73,9 +80,21 @@ class MacroController extends Controller
 
         $macro->save();
 
+        $id_mac = $macro->id_mac;
+
+        for($i=0; $i<count($request->id_uni); $i++){
+            $un_ma = new UnidadMacro;
+
+            $un_ma->id_uni = $request->id_uni[$i];
+            $un_ma->id_mac = $id_mac;
+            $un_ma->estado = 1;
+
+            $un_ma->save();
+        }
+
         $unidad = Unidad::all();
 
-        return redirect('findMacro', array('unidad' => $unidad));
+        return view('macro.findMacro', array('unidad' => $unidad));
     }
 
     /**
@@ -84,11 +103,15 @@ class MacroController extends Controller
      * @param  \App\Macro  $macro
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request)
+    public function edit($id)
     {
-        $macro = Macro::find($request->id_mac);
+        $macro = Macro::find($id);
 
-        return view('macro.updateMacro');
+        $unma = UnidadMacro::where('id_mac','=',$id)->get();
+
+        $unidad = Unidad::all();
+
+        return view('macro.updateMacro',array('unidad' => $unidad, 'macro' => $macro, 'unma' => $unma));
     }
 
     /**
@@ -108,10 +131,50 @@ class MacroController extends Controller
 
         $macro->save();
 
+        $this->comparaCD($request->id_mac,$request->id_uni);
+
         $unidad = Unidad::all();
 
-        return redirect('findMacro',array('unidad' => $unidad));
+        //return view('macro.findMacro',array('unidad' => $unidad));
 
+    }
+
+    public function comparaCD($id, $unidad)
+    {
+        /** Elimina la unidad que no esta presente el array del Formulario */
+        $camp = UnidadMacro::where('id_mac','=',$id)->get();
+
+        foreach($camp as $key => $c){
+            if(in_array($c->id_uni, $unidad)){
+
+            }else{
+                $un_ma = UnidadMacro::where('id_uni','=',$c->id_uni)->where('id_mac','=',$id)->delete();
+            }
+        }
+
+        /** Agrega la nueva unidad asignada  */
+        $camp = UnidadMacro::where('id_mac','=',$id)->get();
+
+        $vec = array();
+
+        foreach($camp as $key => $c){
+            array_push($vec,$c->id_uni);
+        }
+
+        for($i=0; $i<count($unidad); $i++){
+            if(in_array($unidad[$i],$vec)){
+                echo "SI";
+            }else{
+                $un_ma = new UnidadMacro;
+
+                $un_ma->id_uni = $unidad[$i];
+                $un_ma->id_mac = $id;
+                $un_ma->estado = 1;
+
+                $un_ma->save();
+                echo "NO";
+            }
+        }
     }
 
     /**
@@ -120,7 +183,7 @@ class MacroController extends Controller
      * @param  \App\Macro  $macro
      * @return \Illuminate\Http\Response
      */
-    public function condfirm($id)
+    public function confirm($id)
     {
         return view('macro.deleteMacro', array('id' => $id));
     }
@@ -131,14 +194,14 @@ class MacroController extends Controller
      * @param  \App\Macro  $macro
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reuqest $request)
+    public function destroy(Request $request)
     {
-        $macro = Macro::find('$request->id_mac');
+        $macro = Macro::find($request->id_mac);
 
         $macro->delete();
 
         $unidad = Unidad::all();
 
-        return redirect('findMacro', array('unidad' => $unidad));
+        return view('macro.findMacro', array('unidad' => $unidad));
     }
 }

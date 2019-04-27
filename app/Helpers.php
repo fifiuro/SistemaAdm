@@ -23,3 +23,11 @@ function formatoFechaReporte($fo){
 
     return $fm;
 }
+/** Busca dentro de un array devuelve true or false */
+function buscarDato($lista, $buscar){
+    for($i=0; $i<count($lista); $i++){
+        if($lista[$i]->id_uni == $buscar){
+            return true;
+        }
+    }
+}

@@ -20,7 +20,7 @@
         <div class="row">
             <div class="col-xs-5">
                 <label for="id_uni">Unidad:</label>
-                <select name="id_uni" id="id_uni" class="form-control">
+                <select name="id_uni" id="id_uni" class="form-control" required>
                   <option value=""></option>
                   @foreach ($unidad as $key => $u)
                     <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
@@ -56,7 +56,7 @@
               <tr>
                 <td>{{ $m->unidad_ejecutora }}</td>
                 <td>{{ $m->nombre_mac }}</td>
-                <td>{{ $d->numero_mac }}</td>
+                <td>{{ $m->numero_mac }}</td>
                 <td>
                   @if ($m->estado == 1)
                     <i class="fa fa-fw fa-check" style="color:green"></i>

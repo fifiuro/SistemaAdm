@@ -64,6 +64,20 @@ Route::group(['middleware' => 'auth'], function(){
     /** ACCIONES PARA EL MODULO DE MACRO DISTRITO */
     // Muestra el formulario para buscar Macro Distrito
     Route::get('findMacro','MacroController@index');
+    // Muestra el resultado de la busqueda de Macro Distrito
+    Route::post('findMacro','MacroController@show');
+    // Muestra el formulario para un nuevo Macro Distrito
+    Route::get('createMacro','MacroController@create');
+    // Recibe los datos a guardar del Macro Distrito
+    Route::post('storeMacro','MacroController@store');
+    // Formulario con los datos a modificar Macro Distrito
+    Route::get('editMacro/{id}','MacroController@edit');
+    // Recibe los datos a modificar Macro Distrito
+    Route::post('updateMacro','MacroController@update');
+    // Formulario de confirmacion de ELiminar el Macro Distrito
+    Route::get('confirmMacro/{id}','MacroController@confirm');
+    // Elimina el Macro Distrito
+    Route::post('destroyMacro','MacroController@destroy');
     /** FIN */
 
     /** ACCIONES PARA MODULO DE DISTRITO */

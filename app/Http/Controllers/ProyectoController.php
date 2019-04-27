@@ -65,9 +65,12 @@ class ProyectoController extends Controller
      */
     public function create()
     {
-        $distrito = Distrito::where('estado','=',true)->get();
+        $gestion = Gestion::where('estado','=',1)->limit(1)->get();
 
-        return view('proyecto.createProyecto', array('distrito' => $distrito));
+        $distrito = Distrito::all();
+
+        return view('proyecto.createProyecto', array('gestion' => $gestion,
+                                                     'distrito' => $distrito));
     }
 
     /**

@@ -18,13 +18,6 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeUnidad') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
-            <label for="gestion">Gestión:</label>
-            @foreach ($gestion as $key => $g)
-                <input type="text" name="gestion" id="gestion" value="{{ $g->gestion }}" class="form-control" disabled>
-                <input type="hidden" name="id_ges" value="{{ $g->id_ges }}" required>
-            @endforeach
-        </div>
-        <div class="group-form-control">
             <label for="unidad">Unidad Ejecutora:</label>
             <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text" required>
         </div>

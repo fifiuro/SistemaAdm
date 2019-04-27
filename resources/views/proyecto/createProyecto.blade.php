@@ -19,8 +19,13 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeProyecto') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
+            <label for="gestion">Getión:</label>
+            <input class="form-control" id="gestion" name="gestion" placeholder="Nombre del Proyecto" type="text" value="{{ $gestion[0]->gestion }}" disabled>
+            <input type="hidden" name="id_ges" value="{{ $gestion[0]->gestion }}" required>
+        </div>
+        <div class="group-form-control">
             <label for="distrito">Distrito:</label>
-            <select name="id_dist" class="form-control">
+            <select name="id_dist" id="id_dist" class="form-control">
             @foreach ($distrito as $key => $d)
               <option value="{{$d->id_dist}}">{{$d->nombre_dis}}</option>  
             @endforeach
@@ -56,5 +61,9 @@ $("input").on("keypress",function(){
   setTimeout(function(){
     $input.val($input.val().toUpperCase());
   },50);
+});
+
+$("#id_dist").on('change', function(){
+  alert "Si funciona";
 });
 @endsection

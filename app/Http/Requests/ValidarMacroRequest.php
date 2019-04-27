@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ValidarUnidadRequest extends FormRequest
+class ValidarMacroRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,21 +24,27 @@ class ValidarUnidadRequest extends FormRequest
     public function rules()
     {
         return [
-            'unidad' => 'required'
+            'id_uni' => 'required',
+            'nombre_mac' => 'required',
+            'numero_mac' => 'required'
         ];
     }
 
     public function messages()
     {
         return [
-            'unidad.required' => 'Ingrese el nombre de :attribute.'
+            'id_uni.required' => 'Seleccione una :attribute.',
+            'nombre_mac.required'=> 'El :attribute es necesario.',
+            'numero_mac.required'=> 'EL :attribute es necesario.'
         ];
     }
 
     public function attributes()
     {
         return [
-            'unidad' => 'Unidad Ejecutora'
+            'id_uni' => 'Unidad Ejecutora',
+            'nombre_mac' => 'Nombre Macro Distrito',
+            'numero_mac' => 'Número de Macro Distrito'
         ];
     }
 }

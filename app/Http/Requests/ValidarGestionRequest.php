@@ -24,7 +24,7 @@ class ValidarGestionRequest extends FormRequest
     public function rules()
     {
         return [
-            'gestion' => 'required|min:4|max:4',
+            'gestion' => 'required|min:4|max:4|unique:gestion',
         ];
     }
 
@@ -33,7 +33,8 @@ class ValidarGestionRequest extends FormRequest
         return [
             'gestion.required' => 'La :attribute  es obligatorio',
             'gestion.max'=> 'La :attribute  no puedes ser mas de 4 dígitos.',
-            'gestion.min'=> 'La :attribute  no puedes ser menos de 4 dígitos.'
+            'gestion.min'=> 'La :attribute  no puedes ser menos de 4 dígitos.',
+            'gestion.unique' => 'Ya existe la :attribute.'
         ];
     }
 
