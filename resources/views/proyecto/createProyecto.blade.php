@@ -92,14 +92,38 @@ $("#id_uni").change(function(){
             if(response != ''){
                 $("#id_mac").attr('disabled',false);
                 $("#id_mac").html(response);
+
+                $("#id_dist").empty();
+                $("#id_dist").attr('disabled',true);
+
+                $("#nombre_pro").attr('disabled',true);
+                $("#ema").attr('disabled',true);
+                $("#presupuesto").attr('disabled',true);
+
+                $("#nombre_pro").val('');
+                $("#ema").val('');
+                $("#presupuesto").val('');
             }else{
                 $("#id_mac").empty();
                 $("#id_mac").attr('disabled',true);
+
+                $("#id_dist").empty();
+                $("#id_dist").attr('disabled',true);
+
+                $("#nombre_pro").attr('disabled',true);
+                $("#ema").attr('disabled',true);
+                $("#presupuesto").attr('disabled',true);
+
+                $("#nombre_pro").val('');
+                $("#ema").val('');
+                $("#presupuesto").val('');
+
+                alert('No se tuvieron resultados.');
             }
         },
         statusCode: {
             404: function*(){
-                alert('No se encontro la WEB');
+                alert('No se pudo conectar con el Servidor.');
             }
         },
         error: function(x,xs,xt){
@@ -119,14 +143,32 @@ $("#id_mac").change(function(){
             if(response != ''){
                 $("#id_dist").attr('disabled',false);
                 $("#id_dist").html(response);
+
+                $("#nombre_pro").attr('disabled',true);
+                $("#ema").attr('disabled',true);
+                $("#presupuesto").attr('disabled',true);
+
+                $("#nombre_pro").val('');
+                $("#ema").val('');
+                $("#presupuesto").val('');
             }else{
                 $("#id_dist").empty();
                 $("#id_dist").attr('disabled',true);
+
+                $("#nombre_pro").attr('disabled',true);
+                $("#ema").attr('disabled',true);
+                $("#presupuesto").attr('disabled',true);
+
+                $("#nombre_pro").val('');
+                $("#ema").val('');
+                $("#presupuesto").val('');
+
+                alert('No se tuvieron resultados.');
             }
         },
         statusCode: {
             404: function*(){
-                alert('No se encontro la WEB');
+                alert('No se pudo conectar con el Servidor.');
             }
         },
         error: function(x,xs,xt){
@@ -142,6 +184,10 @@ $("#id_dist").change(function(){
         $("#nombre_pro").attr('disabled',false);
         $("#ema").attr('disabled',false);
         $("#presupuesto").attr('disabled',false);
+    }else{
+        $("#nombre_pro").attr('disabled',true);
+        $("#ema").attr('disabled',true);
+        $("#presupuesto").attr('disabled',true);
     }
 });
 @endsection
