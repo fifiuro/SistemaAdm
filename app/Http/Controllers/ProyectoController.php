@@ -56,8 +56,6 @@ class ProyectoController extends Controller
         }
     }
 
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -67,10 +65,10 @@ class ProyectoController extends Controller
     {
         $gestion = Gestion::where('estado','=',1)->limit(1)->get();
 
-        $distrito = Distrito::all();
+        $unidad = Unidad::all();
 
         return view('proyecto.createProyecto', array('gestion' => $gestion,
-                                                     'distrito' => $distrito));
+                                                     'unidad' => $unidad));
     }
 
     /**

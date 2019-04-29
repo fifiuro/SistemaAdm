@@ -78,6 +78,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('confirmMacro/{id}','MacroController@confirm');
     // Elimina el Macro Distrito
     Route::post('destroyMacro','MacroController@destroy');
+    // Recupera la lista de Macro Distrito
+    Route::post('listaMacro','MacroController@listaMacro');
     /** FIN */
 
     /** ACCIONES PARA MODULO DE DISTRITO */
@@ -99,6 +101,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('destroyDistrito','DistritoController@destroy');
     // Formulario de buscar proyecto Supervision de Proyectos
     Route::get('supervisar/{id}/{cod}','DistritoController@supervisar');
+    // Recupera la lista de Distrito
+    Route::post('listaDistrito','DistritoController@listaDistrito');
     /** FIN */
 
     /** ACCIONES PARA MODULO DE PROYECTO */

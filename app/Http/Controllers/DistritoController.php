@@ -241,4 +241,18 @@ class DistritoController extends Controller
                                                  'estado' => $estado));
     }
 
+    public function listaDistrito(Request $request)
+    {
+        $result = Distrito::where('id_mac','=',$request->id)->get();
+
+        if(count($result) > 0){
+            echo '<option value=""></option>';
+            foreach($result as $key => $r){
+                echo '<option value="'.$r->id_dist.'">'.$r->nombre_dis.'</option>';
+            }
+        }else{
+            echo '';
+        }
+    }
+
 }

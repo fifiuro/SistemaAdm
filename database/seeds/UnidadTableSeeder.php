@@ -12,23 +12,19 @@ class UnidadTableSeeder extends Seeder
      */
     public function run()
     {
-        Unidad::create(array('id_ges' => '5',
-                             'unidad_ejecutora' => 'MACRO DISTRITO COTAHUMA',
+        Unidad::create(array('unidad_ejecutora' => 'MACRO DISTRITO COTAHUMA',
                              'fecha_reg' => date('Y-m-d'),
                              'estado' => 1));
 
-        Unidad::create(array('id_ges' => '5',
-                             'unidad_ejecutora' => 'MACRO DISTRITO MAX PAREDES',
+        Unidad::create(array('unidad_ejecutora' => 'MACRO DISTRITO MAX PAREDES',
                              'fecha_reg' => date('Y-m-d'),
                              'estado' => 1));
 
-        Unidad::create(array('id_ges' => '5',
-                             'unidad_ejecutora' => 'MACRO DISTRITO PERIFERICA',
+        Unidad::create(array('unidad_ejecutora' => 'MACRO DISTRITO PERIFERICA',
                              'fecha_reg' => date('Y-m-d'),
                              'estado' => 1));
 
-        Unidad::create(array('id_ges' => '5',
-                             'unidad_ejecutora' => 'MACRO DSITRITO SAN ANTONIO',
+        Unidad::create(array('unidad_ejecutora' => 'MACRO DSITRITO SAN ANTONIO',
                              'fecha_reg' => date('Y-m-d'),
                              'estado' => 1));
     }

@@ -204,4 +204,21 @@ class MacroController extends Controller
 
         return view('macro.findMacro', array('unidad' => $unidad));
     }
+
+    public function listaMacro(Request $request)
+    {
+        $result = UnidadMacro::join('macro','macro.id_mac','=','unidad_macro.id_mac')
+                             ->where('unidad_macro.id_uni','=',$request->id)
+                             ->select('macro.id_mac','macro.nombre_mac')
+                             ->get();
+
+        if(count($result) > 0){
+            echo '<option value=""></option>';
+            foreach($result as $key => $r){
+                echo '<option value="'.$r->id_mac.'">'.$r->nombre_mac.'</option>';
+            }
+        }else{
+            echo '';
+        }
+    }
 }
