@@ -82,9 +82,14 @@ class ProyectoController extends Controller
         $proyecto = new Proyecto;
 
         $proyecto->id_dist = $request->id_dist;
+        $proyecto->id_ges = $request->id_ges;
         $proyecto->nombre_pro = $request->nombre_pro;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
+        $proyecto->programado = $request->programado;
+        $proyecto->adjudicacion = $request->adjudicado;
+        $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
+        $proyecto->numero_adjudicacion = $request->numero;
         $proyecto->fecha_reg = date('Y-m-d');
         $proyecto->estado = 1;
 
@@ -103,10 +108,11 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
                         ->where('id_pro','=',$id)
-                        ->select('distrito.id_dist','distrito.nombre_dis','proyecto.id_pro','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
                         ->get();
+        
+        $gestion = Gestion::all();
 
-        return view('proyecto.updateProyecto',array('proyecto' => $proyecto));
+        return view('proyecto.updateProyecto',array('proyecto' => $proyecto, 'gestion' => $gestion));
     }
 
     /**
@@ -129,6 +135,12 @@ class ProyectoController extends Controller
         if($this->modificacion('proyecto',$request->id_pro,$request->presupuesto,$request->presupuestoA)){
             $proyecto->presupuesto = $request->presupuesto;
         }
+
+        $proyecto->programado = $request->programado;
+        $proyecto->adjudicacion = $request->adjudicado;
+        $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
+        $proyecto->numero_adjudicacion = $request->numero;
+
         if($this->modificacion('proyecto',$request->id_pro,$request->estado,$request->estadoA)){
             $proyecto->estado = $request->estado;
         }

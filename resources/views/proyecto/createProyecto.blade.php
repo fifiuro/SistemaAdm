@@ -21,7 +21,7 @@
             <div class="group-form-control">
                 <label for="gestion">Gestión:</label>
                 <input class="form-control" id="gestion" name="gestion" placeholder="Nombre del Proyecto" type="text" value="{{ $gestion[0]->gestion }}" disabled>
-                <input type="hidden" name="id_ges" value="{{ $gestion[0]->gestion }}" required>
+                <input type="hidden" name="id_ges" value="{{ $gestion[0]->id_ges }}" required>
             </div>
             <div class="group-form-control">
                 <label for="id_uni">Unidad Ejecutora:</label>
@@ -54,8 +54,29 @@
                 <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" disabled required>
             </div>
             <div class="group-form-control">
-                <label for="presupuesto">Volumen Presupuestario:</label>
+                <label for="presupuesto">Volumen Presupuestado:</label>
                 <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" disabled required>
+            </div>
+            <div class="group-form-control">
+                <label for="programado">Volumen Programado:</label>
+                <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
+            </div>
+            <div class="group-form-control">
+                <label for="adjudicado">Adjudico A:</label>
+                <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" disabled required>
+            </div>
+            <div class="group-form-control">
+                <label for="fecha">Fecha de Adjudicación:</label>
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="fecha" class="form-control pull-right" id="datepicker" disabled required>
+                </div>
+            </div>
+            <div class="group-form-control">
+                <label for="numero">Número Adjudicación:</label>
+                <input class="form-control" id="numero" name="numero" placeholder="Número de Adjudicación" type="text" disabled required>
             </div>
             <hr>
             <div class="group-form-control">
@@ -75,6 +96,11 @@ $("input").on("keypress",function(){
   setTimeout(function(){
     $input.val($input.val().toUpperCase());
   },50);
+});
+
+$('#datepicker').datepicker({
+    autoclose: true,
+    format: "dd/mm/yyyy"
 });
 
 $.ajaxSetup({
@@ -184,10 +210,18 @@ $("#id_dist").change(function(){
         $("#nombre_pro").attr('disabled',false);
         $("#ema").attr('disabled',false);
         $("#presupuesto").attr('disabled',false);
+        $("#programado").attr('disabled',false);
+        $("#adjudicado").attr('disabled',false);
+        $("#datepicker").attr('disabled',false);
+        $("#numero").attr('disabled',false);
     }else{
         $("#nombre_pro").attr('disabled',true);
         $("#ema").attr('disabled',true);
         $("#presupuesto").attr('disabled',true);
+        $("#programado").attr('disabled',true);
+        $("#adjudicado").attr('disabled',true);
+        $("#datepicker").attr('disabled',true);
+        $("#numero").attr('disabled',true);
     }
 });
 @endsection

@@ -19,6 +19,15 @@
         {{ csrf_field() }}
         @foreach ($proyecto as $key => $p)
             <div class="group-form-control">
+                <label for="gestion">Gestión:</label>
+                @foreach ($gestion as $key => $g)
+                    @if($p->id_ges == $g->id_ges)
+                        <input class="form-control" id="gestion" name="gestion" placeholder="Gestion" type="text" value="{{ $g->gestion }}" disabled>
+                        <input type="hidden" name="id_ges" value="{{ $g->id_ges }}" required>
+                    @endif
+                @endforeach
+            </div>
+            <div class="group-form-control">
                 <label for="distrito">Distrito:</label>
                 <input type="text" name="distrito" id="distrito" value="{{ $p->nombre_dis }}" class="form-control" disabled>
                 <input type="hidden" name="id_pro" value="{{ $p->id_pro }}" required>
@@ -35,9 +44,30 @@
                 <input type="hidden" name="emaA" value="{{ $p->ema }}">
             </div>
             <div class="group-form-control">
-                <label for="presupuesto">Presupuesto:</label>
+                <label for="presupuesto">Volumen Presupuesto:</label>
                 <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" value="{{ $p->presupuesto }}" required>
                 <input type="hidden" name="presupuestoA" value="{{ $p->presupuesto }}">
+            </div>
+            <div class="group-form-control">
+                <label for="programado">Volumen Programado:</label>
+                <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" value="{{ $p->programado }}" required>
+            </div>
+            <div class="group-form-control">
+                <label for="adjudicado">Adjudico A:</label>
+                <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" value="{{ $p->adjudicacion }}" required>
+            </div>
+            <div class="group-form-control">
+                <label for="fecha">Fecha de Adjudicación:</label>
+                <div class="input-group date">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input type="text" name="fecha" class="form-control pull-right" id="datepicker" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}" required>
+                </div>
+            </div>
+            <div class="group-form-control">
+                <label for="numero">Número Adjudicación:</label>
+                <input class="form-control" id="numero" name="numero" placeholder="Número de Adjudicación" type="text" value="{{ $p->numero_adjudicacion }}" required>
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>
@@ -70,5 +100,10 @@ $("input").on("keypress",function(){
     setTimeout(function(){
       $input.val($input.val().toUpperCase());
     },50);
-  });
+});
+
+$('#datepicker').datepicker({
+    autoclose: true,
+    format: "dd/mm/yyyy"
+});
 @endsection
