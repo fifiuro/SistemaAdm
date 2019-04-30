@@ -129,7 +129,7 @@ Route::group(['middleware' => 'auth'], function(){
 
     /** ACCIONES PARA MODULO DE VOLUMEN */
     // Muestra el formulario con los datos de Proyecto y el 
-    // formulario de ingresae el volumen por fecha
+    // formulario de ingresar el volumen por fecha
     Route::get('findVolumen/{id}','VolumenController@index');
     // Envia los datos para se guardados del Volumen
     Route::post('storeVolumen','VolumenController@store');
@@ -141,6 +141,12 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('confirmVolumen/{id}/{id_pro}','VolumenController@confirm');
     // Elimina el registro de Volumen
     Route::post('destroyVolumen','VolumenController@destroy');
+    /** FIN */
+
+    /** ACCIONES PARA MODULO DE ESTMIACION */
+    // Muestra el formulario con los datos del Proyecto y el
+    // formulario para ingresar el Estimado con fecha
+    Route::get('findEstimado/{id}','EstimadoController@index');
     /** FIN */
 
     /** ACCIONES PARA EL MODULO DE USUARIOS */
