@@ -135,7 +135,7 @@ class MacroController extends Controller
 
         $unidad = Unidad::all();
 
-        //return view('macro.findMacro',array('unidad' => $unidad));
+        return view('macro.findMacro',array('unidad' => $unidad));
 
     }
 
@@ -163,7 +163,7 @@ class MacroController extends Controller
 
         for($i=0; $i<count($unidad); $i++){
             if(in_array($unidad[$i],$vec)){
-                echo "SI";
+                
             }else{
                 $un_ma = new UnidadMacro;
 
@@ -172,7 +172,7 @@ class MacroController extends Controller
                 $un_ma->estado = 1;
 
                 $un_ma->save();
-                echo "NO";
+                
             }
         }
     }
