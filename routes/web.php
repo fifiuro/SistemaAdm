@@ -147,6 +147,16 @@ Route::group(['middleware' => 'auth'], function(){
     // Muestra el formulario con los datos del Proyecto y el
     // formulario para ingresar el Estimado con fecha
     Route::get('findEstimado/{id}','EstimadoController@index');
+    // Envia los datos para ser guardados del Estimado
+    Route::post('storeEstimado','EstimadoController@store');
+    // Formulario con los datos a modificar Estimado
+    Route::get('editEstimado/{id}','EstimadoController@edit');
+    // Envia los datos a mosdificar Estimado
+    Route::post('updateEstimado','EstimadoController@update');
+    // Formulario de Confirmacion de eliminar Estimado
+    Route::get('confirmEstimado/{id}/{id_pro}','EstimadoController@confirm');
+    // Elimna el registro de Estimado
+    Route::post('destroyEstimado','EstimadoController@destroy');
     /** FIN */
 
     /** ACCIONES PARA EL MODULO DE USUARIOS */

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Estimado;
 use App\Proyecto;
+use App\modificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EstimadoController extends Controller
 {
@@ -51,7 +53,16 @@ class EstimadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $estimado = new Estimado;
+
+        $estimado->id_pro = $request->id_pro;
+        $estimado->fecha = formatoFecha($request->fecha);
+        $estimado->volumen = $request->monto;
+        $estimado->estado = 1;
+
+        $estimado->save();
+
+        return redirect('findEstimado/'.$request->id_pro);
     }
 
     /**
@@ -73,7 +84,9 @@ class EstimadoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $estimado = Estimado::find($id);
+
+        return view('estimado.updateEstimado', array('estimado' => $estimado));
     }
 
     /**
@@ -83,9 +96,49 @@ class EstimadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $estimado = Estimado::find($request->id_est);
+
+        if($this->modificacion('estimado',$request->id_est,formatoFecha($request->fecha),$request->fechaA)){
+            $estimado->fecha = formatoFecha($request->fecha);
+        }
+        if($this->modificacion('estimado',$request->id_est,$request->monto,$request->montoA)){
+            $estimado->volumen = $request->monto;
+        }
+
+        $estimado->save();
+
+        return redirect('findEstimado/'.$request->id_pro);
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Volumen  $volumen
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm($id,$id_pro)
+    {
+        return view('estimado.deleteEstimado', array('id' => $id, 'id_pro' => $id_pro));
     }
 
     /**
@@ -94,8 +147,12 @@ class EstimadoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $estimado = Estimado::find($request->id_est);
+
+        $estimado->delete();
+
+        return redirect('findEstimado/'.$request->id_pro);
     }
 }

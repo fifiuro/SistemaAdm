@@ -65,7 +65,7 @@
                 </form>
             @endif
             <hr>
-            @if (isset($volumen))
+            @if (isset($estimado))
                 @if ($estado)
                     <table class="table">
                     <div class="box-footer">
@@ -75,25 +75,25 @@
                             <th>Acciones</th>
                         </tbody>
                     </div>
-                    @foreach ($volumen as $key => $v)
+                    @foreach ($estimado as $key => $e)
                         <tr>
-                            <td>{{ formatoFechaReporte($v->fecha) }}</td>
-                            <td>{{ $v->monto }}</td>
+                            <td>{{ formatoFechaReporte($e->fecha) }}</td>
+                            <td>{{ $e->volumen }}</td>
                             <td>
                                 @switch(Auth::user()->tipoUser(Auth::user()->id))
                                     @case(1)
                                         {{-- Boton Editar --}}
-                                        <a href="{{ url('editEstimado/'.$v->id_mon) }}" class="btn btn-warning">
+                                        <a href="{{ url('editEstimado/'.$e->id_est) }}" class="btn btn-warning">
                                             <i class="glyphicon glyphicon-pencil"></i>
                                         </a>
                                         {{-- Boton Eliminar --}}
-                                        <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy->id_pro) }}" class="btn btn-danger">
+                                        <a href="{{ url('confirmEstimado/'.$e->id_est.'/'.$proy->id_pro) }}" class="btn btn-danger">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </a>
                                         @break
                                     @case(2)
                                         {{-- Boton Editar --}}
-                                        <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
+                                        <a href="{{ url('editEstimado/'.$e->id_est) }}" class="btn btn-warning">
                                             <i class="glyphicon glyphicon-pencil"></i>
                                         </a>
                                         @break
