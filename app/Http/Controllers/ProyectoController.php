@@ -38,7 +38,7 @@ class ProyectoController extends Controller
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
         ->where('proyecto.nombre_pro','like','%'.$request->nombre_pro.'%')
         ->where('distrito.id_dist','=',$request->distrito)
-        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','proyecto.estado')
+        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','protecto.programado','proyecto.estado')
         ->get();
 
         $distrito = Distrito::all();

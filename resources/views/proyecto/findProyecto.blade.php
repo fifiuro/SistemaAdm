@@ -55,6 +55,7 @@
                 <th>Nombre del Proyecto</th>
                 <th>Codigo EMA</th>
                 <th>Presupuesto</th>
+                <th>Programado</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -64,7 +65,7 @@
                 <td>{{ $p->nombre_pro }}</td>
                 <td>{{ $p->ema }}</td>
                 <td>{{ $p->presupuesto }}</td>
-                
+                <td>{{ $p->programado }}</td>
                 <td>
                   @if ($p->estado)
                     <i class="fa fa-fw fa-check" style="color:green"></i>
