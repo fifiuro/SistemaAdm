@@ -27,13 +27,17 @@
                   @endforeach
                 </select>
             </div>
-            <div class="col-xs-4">
-                <label for="unidad">Unidad Ejecutora:</label>
-                <input class="form-control" id="unidad" name="unidad" placeholder="Unidad Ejecutora" type="text">
+            <div class="col-xs-3">
+                <label for="macro">Macro Distrito:</label>
+                <input class="form-control" id="macro" name="macro" placeholder="Macro Distrito" type="text">
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <label for="distrito">Distrito:</label>
                 <input class="form-control" id="distrito" name="distrito" placeholder="Distrito" type="text">
+            </div>
+            <div class="col-xs-3">
+              <label for="proyecto">Proyecto:</label>
+              <input class="form-control" id="proyecto" name="proyecto" placeholder="Distrito" type="text">
             </div>
           <div class="col-xs-2">
             {{-- Boton Buscar --}}
@@ -50,16 +54,26 @@
               <tr>
                 <th>Gestion</th>
                 <th>Unidad Ejecutora</th>
+                <th>Macro Distrito</th>
                 <th>Distrito</th>
-                <th>Total de Proyectos</th>
+                <th>Proyecto</th>
+                <th>Volumen Total</th>
                 <th>Acciones</th>
               </tr>
               @foreach($seg as $key => $s)
               <tr>
                 <td>{{ $s->gestion }}</td>
                 <td>{{ $s->unidad_ejecutora }}</td>
+                <td>{{ $s->nombre_mac }}</td>
                 <td>{{ $s->nombre_dis }}</td>
-                <td></td>
+                <td>{{ $s->nombre_pro }}</td>
+                <td>
+                  @if(($s->programado - $s->total) > 0)
+                    <span style="color:green"><strong>{{ ($s->programado - $s->total) }}</strong></span>
+                  @else
+                    <span style="color:red"><strong>{{ ($s->programado - $s->total) }}</strong></span>
+                  @endif
+                </td>
                 <td>
                   @switch(Auth::user()->tipoUser(Auth::user()->id))
                       @case(3)

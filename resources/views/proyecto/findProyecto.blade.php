@@ -89,7 +89,7 @@
                           </a>
                           {{-- Boton estimado --}}
                           <a href="{{ url('findEstimado/'.$p->id_pro) }}" class="btn btn-default">
-                            <i class="fa fa-area-chart"></i>
+                            <i class="fa fa-bar-chart-o"></i>
                           </a>
                           {{-- Boton imprmir --}}
                           <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
