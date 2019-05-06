@@ -44,25 +44,26 @@ class SeguimientoController extends Controller
                      ->get();*/
 
         $seg = DB::select('select 
-        d.id_dist, 
-        g.gestion, 
-        u.unidad_ejecutora, 
-        m.nombre_mac, 
-        d.nombre_dis, 
-        p.nombre_pro, 
-        p.programado, 
-        ifnull((select count(*) from monto where id_pro = p.id_pro group by id_pro),0) as total 
-    from unidad as u 
-        inner join unidad_macro as um on (u.id_uni = um.id_uni)
-        inner join macro as m on (um.id_mac = m.id_mac)
-        inner join distrito as d on (m.id_mac = d.id_mac)
-        inner join proyecto as p on (d.id_dist = p.id_dist)
-        inner join gestion as g on (p.id_ges = g.id_ges)
-    where 
-        p.id_ges = '.$request->gestion.' and 
-        m.nombre_mac like "%'.$request->macro.'%" and 
-        d.nombre_dis like "%'.$request->distrito.'%" and 
-        p.nombre_pro like "%'.$request->proyecto.'%"');
+                                d.id_dist, 
+                                g.gestion, 
+                                u.unidad_ejecutora, 
+                                m.nombre_mac, 
+                                d.nombre_dis, 
+                                p.nombre_pro, 
+                                p.programado, 
+                                p.presupuesto,
+                                ifnull((select count(*) from monto where id_pro = p.id_pro group by id_pro),0) as total 
+                            from unidad as u 
+                                inner join unidad_macro as um on (u.id_uni = um.id_uni)
+                                inner join macro as m on (um.id_mac = m.id_mac)
+                                inner join distrito as d on (m.id_mac = d.id_mac)
+                                inner join proyecto as p on (d.id_dist = p.id_dist)
+                                inner join gestion as g on (p.id_ges = g.id_ges)
+                            where 
+                                p.id_ges = '.$request->gestion.' and 
+                                m.nombre_mac like "%'.$request->macro.'%" and 
+                                d.nombre_dis like "%'.$request->distrito.'%" and 
+                                p.nombre_pro like "%'.$request->proyecto.'%"');
 
         if(count($seg) > 0){
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,

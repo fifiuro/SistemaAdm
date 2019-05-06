@@ -32,27 +32,32 @@
         <tr>
             <td><strong>Código EMA:</strong> </td>
             <td>{{ $g->ema }}</td>
-            <td><strong>Presupuesto:</strong> </td>
+            <td><strong>Volumen Presupuestado:</strong> </td>
             <td>{{ $g->presupuesto }}</td>
+            <td><strong>Volumen Programado:</strong> </td>
+            <td>{{ $g->programado }}</td>
         </tr>
     @endforeach
     </table>
     <br>
     <table style="width:100%; font-size:12px" border="0" cellspacing="0" cellpadding="0">
         <tr>
-            <td colspan="2" style="border:1px #000000 solid; padding:5px; text-align:center"><strong>FECHA</strong></td>
+            <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>FECHA</strong></td>
             <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>MONTO</strong></td>
         </tr>
         @foreach ($volumen as $key => $v)
             <tr>
-                <td colspan="2" style="border:1px #000000 solid; padding:3px">{{ formatoFechaReporte($v->fecha) }}</td>
+                <td style="border:1px #000000 solid; padding:3px">{{ formatoFechaReporte($v->fecha) }}</td>
                 <td style="border:1px #000000 solid; padding:3px">{{ $v->monto }}</td>
             </tr>
         @endforeach
         <tr>
-            <td style="border:1px #000000 solid; padding:3px"><strong>Área:</strong> {{ $area }}</td>
-            <td style="border:1px #000000 solid; padding:3px"><strong>Volumen:</strong> {{ $vol }}</td>
-            <td style="border:1px #000000 solid; padding:3px"><strong>Sumatoria: </strong> {{ $sumatoria }}</td>
+            <td style="border:1px #000000 solid; padding:3px; text-align:right;"><strong>Total Volumen: </strong></td>
+            <td style="border:1px #000000 solid; padding:3px">{{ $sumatoria }}</td>
+        </tr>
+        <tr>
+            <td style="border:1px #000000 solid; padding:3px; text-align:right;"><strong>Saldo: </strong></td>
+            <td style="border:1px #000000 solid; padding:3px">{{ ($proy[0]->programado - $sumatoria) }}</td>
         </tr>
     </table>
 

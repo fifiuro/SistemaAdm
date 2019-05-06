@@ -39,6 +39,11 @@
                 <input type="hidden" name="nombre_proA" value="{{ $p->nombre_pro }}">
             </div>
             <div class="group-form-control">
+                <label for="ubicacion">Ubicacion:</label>
+                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicacion" type="text" value="{{ $p->ubicacion }}" required>
+                <input type="hidden" name="ubicacionA" value="{{ $p->ubicacion }}">
+            </div>
+            <div class="group-form-control">
                 <label for="ema">Codigo EMA:</label>
                 <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $p->ema}}" required>
                 <input type="hidden" name="emaA" value="{{ $p->ema }}">
@@ -49,7 +54,7 @@
                 <input type="hidden" name="presupuestoA" value="{{ $p->presupuesto }}">
             </div>
             <div class="group-form-control">
-                <label for="programado">Volumen Programado:</label>
+                <label for="programado">Volumen Proyectado:</label>
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" value="{{ $p->programado }}" required>
             </div>
             <div class="group-form-control">

@@ -54,19 +54,25 @@
               <tr>
                 <th>Gestion</th>
                 <th>Unidad Ejecutora</th>
-                <th>Macro Distrito</th>
-                <th>Distrito</th>
                 <th>Proyecto</th>
+                <th>Volumen<br>Presupuestado</th>
+                <th>Volumen<br>Programado</th>
                 <th>Volumen Total</th>
+                <th>Saldo</th>
                 <th>Acciones</th>
               </tr>
               @foreach($seg as $key => $s)
               <tr>
                 <td>{{ $s->gestion }}</td>
-                <td>{{ $s->unidad_ejecutora }}</td>
-                <td>{{ $s->nombre_mac }}</td>
-                <td>{{ $s->nombre_dis }}</td>
+                <td>
+                  {{ $s->unidad_ejecutora }} <br>
+                  <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
+                  <strong>Distrito: </strong>{{ $s->nombre_dis }}
+                </td>
                 <td>{{ $s->nombre_pro }}</td>
+                <td>{{ $s->presupuesto }}</td>
+                <td>{{ $s->programado }}</td>
+                <td>{{ $s->total }}</td>
                 <td>
                   @if(($s->programado - $s->total) > 0)
                     <span style="color:green"><strong>{{ ($s->programado - $s->total) }}</strong></span>

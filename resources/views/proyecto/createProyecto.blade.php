@@ -50,15 +50,24 @@
                 <input class="form-control" id="nombre_pro" name="nombre_pro" placeholder="Nombre del Proyecto" type="text" disabled required>
             </div>
             <div class="group-form-control">
+                <label for="ubicacion">Ubicacion:</label>
+                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicacion" type="text" disabled required>
+            </div>
+            <div class="group-form-control">
                 <label for="ema">Codigo EMA:</label>
                 <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" disabled required>
             </div>
             <div class="group-form-control">
-                <label for="presupuesto">Volumen Presupuestado:</label>
-                <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" disabled required>
+                <label for="presupuesto">Monto de Contrato:</label>
+                <div class="input-group">
+                    <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Monto de Contrato" type="text" disabled>
+                    <div class="input-group-addon">
+                        <strong>Bs.</strong>
+                    </div>
+                </div>
             </div>
             <div class="group-form-control">
-                <label for="programado">Volumen Programado:</label>
+                <label for="programado">Volumen Proyectado:</label>
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
             </div>
             <div class="group-form-control">
@@ -208,6 +217,7 @@ $("#id_mac").change(function(){
 $("#id_dist").change(function(){
     if($("#id_dist").val() != '' && $("#id_mac").val() != '' && $("#id_uni").val() != ''){
         $("#nombre_pro").attr('disabled',false);
+        $("#ubicacion").attr('disabled',false);
         $("#ema").attr('disabled',false);
         $("#presupuesto").attr('disabled',false);
         $("#programado").attr('disabled',false);
@@ -216,6 +226,7 @@ $("#id_dist").change(function(){
         $("#numero").attr('disabled',false);
     }else{
         $("#nombre_pro").attr('disabled',true);
+        $("#ubicacion").attr('disabled',true);
         $("#ema").attr('disabled',true);
         $("#presupuesto").attr('disabled',true);
         $("#programado").attr('disabled',true);

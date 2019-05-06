@@ -18,15 +18,27 @@ class VolumenController extends Controller
      */
     public function index($id)
     {
-        $proy = Proyecto::find($id);
+        $proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->join('macro','macro.id_mac','=','distrito.id_mac')
+                        ->join('unidad_macro','unidad_macro.id_mac','macro.id_mac')
+                        ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+                        ->where('proyecto.id_pro','=',$id)
+                        ->get();
 
         $volumen = Volumen::where('id_pro','=',$id)
                           ->orderBy('fecha','desc')
                           ->get();
+        
+        $sum = Volumen::selectRaw('sum(monto) total')
+                      ->where('id_pro','=',$id)
+                      ->groupBy('id_pro')
+                      ->get();
 
         if(count($volumen) > 0){
             return view('volumen.findVolumen', array('proy' => $proy, 
-                                                     'volumen' => $volumen, 
+                                                     'volumen' => $volumen,
+                                                     'sum' => $sum, 
                                                      'estado' => true));
         }else{
             return view('volumen.findVolumen', array('proy' => $proy, 

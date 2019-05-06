@@ -38,7 +38,7 @@ class ProyectoController extends Controller
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
         ->where('proyecto.nombre_pro','like','%'.$request->nombre_pro.'%')
         ->where('distrito.id_dist','=',$request->distrito)
-        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ema','proyecto.presupuesto','protecto.programado','proyecto.estado')
+        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ubicacion','proyecto.ema','proyecto.presupuesto','proyecto.programado','proyecto.estado')
         ->get();
 
         $distrito = Distrito::all();
@@ -84,6 +84,7 @@ class ProyectoController extends Controller
         $proyecto->id_dist = $request->id_dist;
         $proyecto->id_ges = $request->id_ges;
         $proyecto->nombre_pro = $request->nombre_pro;
+        $proyecto->ubicacion = $request->ubicacion;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
         $proyecto->programado = $request->programado;
@@ -128,6 +129,9 @@ class ProyectoController extends Controller
 
         if($this->modificacion('proyecto',$request->id_pro,$request->nombre_pro,$request->nombre_proA)){
             $proyecto->nombre_pro = $request->nombre_pro;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->ubicacion,$request->ubicacionA)){
+            $proyecto->ubicacion = $request->ubicacion;
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->ema,$request->emaA)){
             $proyecto->ema = $request->ema;
@@ -199,8 +203,10 @@ class ProyectoController extends Controller
     public function reporteProyecto($id)
     {
         $proy = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                        ->join('unidad','unidad.id_uni','=','distrito.id_uni')
-                        ->join('gestion','gestion.id_ges','=','unidad.id_ges')
+                        ->join('macro','macro.id_mac','=','distrito.id_mac')
+                        ->join('unidad_macro','unidad_macro.id_mac','=','macro.id_mac')
+                        ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+                        ->join('gestion','gestion.id_ges','=','proyecto.id_ges')
                         ->where('proyecto.id_pro','=',$id)
                         ->select('gestion.gestion',
                                  'unidad.unidad_ejecutora',
@@ -209,7 +215,8 @@ class ProyectoController extends Controller
                                  'distrito.ubicacion',
                                  'proyecto.nombre_pro',
                                  'proyecto.ema',
-                                 'proyecto.presupuesto')
+                                 'proyecto.presupuesto',
+                                 'proyecto.programado')
                         ->get();
         
         $volumen = Volumen::where('id_pro','=',$id)->orderBy('fecha','desc')->get();

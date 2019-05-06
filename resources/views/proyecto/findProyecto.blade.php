@@ -53,6 +53,7 @@
               <tr>
                 <th>Nombre de Distrito</th>
                 <th>Nombre del Proyecto</th>
+                <th>Ubicacion</th>
                 <th>Codigo EMA</th>
                 <th>Presupuesto</th>
                 <th>Programado</th>
@@ -63,6 +64,7 @@
               <tr>
                 <td>{{ $p->nombre_dis }}</td>
                 <td>{{ $p->nombre_pro }}</td>
+                <td>{{ $p->ubicacion }}</td>
                 <td>{{ $p->ema }}</td>
                 <td>{{ $p->presupuesto }}</td>
                 <td>{{ $p->programado }}</td>
@@ -84,13 +86,13 @@
                           <a href="{{ url('confirmProyecto/'.$p->id_pro) }}" class="btn btn-danger">
                             <i class="glyphicon glyphicon-trash"></i>
                           </a>
-                          {{-- Boton volumes --}}
-                          <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
-                            <i class="fa fa-area-chart"></i>
-                          </a>
                           {{-- Boton estimado --}}
                           <a href="{{ url('findEstimado/'.$p->id_pro) }}" class="btn btn-default">
                             <i class="fa fa-bar-chart-o"></i>
+                          </a>
+                          {{-- Boton volumes --}}
+                          <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
+                            <i class="fa fa-area-chart"></i>
                           </a>
                           {{-- Boton imprmir --}}
                           <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">

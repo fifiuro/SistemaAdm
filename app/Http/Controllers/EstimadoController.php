@@ -17,15 +17,27 @@ class EstimadoController extends Controller
      */
     public function index($id)
     {
-        $proy = Proyecto::find($id);
+        $proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->join('macro','macro.id_mac','=','distrito.id_mac')
+                        ->join('unidad_macro','unidad_macro.id_mac','macro.id_mac')
+                        ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+                        ->where('proyecto.id_pro','=',$id)
+                        ->get();
 
         $estimado = Estimado::where('id_pro','=',$id)
                             ->orderBy('fecha','desc')
                             ->get();
 
+        $sum = Estimado::selectRaw('sum(volumen) total')
+                            ->where('id_pro','=',$id)
+                            ->groupBy('id_pro')
+                            ->get();
+
         if(count($estimado) > 0){
             return view('estimado.findEstimado', array('proy' => $proy,
                                                         'estimado' =>$estimado,
+                                                        'sum' => $sum,
                                                         'estado' => true));
         }else{
             return view('estimado.findEstimado', array('proy' => $proy,

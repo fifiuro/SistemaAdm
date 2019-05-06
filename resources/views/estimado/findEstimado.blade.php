@@ -17,53 +17,71 @@
     <div class="box-body">
         <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
             {{ csrf_field() }}
+            @foreach ($proy as $key => $p)
+            <div class="group-form-control col-xs-4">
+                    <label for="proyecto">Unidad Ejecutora:</label>
+                    {{ $p->unidad_ejecutora }}
+            </div>
+            <div class="group-form-control col-xs-4">
+                <label for="proyecto">Macro Distrito:</label>
+                {{ $p->nombre_mac }}
+            </div>
+            <div class="group-form-control col-xs-4">
+                    <label for="proyecto">Distrito:</label>
+                    {{ $p->nombre_dis }}
+                </div>
             <div class="group-form-control">
-                <label for="proyecto">Proyecto:</label>
-                {{ $proy->nombre_pro }}
-            </div>
-            <div class="row">
-                <div class="col-xs-4">
-                    <label for="ema">EMA:</label>
-                    {{ $proy->ema }}
+                    <label for="proyecto">Proyecto:</label>
+                    {{ $p->nombre_pro }}
                 </div>
-                <div class="col-xs-4">
-                    <label for="presupuesto">Volumen Presupuestado:</label>
-                    {{ $proy->presupuesto }}
-                </div>
-                <div class="col-xs-4">
-                    <label for="estado">Estado:</label>
-                    @if ($proy->estado == 1)
-                        Activo
-                    @else
-                        Desactivado
-                    @endif
-                </div>
-            </div>
-            @if ($proy->estado == 1)
-                <hr>
-                <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
-                    {{ csrf_field() }}
-                    <div class="row">
-                        <div class="group-form-control col-xs-4">
-                            <label for="fecha">Fecha: </label>
-                            <div class="input-group date">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-calendar"></i>
-                                </div>
-                                <input type="text" class="form-control pull-right" name="fecha" id="datepicker" required>
-                            </div>
-                            <input type="hidden" name="id_pro" value="{{ $proy->id_pro }}">
-                        </div>
-                        <div class="group-form-control col-xs-4">
-                            <label for="monto">Volumen: </label>
-                            <input type="text" name="monto" id="monto" class="form-control" required>
-                        </div>
-                        <div class="group-form-control col-xs-4">
-                            <button type="submit" class="btn btn-primary">GUARDAR</button>
-                        </div>
+                <div class="row">
+                    <div class="col-xs-3">
+                        <label for="ema">EMA:</label>
+                        {{ $p->ema }}
                     </div>
-                </form>
-            @endif
+                    <div class="col-xs-3">
+                        <label for="presupuesto">Monto de Contrato:</label>
+                        {{ $p->presupuesto }} <strong>Bs.</strong>
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="presupuesto">Volumen Proyectado:</label>
+                        {{ $p->programado }}
+                    </div>
+                    <div class="col-xs-3">
+                        <label for="estado">Estado:</label>
+                        @if ($p->estado == 1)
+                            Activo
+                        @else
+                            Desactivado
+                        @endif
+                    </div>
+                </div>
+                @if ($p->estado == 1)
+                    <hr>
+                    <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="group-form-control col-xs-4">
+                                <label for="fecha">Fecha: </label>
+                                <div class="input-group date">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input type="text" class="form-control pull-right" name="fecha" id="datepicker" autocomplete="off" required>
+                                </div>
+                                <input type="hidden" name="id_pro" value="{{ $p->id_pro }}">
+                            </div>
+                            <div class="group-form-control col-xs-4">
+                                <label for="monto">Volumen Proyectado: </label>
+                                <input type="text" name="monto" id="monto" class="form-control" required>
+                            </div>
+                            <div class="group-form-control col-xs-4">
+                                <button type="submit" class="btn btn-primary">GUARDAR</button>
+                            </div>
+                        </div>
+                    </form>
+                @endif
+            @endforeach
             <hr>
             @if (isset($estimado))
                 @if ($estado)
@@ -104,6 +122,11 @@
                             </td>
                         </tr>
                     @endforeach
+                    <tr>
+                        <td style="text-align:right"><strong>Total</strong></td>
+                        <td>{{ $sum[0]->total }}</td>
+                        <td></td>
+                    </tr>
                     </table>
                 @else
                     <h3>
