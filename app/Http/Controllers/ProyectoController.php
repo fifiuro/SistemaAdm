@@ -34,22 +34,26 @@ class ProyectoController extends Controller
      */
     public function show(Request $request)
     {
-       /*print_r($request);*/
-        $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
-        ->where('proyecto.nombre_pro','like','%'.$request->nombre_pro.'%')
-        ->where('distrito.id_dist','=',$request->distrito)
-        ->select('proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ubicacion','proyecto.ema','proyecto.presupuesto','proyecto.programado','proyecto.estado')
+        $proyecto = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                            ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                            ->join('macro','macro.id_mac','=','distrito.id_mac')
+                            ->join('unidad_macro','unidad_macro.id_mac','macro.id_mac')
+                            ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+        ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+        ->where('proyecto.ema','like','%'.$request->ema.'%')
+        ->where('unidad.id_uni','like','%'.$request->unidad.'%')
+        ->select('unidad_ejecutora','nombre_mac','nombre_dis','proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ubicacion','proyecto.ema','proyecto.presupuesto','proyecto.programado','proyecto.estado')
         ->get();
 
-        $distrito = Distrito::all();
+        $unidad = Unidad::all();
 
         if(count($proyecto) > 0){
         return view('proyecto.findProyecto',array('proyecto' => $proyecto,
-                                        'distrito' => $distrito,
+                                        'unidad' => $unidad,
                                         'estado' => true));
         }else{
         return view('proyecto.findProyecto',array('proyecto' => '',
-                                        'distrito' => $distrito,
+                                        'unidad' => $unidad,
                                         'estado' => false,
                                         'mensaje' => 'No se tuvieron coincidencias.'));
 

@@ -20,18 +20,22 @@
         {{ csrf_field() }}
         <div class="row">
             
-            <div class="col-xs-5">
-                <label for="distrito">Distrito:</label>
-                    <select name="distrito" id="distrito" class="form-control">
+            <div class="col-xs-4">
+                <label for="unidad">Unidad Ejecutora:</label>
+                    <select name="unidad" id="unidad" class="form-control">
                       <option value=""></option>
-                      @foreach ($distrito as $key => $d)
-                      <option value="{{ $d->id_dist }}">{{ $d->nombre_dis }}</option>
+                      @foreach ($unidad as $key => $u)
+                      <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
                       @endforeach
                     </select>
             </div>
-            <div class="col-xs-5">
+            <div class="col-xs-3">
                 <label for="proyecto">Nombre del Proyecto:</label>
                 <input class="form-control" id="proyecto" name="proyecto" placeholder="Nombre del Proyecto" type="text">
+            </div>
+            <div class="col-xs-3">
+                <label for="ema">EMA:</label>
+                <input class="form-control" id="ema" name="ema" placeholder="EMA" type="text">
             </div>
 
           <div class="col-xs-2">
@@ -62,7 +66,11 @@
               </tr>
               @foreach($proyecto as $key => $p)
               <tr>
-                <td>{{ $p->nombre_dis }}</td>
+                <td>
+                  <strong>Unidad Ejecutora: </strong>{{ $p->unidad_ejecutora }}<br>
+                  <strong>Macro Distrito: </strong>{{ $p->nombre_mac }}<br>
+                  <strong>Distrito: </strong>{{ $p->nombre_dis }}
+                </td>
                 <td>{{ $p->nombre_pro }}</td>
                 <td>{{ $p->ubicacion }}</td>
                 <td>{{ $p->ema }}</td>
