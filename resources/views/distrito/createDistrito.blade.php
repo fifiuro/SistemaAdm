@@ -34,10 +34,6 @@
             <label for="numero">Número de Distrito:</label>
             <input class="form-control" id="numero" name="numero" placeholder="Número de Distrito" type="number" required>
         </div>
-        <div class="group-form-control">
-            <label for="ubicacion">Ubicación:</label>
-            <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" type="text" required>
-        </div>
         <br>
         <div class="group-form-control">
           <button type="submit" class="btn btn-primary" name="guardar" id="guardar">GUARDAR</button>

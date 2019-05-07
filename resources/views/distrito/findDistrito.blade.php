@@ -49,7 +49,6 @@
                 <th>Macro Distrito</th>
                 <th>Distrito</th>
                 <th>Número</th>
-                <th>Ubicacion</th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>
@@ -58,7 +57,6 @@
                 <td>{{ $d->nombre_mac }}</td>
                 <td>{{ $d->nombre_dis }}</td>
                 <td>{{ $d->numero_dis }}</td>
-                <td>{{ $d->ubicacion }}</td>
                 <td>
                   @if ($d->estado == 1)
                     <i class="fa fa-fw fa-check" style="color:green"></i>

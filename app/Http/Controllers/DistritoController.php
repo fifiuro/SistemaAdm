@@ -79,7 +79,6 @@ class DistritoController extends Controller
         $distrito->id_mac = $request->id_mac;
         $distrito->nombre_dis = $request->nombre;
         $distrito->numero_dis = $request->numero;
-        $distrito->ubicacion = $request->ubicacion;
         $distrito->estado = 1;
 
         $distrito->save();
@@ -120,9 +119,6 @@ class DistritoController extends Controller
         }
         if($this->modificacion('distrito',$request->id_dist,$request->numero,$request->numeroA)){
             $distrito->numero_dis = $request->numero;
-        }
-        if($this->modificacion('distrito',$request->id_dist,$request->ubicacion,$request->ubicacionA)){
-            $distrito->ubicacion = $request->ubicacion;
         }
         if($this->modificacion('distrito',$request->id_dist,$request->estado,$request->estadoA)){
             $distrito->estado = $request->estado;

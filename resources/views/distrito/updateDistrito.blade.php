@@ -42,11 +42,6 @@
             <input type="hidden" name="numeroA" value="{{ $distrito->numero_dis }}">
         </div>
         <div class="group-form-control">
-            <label for="ubicacion">Ubicación:</label>
-            <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicación" type="text" value="{{ $distrito->ubicacion }}" required>
-            <input type="hidden" name="ubicacionA" value="{{ $distrito->ubicacion }}">
-        </div>
-        <div class="group-form-control">
             <label for="estado">Estado:</label>
             <select name="estado" id="estado" class="form-control">
                 @if ($distrito->estado == 1)
