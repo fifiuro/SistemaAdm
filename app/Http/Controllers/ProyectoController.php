@@ -146,13 +146,13 @@ class ProyectoController extends Controller
         if($this->modificacion('proyecto',$request->id_pro,$request->programado,$request->programadoA)){
             $proyecto->programado = $request->programado;
         }
-        if($this->modificacion('proyecto',$request->id_pro,$request->adjudicacion,$request->adjudicacionA)){
+        if($this->modificacion('proyecto',$request->id_pro,$request->adjudicado,$request->adjudicadoA)){
             $proyecto->adjudicacion = $request->adjudicado;
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->fecha,$request->fechaA)){
             $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
         }
-        if($this->modificacion('proyecto',$request->id_pro,$request->numero_adjudicacion,$request->numero_adjudicacionA)){
+        if($this->modificacion('proyecto',$request->id_pro,$request->numero,$request->numeroA)){
             $proyecto->numero_adjudicacion = $request->numero;
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->estado,$request->estadoA)){

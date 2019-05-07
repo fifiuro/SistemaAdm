@@ -35,7 +35,29 @@
             </div>
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>
-                <input class="form-control" id="nombre_pro" name="nombre_pro" placeholder="Nombre del Proyecto" type="text" value="{{ $p->nombre_pro }}" required>
+                <select name="nombre_pro" id="nombre_pro" class="form-control" required>
+                    @if($p->nombre_pro == 'Señalización')
+                        <option selected>Señalización</option>
+                        <option>Recapeo</option>
+                        <option>Bacheo</option>
+                        <option>Asfalto</option>
+                    @elseif($p->nombre_pro == 'Recapeo')
+                        <option>Señalización</option>
+                        <option selected>Recapeo</option>
+                        <option>Bacheo</option>
+                        <option>Asfalto</option>
+                    @elseif($p->nombre_pro == 'Bacheo')
+                        <option>Señalización</option>
+                        <option>Recapeo</option>
+                        <option selected>Bacheo</option>
+                        <option>Asfalto</option>
+                    @elseif($p->nombre_pro == 'Asfalto')
+                        <option>Señalización</option>
+                        <option>Recapeo</option>
+                        <option>Bacheo</option>
+                        <option selected>Asfalto</option>
+                    @endif
+                </select>
                 <input type="hidden" name="nombre_proA" value="{{ $p->nombre_pro }}">
             </div>
             <div class="group-form-control">
@@ -76,6 +98,7 @@
             <div class="group-form-control">
                 <label for="numero">Número Adjudicación:</label>
                 <input class="form-control" id="numero" name="numero" placeholder="Número de Adjudicación" type="text" value="{{ $p->numero_adjudicacion }}" required>
+                <input type="hidden" name="numeroA" value="{{ $p->numero_adjudicacion }}">
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>

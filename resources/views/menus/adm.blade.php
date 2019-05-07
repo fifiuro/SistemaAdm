@@ -36,6 +36,12 @@
                 <span>PROYECTO</span>
             </a>
         </li>
+        <li>
+            <a href="{{ url('findModificaciones') }}">
+                <i class="fa fa-archive"></i>
+                <span>REPORTE DE MODIFICACIONES</span>
+            </a>
+        </li>
         @break
     @case(2)
         <li>

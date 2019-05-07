@@ -47,7 +47,12 @@
             </div>
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>
-                <input class="form-control" id="nombre_pro" name="nombre_pro" placeholder="Nombre del Proyecto" type="text" disabled required>
+                <select name="nombre_pro" id="nombre_pro" class="form-control" disabled required>
+                    <option>Señalización</option>
+                    <option>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option>Asfalto</option>
+                </select>
             </div>
             <div class="group-form-control">
                 <label for="ubicacion">Ubicacion:</label>
