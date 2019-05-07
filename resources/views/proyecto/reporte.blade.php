@@ -22,8 +22,8 @@
             <td>{{ $g->nombre_dis }}</td>
             <td><strong>Numero Distrito:</strong> </td>
             <td>{{ $g->numero_dis }}</td>
-            <td><strong>Ubicación:</strong> </td>
-            <td>{{ $g->ubicacion }}</td>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td><strong>Nombre Proyecto:</strong> </td>

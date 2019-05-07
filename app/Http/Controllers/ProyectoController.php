@@ -21,9 +21,9 @@ class ProyectoController extends Controller
      */
     public function index()
     {
-        $distrito = Distrito::all();
+        $unidad = Unidad::all();
 
-        return view('proyecto.findProyecto', array('distrito' => $distrito));
+        return view('proyecto.findProyecto', array('unidad' => $unidad));
     }
 
 /**
@@ -143,12 +143,18 @@ class ProyectoController extends Controller
         if($this->modificacion('proyecto',$request->id_pro,$request->presupuesto,$request->presupuestoA)){
             $proyecto->presupuesto = $request->presupuesto;
         }
-
-        $proyecto->programado = $request->programado;
-        $proyecto->adjudicacion = $request->adjudicado;
-        $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
-        $proyecto->numero_adjudicacion = $request->numero;
-
+        if($this->modificacion('proyecto',$request->id_pro,$request->programado,$request->programadoA)){
+            $proyecto->programado = $request->programado;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->adjudicacion,$request->adjudicacionA)){
+            $proyecto->adjudicacion = $request->adjudicado;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->fecha,$request->fechaA)){
+            $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->numero_adjudicacion,$request->numero_adjudicacionA)){
+            $proyecto->numero_adjudicacion = $request->numero;
+        }
         if($this->modificacion('proyecto',$request->id_pro,$request->estado,$request->estadoA)){
             $proyecto->estado = $request->estado;
         }
@@ -216,7 +222,6 @@ class ProyectoController extends Controller
                                  'unidad.unidad_ejecutora',
                                  'distrito.nombre_dis',
                                  'distrito.numero_dis',
-                                 'distrito.ubicacion',
                                  'proyecto.nombre_pro',
                                  'proyecto.ema',
                                  'proyecto.presupuesto',

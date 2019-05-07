@@ -18,7 +18,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findSeguimiento') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <label for="gestion">Gestion:</label>
                 <select name="gestion" id="gestion" class="form-control">
                   <option value=""></option>
@@ -28,18 +28,29 @@
                 </select>
             </div>
             <div class="col-xs-3">
+                <label for="unidad">Unidad Ejecutora:</label>
+                <select name="unidad" id="unidad" class="form-control">
+                  <option value=""></option>
+                  @foreach ($unidad as $key => $u)
+                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                  @endforeach
+                </select>
+            </div>
+            <div class="col-xs-3">
                 <label for="macro">Macro Distrito:</label>
-                <input class="form-control" id="macro" name="macro" placeholder="Macro Distrito" type="text">
+                <select name="macro" id="macro" class="form-control">
+                </select>
             </div>
             <div class="col-xs-2">
                 <label for="distrito">Distrito:</label>
-                <input class="form-control" id="distrito" name="distrito" placeholder="Distrito" type="text">
+                <select name="distrito" id="distrito" class="form-control">
+                </select>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
               <label for="proyecto">Proyecto:</label>
               <input class="form-control" id="proyecto" name="proyecto" placeholder="Distrito" type="text">
             </div>
-          <div class="col-xs-2">
+          <div class="col-xs-1">
             {{-- Boton Buscar --}}
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
           </div>
@@ -82,7 +93,7 @@
                 </td>
                 <td>
                   @switch(Auth::user()->tipoUser(Auth::user()->id))
-                      @case(3)
+                      @case(2)
                           {{-- Boton Supervisar --}}
                           <a href="{{ url('supervisar/'.$s->id_dist.'/0') }}" class="btn btn-primary">
                             <i class="fa fa-bar-chart"></i>
@@ -103,9 +114,69 @@
         </h2>
       @endif
     @endif
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
   </div>
 @endsection
 
 @section('extra')
+$.ajaxSetup({
+  headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+  }
+});
+
+$("#unidad").change(function(){
+  $.ajax({
+      url: 'listaMacro',
+      data: {'id':$("#unidad").val()},
+      type: 'post',
+      success: function(response){
+          if(response != ''){
+              $("#macro").attr('disabled',false);
+              $("#macro").html(response);
+          }else{
+              alert('No se tuvieron resultados.');
+          }
+      },
+      statusCode: {
+          404: function*(){
+              alert('No se pudo conectar con el Servidor.');
+          }
+      },
+      error: function(x,xs,xt){
+          // nos dara el errore si es que hay alguno
+          window.open(JSON.stringify(x));
+          // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+      }
+  });
+});
+
+$("#macro").change(function(){
+  $.ajax({
+      url: 'listaDistrito',
+      data: {'id':$("#macro").val()},
+      type: 'post',
+      success: function(response){
+          if(response != ''){
+              $("#distrito").attr('disabled',false);
+              $("#distrito").html(response);
+          }else{
+              alert('No se tuvieron resultados.');
+          }
+      },
+      statusCode: {
+          404: function*(){
+              alert('No se pudo conectar con el Servidor.');
+          }
+      },
+      error: function(x,xs,xt){
+          // nos dara el errore si es que hay alguno
+          window.open(JSON.stringify(x));
+          // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+      }
+  });
+});
+
 
 @endsection

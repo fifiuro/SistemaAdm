@@ -19,7 +19,9 @@ class SeguimientoController extends Controller
     {
         $gestion = Gestion::all();
 
-        return view('seguimiento.findSeguimiento', array('gestion' => $gestion));
+        $unidad = Unidad::all();
+
+        return view('seguimiento.findSeguimiento', array('gestion' => $gestion, 'unidad' => $unidad));
     }
 
     /**
@@ -32,16 +34,7 @@ class SeguimientoController extends Controller
     {
         $gestion = Gestion::all();
 
-        /*$seg = Unidad::join('unidad_macro','unidad.id_uni','=','unidad_macro.id_uni')
-                     ->join('macro','unidad_macro.id_mac','=','macro.id_mac')
-                     ->join('distrito','macro.id_mac','=','distrito.id_mac')
-                     ->join('proyecto','distrito.id_dist','=','proyecto.id_dist')
-                     ->join('gestion','proyecto.id_ges','=','gestion.id_ges')
-                     ->where('proyecto.id_ges','=',$request->gestion)
-                     ->where('macro.nombre_mac','like','%'.$request->macro.'%')
-                     ->where('distrito.nombre_dis','like','%'.$request->distrito.'%')
-                     ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
-                     ->get();*/
+        $unidad = Unidad::all();
 
         $seg = DB::select('select 
                                 d.id_dist, 
@@ -60,17 +53,20 @@ class SeguimientoController extends Controller
                                 inner join proyecto as p on (d.id_dist = p.id_dist)
                                 inner join gestion as g on (p.id_ges = g.id_ges)
                             where 
-                                p.id_ges = '.$request->gestion.' and 
-                                m.nombre_mac like "%'.$request->macro.'%" and 
-                                d.nombre_dis like "%'.$request->distrito.'%" and 
+                                p.id_ges like "%'.$request->gestion.'%" and 
+                                u.id_uni like "%'.$request->unidad.'%" and
+                                m.id_mac like "%'.$request->macro.'%" and 
+                                d.id_dist like "%'.$request->distrito.'%" and 
                                 p.nombre_pro like "%'.$request->proyecto.'%"');
 
         if(count($seg) > 0){
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,
+                                                             'unidad' => $unidad,
                                                              'seg' => $seg,
                                                              'estado' => true));
         }else{
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,
+                                                             'unidad' => $unidad,
                                                              'seg' => '',
                                                              'estado' => false,
                                                              'mensaje' => 'No se tuvieron coincidencias.'));

@@ -41,8 +41,14 @@
           <div class="col-xs-2">
             {{-- Boton Buscar --}}
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-            {{-- Boton Nuevo --}}
-            <a href="{{ url('createProyecto') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+            @switch(Auth::user()->tipoUser(Auth::user()->id))
+              @case(1)
+              @case(3)
+                {{-- Boton Nuevo --}}
+                <a href="{{ url('createProyecto') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
+                @break
+            @endswitch
+            
           </div>
         </div>
       </form>
@@ -108,10 +114,28 @@
                           </a>
                           @break
                       @case(2)
+                          @break
+                      @case(3)
                           {{-- Boton Editar --}}
                           <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
                             <i class="glyphicon glyphicon-pencil"></i>
                           </a>
+                          {{-- Boton imprmir --}}
+                          <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
+                            <i class="fa fa-print"></i>
+                          </a>
+                          @break
+                      @case(4)
+                          {{-- Boton estimado --}}
+                          <a href="{{ url('findEstimado/'.$p->id_pro) }}" class="btn btn-default">
+                            <i class="fa fa-bar-chart-o"></i>
+                          </a>
+                          {{-- Boton imprmir --}}
+                          <a href="{{ url('reporteProyecto/'.$p->id_pro) }}" target="_blank" class="btn btn-success">
+                            <i class="fa fa-print"></i>
+                          </a>
+                          @break
+                      @case(5)
                           {{-- Boton volumes --}}
                           <a href="{{ url('findVolumen/'.$p->id_pro) }}" class="btn btn-primary">
                             <i class="fa fa-area-chart"></i>

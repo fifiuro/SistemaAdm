@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Macro;
 use App\Unidad;
 use App\UnidadMacro;
+use App\Modificacion;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidarMacroRequest;
 
@@ -125,9 +126,15 @@ class MacroController extends Controller
     {
         $macro = Macro::find($request->id_mac);
 
-        $macro->nombre_mac = $request->nombre_mac;
-        $macro->numero_mac = $request->numero_mac;
-        $macro->estado = $request->estado;
+        if($this->modificacion('unidad',$request->id_mac,$request->nombre_mac,$request->nombre_macA)){
+            $macro->nombre_mac = $request->nombre_mac;
+        }
+        if($this->modificacion('unidad',$request->id_mac,$request->numero_mac,$request->numero_macA)){
+            $macro->numero_mac = $request->numero_mac;
+        }
+        if($this->modificacion('unidad',$request->id_mac,$request->estado,$request->estadoA)){
+            $macro->estado = $request->estado;
+        }
 
         $macro->save();
 
@@ -174,6 +181,24 @@ class MacroController extends Controller
                 $un_ma->save();
                 
             }
+        }
+    }
+
+    public function modificacion($tabla,$id,$a,$b)
+    {
+        if($a != $b){
+            $mod = new Modificacion;
+            $mod->tabla = $tabla;
+            $mod->id = $id;
+            $mod->actual = $a;
+            $mod->anterior = $b;
+            $mod->fecha = date('Y-m-d');
+            $mod->use_id = Auth::user()->id;
+            $mod->save();
+
+            return true;
+        }else{
+            return false;
         }
     }
 

@@ -59,8 +59,10 @@
                 <select name="tipo" id="tipo" class="form-control" required>
                     <option value=""></option>
                     <option value="1">Administrador</option>
-                    <option value="2">Estandar</option>
-                    <option value="3">Gerencial</option>
+                    <option value="2">Gerencia General</option>
+                    <option value="3">Director de Obra</option>
+                    <option value="4">Jefe de Asfalto y Bacheos</option>
+                    <option value="5">Jefe de Producción</option>
                 </select>
             </div>
             <div class="group-from-control">

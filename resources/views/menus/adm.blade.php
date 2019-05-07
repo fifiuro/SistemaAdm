@@ -39,29 +39,19 @@
         @break
     @case(2)
         <li>
-            <a href="{{ url('findUnidad') }}">
-                <i class="fa fa-bank"></i>
-                <span>UNIDAD EJECUTORA</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('findDistrito') }}">
-                <i class="fa fa-building-o"></i>
-                <span>DISTRITO</span>
-            </a>
-        </li>
-        <li>
-            <a href="{{ url('findProyecto') }}">
-                <i class="fa fa-archive"></i>
-                <span>PROYECTO</span>
+            <a href="{{ url('findSeguimiento') }}">
+                <i class="fa fa-eye"></i>
+                <span>SEGUIMIENTO PROYECTOS</span>
             </a>
         </li>
         @break
     @case(3)
+    @case(4)
+    @case(5)
         <li>
-            <a href="{{ url('findSeguimiento') }}">
-                <i class="fa fa-eye"></i>
-                <span>SEGUIMIENTO PROYECTOS</span>
+            <a href="{{ url('findProyecto') }}">
+                <i class="fa fa-archive"></i>
+                <span>PROYECTO</span>
             </a>
         </li>
         @break

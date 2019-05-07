@@ -33,11 +33,13 @@
         <div class="group-form-control">
             <label for="nombre_mac">Nombre Macro Distrito:</label>
             <input class="form-control" id="nombre_mac" name="nombre_mac" placeholder="Nombre de Macro Distrito" type="text" value="{{ $macro->nombre_mac }}" required>
+            <input type="hidden" name="nombre_macA" value="{{ $macro->nombre_mac }}">
             <input type="hidden" name="id_mac" id="id_mac" value="{{ $macro->id_mac }}">
         </div>
         <div class="group-form-control">
             <label for="numero_mac">Número de Macro Distrito:</label>
             <input class="form-control" id="numero_mac" name="numero_mac" placeholder="Número de Macro Distrito" type="number" value="{{ $macro->numero_mac }}" required>
+            <input type="hidden" name="numero_macA" value="{{ $macro->numero_mac }}">
         </div>
         <div class="group-form-control">
             <label for="estado">Estado:</label>
@@ -50,6 +52,7 @@
                     <option value="0" selected>Desactivado</option>
                 @endif
             </select>
+            <input type="hidden" name="estadoA" value="{{ $macro->estado }}">
         </div>
         <br>
         <div class="group-form-control">

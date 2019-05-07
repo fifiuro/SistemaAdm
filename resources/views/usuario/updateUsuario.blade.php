@@ -61,20 +61,40 @@
                     <option value=""></option>
                     @if ($usuario->tipo == 1)
                         <option value="1" selected>Administrador</option>
-                        <option value="2">Estandar</option>
-                        <option value="3">Gerencial</option>
+                        <option value="2">Gerencia General</option>
+                        <option value="3">Director de Obra</option>
+                        <option value="4">Jefe de Asfalto y Bacheos</option>
+                        <option value="5">Jefe de Producción</option>
                     @elseif($usuario->tipo == 2)
                         <option value="1">Administrador</option>
-                        <option value="2" selected>Estandar</option>
-                        <option value="3">Gerencial</option>
+                        <option value="2" selected>Gerencia General</option>
+                        <option value="3">Director de Obra</option>
+                        <option value="4">Jefe de Asfalto y Bacheos</option>
+                        <option value="5">Jefe de Producción</option>
                     @elseif($usuario->tipo == 3)
                         <option value="1">Administrador</option>
-                        <option value="2">Estandar</option>
-                        <option value="3" selected>Gerencial</option>
+                        <option value="2">Gerencia General</option>
+                        <option value="3" selected>Director de Obra</option>
+                        <option value="4">Jefe de Asfalto y Bacheos</option>
+                        <option value="5">Jefe de Producción</option>
+                    @elseif($usuario->tipo == 4)
+                        <option value="1">Administrador</option>
+                        <option value="2">Gerencia General</option>
+                        <option value="3">Director de Obra</option>
+                        <option value="4" selected>Jefe de Asfalto y Bacheos</option>
+                        <option value="5">Jefe de Producción</option>
+                    @elseif($usuario->tipo == 5)
+                        <option value="1">Administrador</option>
+                        <option value="2">Gerencia General</option>
+                        <option value="3">Director de Obra</option>
+                        <option value="4">Jefe de Asfalto y Bacheos</option>
+                        <option value="5" selected>Jefe de Producción</option>
                     @else
                         <option value="1">Administrador</option>
-                        <option value="2">Estandar</option>
-                        <option value="3">Gerencial</option>
+                        <option value="2">Gerencia General</option>
+                        <option value="3">Director de Obra</option>
+                        <option value="4">Jefe de Asfalto y Bacheos</option>
+                        <option value="5">Jefe de Producción</option>
                     @endif
                 </select>
             </div>

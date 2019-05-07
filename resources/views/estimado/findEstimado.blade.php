@@ -18,19 +18,19 @@
         <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
             {{ csrf_field() }}
             @foreach ($proy as $key => $p)
-            <div class="group-form-control col-xs-4">
+                <div class="group-form-control col-xs-4">
                     <label for="proyecto">Unidad Ejecutora:</label>
                     {{ $p->unidad_ejecutora }}
-            </div>
-            <div class="group-form-control col-xs-4">
-                <label for="proyecto">Macro Distrito:</label>
-                {{ $p->nombre_mac }}
-            </div>
-            <div class="group-form-control col-xs-4">
+                </div>
+                <div class="group-form-control col-xs-4">
+                    <label for="proyecto">Macro Distrito:</label>
+                    {{ $p->nombre_mac }}
+                </div>
+                <div class="group-form-control col-xs-4">
                     <label for="proyecto">Distrito:</label>
                     {{ $p->nombre_dis }}
                 </div>
-            <div class="group-form-control">
+                <div class="group-form-control">
                     <label for="proyecto">Proyecto:</label>
                     {{ $p->nombre_pro }}
                 </div>
@@ -69,7 +69,7 @@
                                     </div>
                                     <input type="text" class="form-control pull-right" name="fecha" id="datepicker" autocomplete="off" required>
                                 </div>
-                                <input type="hidden" name="id_pro" value="{{ $p->id_pro }}">
+                                <input type="hidden" name="id_pro" value="{{ $proy[0]->id_pro }}">
                             </div>
                             <div class="group-form-control col-xs-4">
                                 <label for="monto">Volumen Proyectado: </label>
@@ -105,17 +105,15 @@
                                             <i class="glyphicon glyphicon-pencil"></i>
                                         </a>
                                         {{-- Boton Eliminar --}}
-                                        <a href="{{ url('confirmEstimado/'.$e->id_est.'/'.$proy->id_pro) }}" class="btn btn-danger">
+                                        <a href="{{ url('confirmEstimado/'.$e->id_est.'/'.$proy[0]->id_pro) }}" class="btn btn-danger">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </a>
                                         @break
-                                    @case(2)
+                                    @case(4)
                                         {{-- Boton Editar --}}
                                         <a href="{{ url('editEstimado/'.$e->id_est) }}" class="btn btn-warning">
                                             <i class="glyphicon glyphicon-pencil"></i>
                                         </a>
-                                        @break
-                                    @case(3)
                                         @break
                                         
                                 @endswitch

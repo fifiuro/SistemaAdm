@@ -95,7 +95,7 @@
             </section>
             <!-- /.content -->
             <div class="group-form-control">
-                @if (Auth::user()->tipoUser(Auth::user()->id) == 3)
+                @if (Auth::user()->tipoUser(Auth::user()->id) == 2)
                     <a href="{{ url('findSeguimiento') }}" class="btn btn-danger">VOLVER</a>
                 @else
                     <a href="{{ url('findDistrito') }}" class="btn btn-danger">VOLVER</a>

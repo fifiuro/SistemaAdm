@@ -56,10 +56,12 @@
             <div class="group-form-control">
                 <label for="programado">Volumen Proyectado:</label>
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" value="{{ $p->programado }}" required>
+                <input type="hidden" name="programadoA" value="{{ $p->programado }}">
             </div>
             <div class="group-form-control">
                 <label for="adjudicado">Adjudico A:</label>
                 <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" value="{{ $p->adjudicacion }}" required>
+                <input type="hidden" name="adjudicadoA" value="{{ $p->adjudicacion }}">
             </div>
             <div class="group-form-control">
                 <label for="fecha">Fecha de Adjudicación:</label>
@@ -68,6 +70,7 @@
                         <i class="fa fa-calendar"></i>
                     </div>
                     <input type="text" name="fecha" class="form-control pull-right" id="datepicker" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}" required>
+                    <input type="hidden" name="fechaA" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}">
                 </div>
             </div>
             <div class="group-form-control">
