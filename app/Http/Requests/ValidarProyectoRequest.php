@@ -28,7 +28,7 @@ class ValidarProyectoRequest extends FormRequest
             'id_ges' => 'required|numeric',
             'nombre_pro' => 'required',
             'ema' => 'required',
-            'presupuesto' => 'required|numeric',
+            'presupuesto' => 'numeric',
         ];
     }
 
@@ -41,7 +41,6 @@ class ValidarProyectoRequest extends FormRequest
             'id_ges.numeric' => 'EL :attribute deber ser un número.',
             'nombre_pro.required' => 'El :attribute es requerido.',
             'ema.required' => 'El :attribute es requerido.',
-            'presupuesto.required' => 'El :attribute es requerido.',
             'presupuesto.numeric' => 'El :attribute deber ser un número.',
         ];
     }
