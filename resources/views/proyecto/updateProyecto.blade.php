@@ -56,6 +56,11 @@
                         <option>Recapeo</option>
                         <option>Bacheo</option>
                         <option selected>Asfalto</option>
+                    @else
+                        <option>Señalización</option>
+                        <option>Recapeo</option>
+                        <option>Bacheo</option>
+                        <option >Asfalto</option>
                     @endif
                 </select>
                 <input type="hidden" name="nombre_proA" value="{{ $p->nombre_pro }}">

@@ -181,7 +181,13 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('findSeguimiento', 'SeguimientoController@index');
     // Datos para hacer la gusqueda de del Proyecto hacer el seguimiento
     Route::post('findSeguimiento', 'SeguimientoController@show');
-    
+    /** FIN */
+
+    /** ACCIONES PARA TODAS LAS MODIFICACIONES DEL PROYECTO */
+    // Formulario de busqueda de Modificaciones
+    Route::get('findModificaciones','ModificacionesController@index');
+    // Datos para hacer la busqueda de modificaciones
+    Route::post('findModificaciones','ModificacionesController@show');
     /** FIN */
 });
 

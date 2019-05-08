@@ -7,6 +7,7 @@ use App\Unidad;
 use App\UnidadMacro;
 use App\Modificacion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ValidarMacroRequest;
 
 class MacroController extends Controller
