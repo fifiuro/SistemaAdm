@@ -16,12 +16,25 @@ class CreateProyectoTable extends Migration
         Schema::create('proyecto', function (Blueprint $table) {
             $table->bigIncrements('id_pro');
             $table->unsignedBigInteger('id_dist');
-            $table->foreign('id_dist')->references('id_dist')->on('distrito')->onDelete('cascade');
-            $table->string('nombre_pro');
+            $table->foreign('id_dist')
+                  ->references('id_dist')
+                  ->on('distrito')
+                  ->onDelete('cascade');
+            $table->unsignedBigInteger('id_ges');
+            $table->foreign('id_ges')
+                  ->references('id_ges')
+                  ->on('gestion')
+                  ->onDelete('cascade');
+            $table->string('nombre_pro',255);
             $table->integer('ema');
-            $table->double('presupuesto','20','4');
             $table->date('fecha_reg');
+            $table->double('presupuesto',20,4);
+            $table->double('programado',20,4);
+            $table->string('adjudicacion',255);
+            $table->date('fecha_adjudicacion');
+            $table->string('numero_adjudicacion',50);
             $table->boolean('estado');
+            $table->string('observaciones');
             $table->timestamps();
         });
     }

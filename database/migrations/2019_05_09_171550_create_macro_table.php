@@ -1,10 +1,10 @@
-<?php
+ <?php
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddEstadoToUsersTable extends Migration
+class CreateMacroTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,12 @@ class AddEstadoToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('macro', function (Blueprint $table) {
+            $table->bigIncrements('id_mac');
+            $table->string('nombre_mac',100);
+            $table->string('numero_mac',100);
             $table->boolean('estado');
+            $table->timestamps();
         });
     }
 
@@ -25,8 +29,6 @@ class AddEstadoToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('estado');
-        });
+        Schema::dropIfExists('macro');
     }
 }

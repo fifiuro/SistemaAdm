@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateModificacionsTable extends Migration
+class CreateModificacionTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,12 +15,15 @@ class CreateModificacionsTable extends Migration
     {
         Schema::create('modificacion', function (Blueprint $table) {
             $table->bigIncrements('id_mod');
-            $table->string('tabla');
-            $table->integer('id');
-            $table->string('anterior');
-            $table->string('actual');
+            $table->string('tabla',50);
+            $table->bigInteger('id');
+            $table->string('anterior',255);
+            $table->string('actual',255);
             $table->date('fecha');
-            $table->integer('use_id');
+            $table->unsignedBigInteger('usr_id');
+            $table->foreign('usr_id')
+                  ->references('id')
+                  ->on('users');
             $table->timestamps();
         });
     }

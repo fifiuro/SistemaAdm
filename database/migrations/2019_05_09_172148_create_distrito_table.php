@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIdMacDistritoTable extends Migration
+class CreateDistritoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,17 @@ class AddIdMacDistritoTable extends Migration
      */
     public function up()
     {
-        Schema::table('distrito', function (Blueprint $table) {
+        Schema::create('distrito', function (Blueprint $table) {
+            $table->bigIncrements('id_dist');
             $table->unsignedBigInteger('id_mac');
             $table->foreign('id_mac')
                   ->references('id_mac')
                   ->on('macro')
                   ->onDelete('cascade');
+            $table->string('nombre_dis',255);
+            $table->string('numero_dis',255);
+            $table->boolean('estado');
+            $table->timestamps();
         });
     }
 
@@ -29,9 +34,6 @@ class AddIdMacDistritoTable extends Migration
      */
     public function down()
     {
-        Schema::table('distrito', function (Blueprint $table) {
-            $table->dropForeign('distrito_id_mac_foreign');
-            $table->dropColumn('id_mac');
-        });
+        Schema::dropIfExists('distrito');
     }
 }

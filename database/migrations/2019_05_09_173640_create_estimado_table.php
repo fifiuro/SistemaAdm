@@ -21,7 +21,7 @@ class CreateEstimadoTable extends Migration
                   ->on('proyecto')
                   ->onDelete('cascade');
             $table->date('fecha');
-            $table->double('volumen');
+            $table->double('volumen',20,4);
             $table->boolean('estado');
             $table->timestamps();
         });
