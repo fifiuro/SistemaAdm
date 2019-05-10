@@ -85,7 +85,7 @@ class GestionController extends Controller
      * @param  \App\Gestion  $gestion
      * @return \Illuminate\Http\Response
      */
-    public function update(ValidarGestionRequest $request)
+    public function update(Request $request)
     {
         $gestion= Gestion::find($request->id_ges);
         if($this->modificacion('gestion',$request->id_ges,$request->gestion,$request->gestionA)){

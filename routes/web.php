@@ -105,6 +105,14 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('listaDistrito','DistritoController@listaDistrito');
     /** FIN */
 
+    /** ACCIONES PARA ASIGNACION */
+    // Formulario para la Asignacion
+    Route::get('findAsignacion','asignacionController@index');
+    // Guardar la asignacionde Macro - Unidad
+    Route:post('storeUnidadMacro','AsignacionController@storeUnidadMacro');
+
+    /** FIN */
+
     /** ACCIONES PARA MODULO DE PROYECTO */
     //Muestra el formulario para buscar proyecto
     Route::get('findProyecto','ProyectoController@index');

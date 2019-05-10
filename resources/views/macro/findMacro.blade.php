@@ -18,16 +18,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findMacro') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-5">
-                <label for="id_uni">Unidad:</label>
-                <select name="id_uni" id="id_uni" class="form-control" required>
-                  <option value=""></option>
-                  @foreach ($unidad as $key => $u)
-                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
-                  @endforeach
-                </select>
-            </div>
-            <div class="col-xs-5">
+            <div class="col-xs-10">
                 <label for="nombre">Nombre Macro Distrito:</label>
                 <input class="form-control" id="nombre" name="nombre" placeholder="Nombre Macro Distrito" type="text">
             </div>
@@ -46,7 +37,6 @@
           <table class="table">
             <tbody>
               <tr>
-                <th>Unidad Ejecutora</th>
                 <th>Macro Distrito</th>
                 <th>Número</th>
                 <th>Estado</th>
@@ -54,7 +44,6 @@
               </tr>
               @foreach($macro as $key => $m)
               <tr>
-                <td>{{ $m->unidad_ejecutora }}</td>
                 <td>{{ $m->nombre_mac }}</td>
                 <td>{{ $m->numero_mac }}</td>
                 <td>

@@ -18,15 +18,6 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeMacro') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
-            <label for="id_uni">Unidad Ejecutora:</label>
-            <select name="id_uni[]" id="id_uni" class="form-control select2" multiple="multiple" data-placeholder="Seleccione Unidad Ejecutora" style="width: 100%;" required>
-                <option value=""></option>
-                @foreach ($unidad as $key => $u)
-                    <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="group-form-control">
             <label for="nombre_mac">Nombre Macro Distrito:</label>
             <input class="form-control" id="nombre_mac" name="nombre_mac" placeholder="Nombre de Macro Distrito" type="text" required>
         </div>

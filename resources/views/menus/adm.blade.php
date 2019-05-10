@@ -25,6 +25,12 @@
             </a>
         </li>
         <li>
+            <a href="{{ url('findAsignacion') }}">
+                <i class="fa fa-arrows-h"></i>
+                <span>ASIGNACION</span>
+            </a>
+        </li>
+        <li>
             <a href="{{ url('findDistrito') }}">
                 <i class="fa fa-building-o"></i>
                 <span>DISTRITO</span>

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('cargo',191);
             $table->string('unidad',191);
             $table->boolean('estado');
+            $table->integer('tipo');
             $table->timestamps();
         });
     }

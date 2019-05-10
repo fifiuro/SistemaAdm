@@ -18,19 +18,6 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('updateMacro') }}">
         {{ csrf_field() }}
         <div class="group-form-control">
-            <label for="id_uni">Unidad Ejecutora:</label>
-            <select name="id_uni[]" id="id_uni" class="form-control select2" multiple="multiple" data-placeholder="Seleccione Unidad Ejecutora" style="width: 100%;" required>
-                <option value=""></option>
-                @foreach ($unidad as $key => $u)
-                    @if(buscarDato($unma, $u->id_uni))
-                        <option value="{{ $u->id_uni }}" selected>{{ $u->unidad_ejecutora }}</option>
-                    @else
-                        <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
-                    @endif
-                @endforeach
-            </select>
-        </div>
-        <div class="group-form-control">
             <label for="nombre_mac">Nombre Macro Distrito:</label>
             <input class="form-control" id="nombre_mac" name="nombre_mac" placeholder="Nombre de Macro Distrito" type="text" value="{{ $macro->nombre_mac }}" required>
             <input type="hidden" name="nombre_macA" value="{{ $macro->nombre_mac }}">

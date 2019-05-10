@@ -19,9 +19,7 @@ class MacroController extends Controller
      */
     public function index()
     {
-        $unidad = Unidad::all();
-
-        return view('macro.findMacro', array('unidad' => $unidad));
+        return view('macro.findMacro');
     }
 
     /**
@@ -32,12 +30,8 @@ class MacroController extends Controller
      */
     public function show(Request $request)
     {
-                    
-        $macro = Unidad::join('unidad_macro','unidad_macro.id_uni','=','unidad.id_uni')
-                       ->join('macro','macro.id_mac','=','unidad_macro.id_mac')
-                       ->where('unidad.id_uni','=',$request->id_uni)
-                       ->where('nombre_mac','like','%'.$request->nombre.'%')
-                       ->get();
+
+        $macro = Macro::where('nombre_mac','like','%'.$request->nombre.'%')->get();
 
         $unidad = Unidad::all();
 
@@ -61,9 +55,7 @@ class MacroController extends Controller
      */
     public function create()
     {
-        $unidad = Unidad::all();
-
-        return view('macro.createMacro',array('unidad' => $unidad));
+        return view('macro.createMacro');
     }
 
     /**
@@ -82,18 +74,6 @@ class MacroController extends Controller
 
         $macro->save();
 
-        $id_mac = $macro->id_mac;
-
-        for($i=0; $i<count($request->id_uni); $i++){
-            $un_ma = new UnidadMacro;
-
-            $un_ma->id_uni = $request->id_uni[$i];
-            $un_ma->id_mac = $id_mac;
-            $un_ma->estado = 1;
-
-            $un_ma->save();
-        }
-
         $unidad = Unidad::all();
 
         return view('macro.findMacro', array('unidad' => $unidad));
@@ -109,11 +89,7 @@ class MacroController extends Controller
     {
         $macro = Macro::find($id);
 
-        $unma = UnidadMacro::where('id_mac','=',$id)->get();
-
-        $unidad = Unidad::all();
-
-        return view('macro.updateMacro',array('unidad' => $unidad, 'macro' => $macro, 'unma' => $unma));
+        return view('macro.updateMacro',array('macro' => $macro));
     }
 
     /**
@@ -127,62 +103,19 @@ class MacroController extends Controller
     {
         $macro = Macro::find($request->id_mac);
 
-        if($this->modificacion('unidad',$request->id_mac,$request->nombre_mac,$request->nombre_macA)){
+        if($this->modificacion('macro',$request->id_mac,$request->nombre_mac,$request->nombre_macA)){
             $macro->nombre_mac = $request->nombre_mac;
         }
-        if($this->modificacion('unidad',$request->id_mac,$request->numero_mac,$request->numero_macA)){
+        if($this->modificacion('macro',$request->id_mac,$request->numero_mac,$request->numero_macA)){
             $macro->numero_mac = $request->numero_mac;
         }
-        if($this->modificacion('unidad',$request->id_mac,$request->estado,$request->estadoA)){
+        if($this->modificacion('macro',$request->id_mac,$request->estado,$request->estadoA)){
             $macro->estado = $request->estado;
         }
 
         $macro->save();
 
-        $this->comparaCD($request->id_mac,$request->id_uni);
-
-        $unidad = Unidad::all();
-
-        return view('macro.findMacro',array('unidad' => $unidad));
-
-    }
-
-    public function comparaCD($id, $unidad)
-    {
-        /** Elimina la unidad que no esta presente el array del Formulario */
-        $camp = UnidadMacro::where('id_mac','=',$id)->get();
-
-        foreach($camp as $key => $c){
-            if(in_array($c->id_uni, $unidad)){
-
-            }else{
-                $un_ma = UnidadMacro::where('id_uni','=',$c->id_uni)->where('id_mac','=',$id)->delete();
-            }
-        }
-
-        /** Agrega la nueva unidad asignada  */
-        $camp = UnidadMacro::where('id_mac','=',$id)->get();
-
-        $vec = array();
-
-        foreach($camp as $key => $c){
-            array_push($vec,$c->id_uni);
-        }
-
-        for($i=0; $i<count($unidad); $i++){
-            if(in_array($unidad[$i],$vec)){
-                
-            }else{
-                $un_ma = new UnidadMacro;
-
-                $un_ma->id_uni = $unidad[$i];
-                $un_ma->id_mac = $id;
-                $un_ma->estado = 1;
-
-                $un_ma->save();
-                
-            }
-        }
+        return view('macro.findMacro');
     }
 
     public function modificacion($tabla,$id,$a,$b)

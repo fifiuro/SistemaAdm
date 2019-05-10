@@ -24,7 +24,6 @@ class ValidarMacroRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_uni' => 'required',
             'nombre_mac' => 'required',
             'numero_mac' => 'required'
         ];
@@ -33,7 +32,6 @@ class ValidarMacroRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_uni.required' => 'Seleccione una :attribute.',
             'nombre_mac.required'=> 'El :attribute es necesario.',
             'numero_mac.required'=> 'EL :attribute es necesario.'
         ];
@@ -42,7 +40,6 @@ class ValidarMacroRequest extends FormRequest
     public function attributes()
     {
         return [
-            'id_uni' => 'Unidad Ejecutora',
             'nombre_mac' => 'Nombre Macro Distrito',
             'numero_mac' => 'Número de Macro Distrito'
         ];

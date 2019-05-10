@@ -21,7 +21,7 @@ class CreateModificacionTable extends Migration
             $table->string('actual',255);
             $table->date('fecha');
             $table->unsignedBigInteger('usr_id');
-            $table->foreign('usr_id')
+            $table->foreign('use_id')
                   ->references('id')
                   ->on('users');
             $table->timestamps();
