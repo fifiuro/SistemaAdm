@@ -62,6 +62,6 @@ function formatoDecimal($num){
 
         return $fin.$decimal;
     }else{
-        return $n[0].",".$n[1];
+        return $n[0].$decimal;
     }
 }
