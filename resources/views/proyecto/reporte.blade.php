@@ -33,9 +33,9 @@
             <td><strong>Código EMA:</strong> </td>
             <td>{{ $g->ema }}</td>
             <td><strong>Volumen Presupuestado:</strong> </td>
-            <td>{{ $g->presupuesto }}</td>
+            <td>{{ formatoDecimal($g->presupuesto) }}</td>
             <td><strong>Volumen Programado:</strong> </td>
-            <td>{{ $g->programado }}</td>
+            <td>{{ formatoDecimal($g->programado) }}</td>
         </tr>
     @endforeach
     </table>
@@ -48,16 +48,16 @@
         @foreach ($volumen as $key => $v)
             <tr>
                 <td style="border:1px #000000 solid; padding:3px">{{ formatoFechaReporte($v->fecha) }}</td>
-                <td style="border:1px #000000 solid; padding:3px">{{ $v->monto }}</td>
+                <td style="border:1px #000000 solid; padding:3px">{{ formatoDecimal($v->monto) }}</td>
             </tr>
         @endforeach
         <tr>
             <td style="border:1px #000000 solid; padding:3px; text-align:right;"><strong>Total Volumen: </strong></td>
-            <td style="border:1px #000000 solid; padding:3px">{{ $sumatoria }}</td>
+            <td style="border:1px #000000 solid; padding:3px">{{ formatoDecimal($sumatoria) }}</td>
         </tr>
         <tr>
             <td style="border:1px #000000 solid; padding:3px; text-align:right;"><strong>Saldo: </strong></td>
-            <td style="border:1px #000000 solid; padding:3px">{{ ($proy[0]->programado - $sumatoria) }}</td>
+            <td style="border:1px #000000 solid; padding:3px">{{ formatoDecimal($proy[0]->programado - $sumatoria) }}</td>
         </tr>
     </table>
 

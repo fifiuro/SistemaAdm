@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Unidad;
 use App\Macro;
 use App\UnidadMacro;
+use DB;
 use Illuminate\Http\Request;
 
 class AsignacionController extends Controller
@@ -17,9 +18,8 @@ class AsignacionController extends Controller
     public function index()
     {
         $unidad = Unidad::where('estado','=',1)->get();
-        $macro = Macro::where('estado','=',1)->get();
 
-        return view('asignacion.findAsignacion',array('unidad' => $unidad,'macro' => $macro));
+        return view('asignacion.findAsignacion',array('unidad' => $unidad));
     }
 
     /**
@@ -48,7 +48,7 @@ class AsignacionController extends Controller
 
         $um->save();
 
-        return true;
+        echo true;
     }
 
     /**
@@ -57,9 +57,14 @@ class AsignacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function showMacroUnidad(Request $request)
     {
-        //
+        $macro = DB::select('SELECT um.id_um, u.id_uni, m.id_mac, m.nombre_mac 
+        FROM (SELECT * FROM unidad WHERE id_uni = '.$request->id.') AS u
+            INNER JOIN unidad_macro AS um ON (u.id_uni = um.id_uni)
+            RIGHT JOIN macro AS m ON (m.id_mac = um.id_mac)');
+
+        return $macro;
     }
 
     /**
@@ -91,8 +96,12 @@ class AsignacionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroyUnidadMacro(Request $request)
     {
-        //
+        $um = UnidadMacro::find($request->id);
+
+        $um->delete();
+
+        echo true;
     }
 }

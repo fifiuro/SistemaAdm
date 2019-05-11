@@ -25,7 +25,13 @@ class CreateProyectoTable extends Migration
                   ->references('id_ges')
                   ->on('gestion')
                   ->onDelete('cascade');
+            $table->unsignedBigInteger('id_uni');
+            $table->foreign('id_uni')
+                  ->references('id_uni')
+                  ->on('unidad')
+                  ->onDelete('cascade');
             $table->string('nombre_pro',255);
+            $table->string('ubicacion',255);
             $table->integer('ema');
             $table->date('fecha_reg');
             $table->double('presupuesto',20,4);
@@ -34,7 +40,7 @@ class CreateProyectoTable extends Migration
             $table->date('fecha_adjudicacion');
             $table->string('numero_adjudicacion',50);
             $table->boolean('estado');
-            $table->string('observaciones');
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }

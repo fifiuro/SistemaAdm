@@ -18,14 +18,14 @@
         <div class="row">
             <div class="col-xs-6">
                 <label class="titulo" for="unidad">UNIDAD EJECUTORA</label>
-                <table class="table table-striped">
+                <table class="table table-striped" id="unidad">
                     <tr>
                         @foreach ($unidad as $key => $u)
                         <tr>
                             <td>
                                 <div class="radio">
                                     <label>
-                                        <input type="radio" name="id_uni" id="id_uni" value="{{ $u->id_uni }}" class="minimal">
+                                        <input type="radio" name="id_uni" id="id_uni" value="{{ $u->id_uni }}" class="uni">
                                         {{ $u->unidad_ejecutora }}
                                     </label>
                                 </div>
@@ -37,21 +37,8 @@
             </div>
             <div class="col-xs-6">
                 <label for="macro">MACRO DISTRITO:</label>
-                <table class="table table-striped" id="todo">
-                    <tr>
-                        @foreach ($macro as $key => $m)
-                        <tr>
-                            <td>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="id_dist" id="id_dist" value="{{ $m->id_mac }}" class="titulo">
-                                        {{ $m->nombre_mac }}
-                                    </label>
-                                </div>
-                            </td>
-                        </tr>
-                            @endforeach
-                    </tr>
+                <table class="table table-striped" id="macro">
+                    <tbody></tbody>
                 </table>
             </div>
             <div class="col-xs-12">
@@ -60,115 +47,29 @@
             </div>
         </div>
     </div>
+    <input type="hidden" name="id" id="id">
     <meta name="csrf-token" content="{{ csrf_token() }}">
   </div>
 @endsection
 
 @section('extra')
 
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-// Acciones de clic
-$("#todo input[class=titulo]").on("click",function(){
-    if($(this).is(':checked')){
-        alert('seleccionado:' + $(this).val());
-        $.ajax({
-            url: 'storeUnidadMacro',
-            data: {
-                    'id_uni':$("#id_uni").val(),
-                    'id_mac':$(this).val()
-                },
-            type: 'post',
-            success: function(response){
-                if(response != ''){
-                    $("#id_mac").attr('disabled',false);
-                    $("#id_mac").html(response);
-    
-                    $("#id_dist").empty();
-                    $("#id_dist").attr('disabled',true);
-    
-                    $("#nombre_pro").attr('disabled',true);
-                    $("#ema").attr('disabled',true);
-                    $("#presupuesto").attr('disabled',true);
-    
-                    $("#nombre_pro").val('');
-                    $("#ema").val('');
-                    $("#presupuesto").val('');
-                }else{
-                    $("#id_mac").empty();
-                    $("#id_mac").attr('disabled',true);
-    
-                    $("#id_dist").empty();
-                    $("#id_dist").attr('disabled',true);
-    
-                    $("#nombre_pro").attr('disabled',true);
-                    $("#ema").attr('disabled',true);
-                    $("#presupuesto").attr('disabled',true);
-    
-                    $("#nombre_pro").val('');
-                    $("#ema").val('');
-                    $("#presupuesto").val('');
-    
-                    alert('No se tuvieron resultados.');
-                }
-            },
-            statusCode: {
-                404: function*(){
-                    alert('No se pudo conectar con el Servidor.');
-                }
-            },
-            error: function(x,xs,xt){
-                // nos dara el errore si es que hay alguno
-                window.open(JSON.stringify(x));
-                // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
-            }
-        });
-    }else{
-        alert('No seleccionado');
-    }
-});
-
-$("#id_uni").change(function(){
+$("#unidad input[class=uni]").on("click",function(){
+    $("#id").val($(this).val());
     $.ajax({
-        url: 'listaMacro',
-        data: {'id':$("#id_uni").val()},
+        url: 'showMacroUnidad',
+        data: { 'id':$(this).val() },
         type: 'post',
+        dataType: "json",
         success: function(response){
-            if(response != ''){
-                $("#id_mac").attr('disabled',false);
-                $("#id_mac").html(response);
-
-                $("#id_dist").empty();
-                $("#id_dist").attr('disabled',true);
-
-                $("#nombre_pro").attr('disabled',true);
-                $("#ema").attr('disabled',true);
-                $("#presupuesto").attr('disabled',true);
-
-                $("#nombre_pro").val('');
-                $("#ema").val('');
-                $("#presupuesto").val('');
-            }else{
-                $("#id_mac").empty();
-                $("#id_mac").attr('disabled',true);
-
-                $("#id_dist").empty();
-                $("#id_dist").attr('disabled',true);
-
-                $("#nombre_pro").attr('disabled',true);
-                $("#ema").attr('disabled',true);
-                $("#presupuesto").attr('disabled',true);
-
-                $("#nombre_pro").val('');
-                $("#ema").val('');
-                $("#presupuesto").val('');
-
-                alert('No se tuvieron resultados.');
-            }
+            $("#macro tbody").empty();
+            $.each(response, function(index,value){
+                if(value.id_uni === null){
+                    $("#macro tbody").append("<tr><td><div class='checkbox'><label><input type='checkbox' name='id_mac' id='" + value.id_um + "' value='" + value.id_mac + "' class='titulo'>" + value.nombre_mac + "</label></div></td></tr>");
+                }else{
+                    $("#macro tbody").append("<tr><td><div class='checkbox'><label><input type='checkbox' name='id_mac' id='" + value.id_um + "' value='" + value.id_mac + "' class='titulo' checked>" + value.nombre_mac + "</label></div></td></tr>");
+                }
+            });
         },
         statusCode: {
             404: function*(){
@@ -183,9 +84,67 @@ $("#id_uni").change(function(){
     });
 });
 
-//iCheck for checkbox and radio inputs
-$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
-    checkboxClass: 'icheckbox_minimal-blue',
-    radioClass: 'iradio_minimal-blue'
-  });
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+// Acciones de clic
+$("#macro").on("click",".titulo",function(){
+    if($(this).is(':checked')){
+        $.ajax({
+            url: 'storeUnidadMacro',
+            data: {
+                    'id_uni':$("#id").val(),
+                    'id_mac':$(this).val()
+                },
+            type: 'post',
+            success: function(response){
+                if(response == true){
+                    alert("Se asignó el corretamente.");
+                }else{
+                    alert('No se realizo la asignación.');
+                }
+            },
+            statusCode: {
+                404: function*(){
+                    alert('No se pudo conectar con el Servidor.');
+                }
+            },
+            error: function(x,xs,xt){
+                // nos dara el errore si es que hay alguno
+                window.open(JSON.stringify(x));
+                // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+            }
+        });
+    }else{
+        alert($(this).attr('id'));
+        $.ajax({
+            url: 'destroyUnidadMacro',
+            data: {
+                    'id':$(this).attr('id')
+                },
+            type: 'post',
+            success: function(response){
+                if(response == true){
+                    alert("Se Eliminó la asignación.");
+                }else{
+                    alert('No Eliminó la asignación.');
+                }
+            },
+            statusCode: {
+                404: function*(){
+                    alert('No se pudo conectar con el Servidor.');
+                }
+            },
+            error: function(x,xs,xt){
+                // nos dara el errore si es que hay alguno
+                window.open(JSON.stringify(x));
+                // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+            }
+        });
+    }
+});
+
 @endsection

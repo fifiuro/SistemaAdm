@@ -31,3 +31,37 @@ function buscarDato($lista, $buscar){
         }
     }
 }
+/** Formato de numero con decimales */
+function formatoDecimal($num){
+    $n = explode('.',$num);
+    if(isset($n[1])){
+        $decimal = ",".$n[1];
+    }else{
+        $decimal = '';
+    }
+
+    if(strlen($n[0])>3){
+        $uno = strlen($n[0]) % 3;
+        $con = 1;
+        $fin = '';
+
+        for($i=0; $i<strlen($n[0]); $i++){
+            if($i < $uno){
+                $fin .= $n[0][$i];
+            }else{
+                if($con <= 3){
+                    if($con == 1){
+                        $fin .= '.'.$n[0][$i];
+                    }else{
+                        $fin .= $n[0][$i];
+                    }
+                }
+                $con = $con + 1;
+            }
+        }
+
+        return $fin.$decimal;
+    }else{
+        return $n[0].",".$n[1];
+    }
+}

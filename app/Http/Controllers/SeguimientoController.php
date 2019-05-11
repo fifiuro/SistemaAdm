@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Gestion;
 use App\Unidad;
 use App\Distrito;
+use App\Proyecto;
 use Illuminate\Http\Request;
 use DB;
 
@@ -35,29 +36,20 @@ class SeguimientoController extends Controller
         $gestion = Gestion::all();
 
         $unidad = Unidad::all();
-
-        $seg = DB::select('select 
-                                d.id_dist, 
-                                g.gestion, 
-                                u.unidad_ejecutora, 
-                                m.nombre_mac, 
-                                d.nombre_dis, 
-                                p.nombre_pro, 
-                                p.programado, 
-                                p.presupuesto,
-                                ifnull((select count(*) from monto where id_pro = p.id_pro group by id_pro),0) as total 
-                            from unidad as u 
-                                inner join unidad_macro as um on (u.id_uni = um.id_uni)
-                                inner join macro as m on (um.id_mac = m.id_mac)
-                                inner join distrito as d on (m.id_mac = d.id_mac)
-                                inner join proyecto as p on (d.id_dist = p.id_dist)
-                                inner join gestion as g on (p.id_ges = g.id_ges)
-                            where 
-                                p.id_ges like "%'.$request->gestion.'%" and 
-                                u.id_uni like "%'.$request->unidad.'%" and
-                                m.id_mac like "%'.$request->macro.'%" and 
-                                d.id_dist like "%'.$request->distrito.'%" and 
-                                p.nombre_pro like "%'.$request->proyecto.'%"');
+        
+        $seg = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
+                        ->join('macro','macro.id_mac','=','distrito.id_mac')
+                        ->where('proyecto.id_ges','like','%'.$request->gestion.'%')
+                        ->where('unidad.id_uni','like','%'.$request->unidad.'%')
+                        ->where('macro.id_mac','like','%'.$request->macro.'%')
+                        ->where('distrito.id_dist','like','%'.$request->distrito.'%')
+                        ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+                        ->whereRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
+                        ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.nombre_pro','proyecto.programado','proyecto.presupuesto')
+                        ->selectRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) as total')
+                        ->get();
 
         if(count($seg) > 0){
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,

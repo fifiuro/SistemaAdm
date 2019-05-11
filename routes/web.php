@@ -110,7 +110,10 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('findAsignacion','asignacionController@index');
     // Guardar la asignacionde Macro - Unidad
     Route::post('storeUnidadMacro','AsignacionController@storeUnidadMacro');
-
+    // realizar la busqueda de los macros distrito y los que pertenecen a Unida Ejecutora
+    Route::post('showMacroUnidad','AsignacionController@showMacroUnidad');
+    // Eliminar la asignacion Macro - Unidad
+    Route::post('destroyUnidadMacro','AsignacionController@destroyUnidadMacro');
     /** FIN */
 
     /** ACCIONES PARA MODULO DE PROYECTO */

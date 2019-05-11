@@ -34,15 +34,25 @@ class ProyectoController extends Controller
      */
     public function show(Request $request)
     {
-        $proyecto = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
-                            ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                            ->join('macro','macro.id_mac','=','distrito.id_mac')
-                            ->join('unidad_macro','unidad_macro.id_mac','macro.id_mac')
-                            ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+        $proyecto = Proyecto::
+        join('gestion','gestion.id_ges','=','proyecto.id_ges')
+        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
+        ->join('macro','macro.id_mac','=','distrito.id_mac')
         ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
         ->where('proyecto.ema','like','%'.$request->ema.'%')
         ->where('unidad.id_uni','like','%'.$request->unidad.'%')
-        ->select('unidad_ejecutora','nombre_mac','nombre_dis','proyecto.id_pro','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ubicacion','proyecto.ema','proyecto.presupuesto','proyecto.programado','proyecto.estado')
+        ->select('unidad_ejecutora',
+                'nombre_mac',
+                'nombre_dis',
+                'proyecto.id_pro',
+                'distrito.nombre_dis',
+                'proyecto.nombre_pro',
+                'proyecto.ubicacion',
+                'proyecto.ema',
+                'proyecto.presupuesto',
+                'proyecto.programado',
+                'proyecto.estado')
         ->get();
 
         $unidad = Unidad::all();
@@ -87,6 +97,7 @@ class ProyectoController extends Controller
 
         $proyecto->id_dist = $request->id_dist;
         $proyecto->id_ges = $request->id_ges;
+        $proyecto->id_uni = $request->id_uni;
         $proyecto->nombre_pro = $request->nombre_pro;
         $proyecto->ubicacion = $request->ubicacion;
         $proyecto->ema = $request->ema;
@@ -94,7 +105,7 @@ class ProyectoController extends Controller
         $proyecto->programado = $request->programado;
         $proyecto->adjudicacion = $request->adjudicado;
         $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
-        $proyecto->numero_adjudicacion = $request->numero;
+        $proyecto->numero_adjudicacion = 0;
         $proyecto->fecha_reg = date('Y-m-d');
         $proyecto->estado = 1;
 
@@ -212,21 +223,21 @@ class ProyectoController extends Controller
     /** Reporte por proyecto y sus volumenes */
     public function reporteProyecto($id)
     {
-        $proy = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                        ->join('macro','macro.id_mac','=','distrito.id_mac')
-                        ->join('unidad_macro','unidad_macro.id_mac','=','macro.id_mac')
-                        ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
-                        ->join('gestion','gestion.id_ges','=','proyecto.id_ges')
-                        ->where('proyecto.id_pro','=',$id)
-                        ->select('gestion.gestion',
-                                 'unidad.unidad_ejecutora',
-                                 'distrito.nombre_dis',
-                                 'distrito.numero_dis',
-                                 'proyecto.nombre_pro',
-                                 'proyecto.ema',
-                                 'proyecto.presupuesto',
-                                 'proyecto.programado')
-                        ->get();
+        $proy = Proyecto::
+        join('gestion','gestion.id_ges','=','proyecto.id_ges')
+        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
+        ->join('macro','macro.id_mac','=','distrito.id_mac')
+        ->where('proyecto.id_pro','=',$id)
+        ->select('gestion.gestion',
+                    'unidad.unidad_ejecutora',
+                    'distrito.nombre_dis',
+                    'distrito.numero_dis',
+                    'proyecto.nombre_pro',
+                    'proyecto.ema',
+                    'proyecto.presupuesto',
+                    'proyecto.programado')
+        ->get();
         
         $volumen = Volumen::where('id_pro','=',$id)->orderBy('fecha','desc')->get();
 

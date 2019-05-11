@@ -46,7 +46,7 @@
                 <select name="distrito" id="distrito" class="form-control">
                 </select>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-1">
               <label for="proyecto">Proyecto:</label>
               <select name="proyecto" id="proyecto" class="form-control">
                 <option></option>
@@ -55,6 +55,15 @@
                 <option>Asfalto</option>
               </select>
             </div>
+            <div class="col-xs-1">
+                <label for="estado">Estado:</label>
+                <select name="estado" id="estado" class="form-control">
+                  <option></option>
+                  <option value="=0">Por Ejecutar</option>
+                  <option value=">0">En ejecución</option>
+                  <option value="<0">Ejecutado</option>
+                </select>
+              </div>
           <div class="col-xs-1">
             {{-- Boton Buscar --}}
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
@@ -65,15 +74,15 @@
     @if(isset($seg))
       @if($estado)
         <div class="box-footer">
-          <table class="table">
+          <table class="table table-striped">
             <tbody>
               <tr>
                 <th>Gestion</th>
-                <th>Unidad Ejecutora</th>
-                <th>Proyecto</th>
+                <th>Datos del Proyecto</th>
                 <th>Volumen<br>Presupuestado</th>
                 <th>Volumen<br>Programado</th>
                 <th>Volumen Total</th>
+                <th>Progeso</th>
                 <th>Saldo</th>
                 <th>Acciones</th>
               </tr>
@@ -81,19 +90,36 @@
               <tr>
                 <td>{{ $s->gestion }}</td>
                 <td>
-                  {{ $s->unidad_ejecutora }} <br>
+                  <strong>Unidad Ejecutora: </strong>{{ $s->unidad_ejecutora }} <br>
                   <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
-                  <strong>Distrito: </strong>{{ $s->nombre_dis }}
+                  <strong>Distrito: </strong>{{ $s->nombre_dis }}<br>
+                  <strong>Nombre Proyecto: </strong>{{ $s->nombre_pro }}
                 </td>
-                <td>{{ $s->nombre_pro }}</td>
-                <td>{{ $s->presupuesto }}</td>
-                <td>{{ $s->programado }}</td>
-                <td>{{ $s->total }}</td>
+                <td>{{ formatoDecimal($s->presupuesto) }}</td>
+                <td>{{ formatoDecimal($s->programado) }}</td>
+                <td>{{ formatoDecimal($s->total) }}</td>
                 <td>
-                  @if(($s->programado - $s->total) > 0)
-                    <span style="color:green"><strong>{{ ($s->programado - $s->total) }}</strong></span>
-                  @else
-                    <span style="color:red"><strong>{{ ($s->programado - $s->total) }}</strong></span>
+                  @if((($s->total * 100) / $s->programado) == 0)
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-danger" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
+                    </div>
+                  @elseif((($s->total * 100) / $s->programado) > 0)
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-warning" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
+                    </div>
+                  @elseif((($s->total * 100) / $s->programado) >= 100)
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-success" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
+                    </div>
+                  @endif
+                </td>
+                <td>
+                  @if(($s->programado - $s->total) == $s->programado)
+                    <span class="badge bg-red">{{ formatoDecimal($s->programado - $s->total) }}</span>
+                  @elseif(($s->programado - $s->total) < $s->programado)
+                    <span class="badge bg-yellow">{{ formatoDecimal($s->programado - $s->total) }}</span>
+                  @elseif(($s->programado - $s->total) >= $s->programado)
+                    <span class="badge bg-green">{{ formatoDecimal($s->programado - $s->total) }}</span>
                   @endif
                 </td>
                 <td>

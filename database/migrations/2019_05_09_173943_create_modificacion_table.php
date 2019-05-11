@@ -20,7 +20,7 @@ class CreateModificacionTable extends Migration
             $table->string('anterior',255);
             $table->string('actual',255);
             $table->date('fecha');
-            $table->unsignedBigInteger('usr_id');
+            $table->unsignedBigInteger('use_id');
             $table->foreign('use_id')
                   ->references('id')
                   ->on('users');

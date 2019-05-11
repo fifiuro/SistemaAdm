@@ -41,11 +41,11 @@
                     </div>
                     <div class="col-xs-3">
                         <label for="presupuesto">Monto de Contrato:</label>
-                        {{ $p->presupuesto }} <strong>Bs.</strong>
+                        {{ formatoDecimal($p->presupuesto) }} <strong>Bs.</strong>
                     </div>
                     <div class="col-xs-3">
                         <label for="presupuesto">Volumen Proyectado:</label>
-                        {{ $p->programado }}
+                        {{ formatoDecimal($p->programado) }}
                     </div>
                     <div class="col-xs-3">
                         <label for="estado">Estado:</label>
@@ -96,7 +96,7 @@
                     @foreach ($volumen as $key => $v)
                         <tr>
                             <td>{{ formatoFechaReporte($v->fecha) }}</td>
-                            <td>{{ $v->monto }}</td>
+                            <td>{{ formatoDecimal($v->monto) }}</td>
                             <td>
                                 @switch(Auth::user()->tipoUser(Auth::user()->id))
                                     @case(1)
@@ -122,10 +122,10 @@
                     <tr>
                         <td style="text-align:right"><h3><strong>TOTAL</strong></h3></td>
                         <td>
-                            <h3>{{ $sum[0]->total }}</h3>
+                            <h3>{{ formatoDecimal($sum[0]->total) }}</h3>
                         </td>
                         <td>
-                            <h3><strong>Saldo:</strong> {{ ($proy[0]->programado - $sum[0]->total) }}</h3>
+                            <h3><strong>Saldo:</strong> {{ formatoDecimal($proy[0]->programado - $sum[0]->total) }}</h3>
                         </td>
                     </tr>
                     </table>
