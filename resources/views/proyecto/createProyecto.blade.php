@@ -48,7 +48,6 @@
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>
                 <select name="nombre_pro" id="nombre_pro" class="form-control" disabled required>
-                    <option>Señalización</option>
                     <option>Recapeo</option>
                     <option>Bacheo</option>
                     <option>Asfalto</option>
@@ -76,7 +75,7 @@
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
             </div>
             <div class="group-form-control">
-                <label for="adjudicado">Adjudico A:</label>
+                <label for="adjudicado">Documento de Adijudicacion:</label>
                 <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" disabled required>
             </div>
             <div class="group-form-control">
@@ -87,10 +86,6 @@
                     </div>
                     <input type="text" name="fecha" class="form-control pull-right" id="datepicker" disabled required>
                 </div>
-            </div>
-            <div class="group-form-control">
-                <label for="numero">Número Adjudicación:</label>
-                <input class="form-control" id="numero" name="numero" placeholder="Número de Adjudicación" type="text" disabled required>
             </div>
             <hr>
             <div class="group-form-control">

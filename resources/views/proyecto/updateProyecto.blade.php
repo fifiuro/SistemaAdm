@@ -36,28 +36,19 @@
             <div class="group-form-control">
                 <label for="nombre_pro">Nombre del Proyecto:</label>
                 <select name="nombre_pro" id="nombre_pro" class="form-control" required>
-                    @if($p->nombre_pro == 'Señalización')
-                        <option selected>Señalización</option>
-                        <option>Recapeo</option>
-                        <option>Bacheo</option>
-                        <option>Asfalto</option>
-                    @elseif($p->nombre_pro == 'Recapeo')
-                        <option>Señalización</option>
+                    @if($p->nombre_pro == 'Recapeo')
                         <option selected>Recapeo</option>
                         <option>Bacheo</option>
                         <option>Asfalto</option>
                     @elseif($p->nombre_pro == 'Bacheo')
-                        <option>Señalización</option>
                         <option>Recapeo</option>
                         <option selected>Bacheo</option>
                         <option>Asfalto</option>
                     @elseif($p->nombre_pro == 'Asfalto')
-                        <option>Señalización</option>
                         <option>Recapeo</option>
                         <option>Bacheo</option>
                         <option selected>Asfalto</option>
                     @else
-                        <option>Señalización</option>
                         <option>Recapeo</option>
                         <option>Bacheo</option>
                         <option >Asfalto</option>
@@ -86,7 +77,7 @@
                 <input type="hidden" name="programadoA" value="{{ $p->programado }}">
             </div>
             <div class="group-form-control">
-                <label for="adjudicado">Adjudico A:</label>
+                <label for="adjudicado">Documento de Adijudicacion:</label>
                 <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" value="{{ $p->adjudicacion }}" required>
                 <input type="hidden" name="adjudicadoA" value="{{ $p->adjudicacion }}">
             </div>

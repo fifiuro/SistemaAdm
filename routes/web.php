@@ -109,7 +109,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Formulario para la Asignacion
     Route::get('findAsignacion','asignacionController@index');
     // Guardar la asignacionde Macro - Unidad
-    Route:post('storeUnidadMacro','AsignacionController@storeUnidadMacro');
+    Route::post('storeUnidadMacro','AsignacionController@storeUnidadMacro');
 
     /** FIN */
 

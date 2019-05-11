@@ -48,7 +48,12 @@
             </div>
             <div class="col-xs-2">
               <label for="proyecto">Proyecto:</label>
-              <input class="form-control" id="proyecto" name="proyecto" placeholder="Distrito" type="text">
+              <select name="proyecto" id="proyecto" class="form-control">
+                <option></option>
+                <option>Recapeo</option>
+                <option>Bacheo</option>
+                <option>Asfalto</option>
+              </select>
             </div>
           <div class="col-xs-1">
             {{-- Boton Buscar --}}

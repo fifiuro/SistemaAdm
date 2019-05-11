@@ -43,7 +43,7 @@
     <table style="width:100%; font-size:12px" border="0" cellspacing="0" cellpadding="0">
         <tr>
             <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>FECHA</strong></td>
-            <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>MONTO</strong></td>
+            <td style="border:1px #000000 solid; padding:5px; text-align:center"><strong>VOLUMEN</strong></td>
         </tr>
         @foreach ($volumen as $key => $v)
             <tr>
