@@ -1,5 +1,5 @@
 <?php
-/* Cambiar el fomato de la fecha para guardar a la Base de Datos */
+/* Cambiar el formato de la fecha para guardar a la Base de Datos */
 function formatoFecha($fo){
     if($fo != ""){
         $fv = explode("/",$fo);

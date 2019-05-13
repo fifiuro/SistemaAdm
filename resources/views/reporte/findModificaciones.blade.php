@@ -47,12 +47,6 @@
           <div class="col-xs-2">
             {{-- Boton Buscar --}}
             <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-            @switch(Auth::user()->tipoUser(Auth::user()->id))
-              @case(1)
-                {{-- Boton Nuevo --}}
-                <a href="{{ url('createProyecto') }}" class="btn btn-success"><i class="glyphicon glyphicon-plus"></i></a>
-                @break
-            @endswitch
           </div>
         </div>
       </form>

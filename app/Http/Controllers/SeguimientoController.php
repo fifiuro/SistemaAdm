@@ -6,6 +6,7 @@ use App\Gestion;
 use App\Unidad;
 use App\Distrito;
 use App\Proyecto;
+use App\Estimado;
 use Illuminate\Http\Request;
 use DB;
 
@@ -70,9 +71,11 @@ class SeguimientoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function indexDetalle()
     {
-        //
+        $gestion = Gestion::all();
+
+        return view('seguimiento.findDetalle', array('gestion' => $gestion));
     }
 
     /**
@@ -81,9 +84,63 @@ class SeguimientoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function showDetalle(Request $request)
     {
-        //
+        $gestion = Gestion::all();
+
+        $fecha = explode(' - ',$request->fecha);
+
+        /*$result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
+                          ->join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                          ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                          ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
+                          ->join('macro','macro.id_mac','=','distrito.id_mac')
+                          ->where('proyecto.id_ges','=',$request->gestion)
+                          ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+                          ->whereBetween('fecha',array(formatoFecha($fecha[0]),formatoFecha($fecha[1])))
+                          ->get();*/
+        
+        $result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
+                          ->where('proyecto.id_ges','=',$request->gestion)
+                          ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+                          ->whereBetween('fecha',array(formatoFecha($fecha[0]),formatoFecha($fecha[1])))
+                          ->orderBy('proyecto.id_pro','DESC')
+                          ->get();
+        
+        $id1 = array();
+        foreach($result as $key => $r){
+            array_push($id1, $r->id_pro);
+        }
+
+        $id = array_unique($id1);
+        
+        $proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
+                        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
+                        ->join('macro','macro.id_mac','=','distrito.id_mac')
+                        ->whereIn('id_pro',$id)
+                        ->orderBy('proyecto.id_pro','DESC')
+                        ->get();
+        
+        $estimado = Estimado::whereIn('id_pro',$id)
+                        ->orderBy('id_pro','DESC')
+                        ->get();
+
+        if(count($result) > 0){
+            return view('seguimiento.findDetalle', array(
+                'gestion' => $gestion,
+                'result' => $result,
+                'proy' => $proy,
+                'estimado' => $estimado,
+                'estado' => true
+            ));
+        }else{
+            return view('seguimiento.findDetalle', array(
+                'gestion' => $gestion,
+                'estado' => false,
+                'mensaje' => 'No se tuvieron coincidencias.'
+            ));
+        }
     }
 
     /**
