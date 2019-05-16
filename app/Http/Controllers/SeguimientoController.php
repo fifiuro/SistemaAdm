@@ -9,6 +9,8 @@ use App\Proyecto;
 use App\Estimado;
 use Illuminate\Http\Request;
 use DB;
+use App\Exports\DetalleExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class SeguimientoController extends Controller
 {
@@ -48,7 +50,7 @@ class SeguimientoController extends Controller
                         ->where('distrito.id_dist','like','%'.$request->distrito.'%')
                         ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
                         ->whereRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
-                        ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.nombre_pro','proyecto.programado','proyecto.presupuesto')
+                        ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.nombre_pro','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
                         ->selectRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) as total')
                         ->get();
 
@@ -149,9 +151,9 @@ class SeguimientoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function exportarExcel($id)
     {
-        //
+        return Excel::download(new DetalleExport, 'unidad.xlsx');
     }
 
     /**

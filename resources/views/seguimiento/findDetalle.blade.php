@@ -64,8 +64,10 @@
             <tbody>
               <tr>
                 <th>Datos proyecto</th>
+                <th>Adjudicado A</th>
                 <th>Estimado</th>
                 <th>Volumen Real</th>
+                <th>Acciones</th>
               </tr>
               @foreach($proy as $key => $r)
               <tr>
@@ -77,6 +79,10 @@
                     <strong>Nombre Proyecto: </strong>{{ $r->nombre_pro }}<br>
                     <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }}<br>
                     <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }}
+                </td>
+                <td>
+                    <strong>Documento: </strong>{{ $r->adjudicacion }}<br>
+                    <strong>Fecha: </strong>{{ formatoFechaReporte($r->fecha_adjudicacion) }}
                 </td>
                 <td>
                     <table class="table">
@@ -109,6 +115,16 @@
                             @endif
                         @endforeach
                     </table>
+                </td>
+                <td>
+                    @switch(Auth::user()->tipoUser(Auth::user()->id))
+                    @case(2)
+                        {{-- Boton Exportar a Excel --}}
+                        <a href="{{ url('exportarExcel/'.$r->id_pro) }}" class="btn btn-success">
+                            <i class="fa fa-file-excel-o"></i>
+                        </a>
+                        @break
+                    @endswitch
                 </td>
               </tr>
               @endforeach

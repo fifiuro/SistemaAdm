@@ -79,6 +79,7 @@
               <tr>
                 <th>Gestion</th>
                 <th>Datos del Proyecto</th>
+                <th><strong>Adjudicado A</strong></th>
                 <th>Volumen<br>Presupuestado</th>
                 <th>Volumen<br>Programado</th>
                 <th>Volumen Total</th>
@@ -94,6 +95,10 @@
                   <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
                   <strong>Distrito: </strong>{{ $s->nombre_dis }}<br>
                   <strong>Nombre Proyecto: </strong>{{ $s->nombre_pro }}
+                </td>
+                <td>
+                  <strong>Documento: </strong>{{ $s->adjudicacion }}<br>
+                  <strong>Fecha: </strong>{{ formatoFechaReporte($s->fecha_adjudicacion) }}
                 </td>
                 <td>{{ formatoDecimal($s->presupuesto) }}</td>
                 <td>{{ formatoDecimal($s->programado) }}</td>

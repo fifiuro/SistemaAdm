@@ -196,6 +196,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('findDetalle','SeguimientoController@indexDetalle');
     // Datos para hacer la busqueda del Detalle del Proyecto
     Route::post('findDetalle','SeguimientoController@showDetalle');
+    // Exportar a excel el Proyecto
+    Route::get('exportarExcel/{id}','SeguimientoController@exportarExcel');
     /** FIN */
 
     /** ACCIONES PARA TODAS LAS MODIFICACIONES DEL PROYECTO */
