@@ -15,24 +15,27 @@
 @section('contenido')
 <div class="box box-danger">
     <div class="box-body">
-        <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
             {{ csrf_field() }}
             @foreach ($proy as $key => $p)
-                <div class="group-form-control col-xs-4">
-                    <label for="proyecto">Unidad Ejecutora:</label>
-                    {{ $p->unidad_ejecutora }}
+                <div class="row">
+                    <div class="group-form-control col-xs-4">
+                        <label for="proyecto">Unidad Ejecutora:</label>
+                        {{ $p->unidad_ejecutora }}
+                    </div>
+                    <div class="group-form-control col-xs-4">
+                        <label for="proyecto">Macro Distrito:</label>
+                        {{ $p->nombre_mac }}
+                    </div>
+                    <div class="group-form-control col-xs-4">
+                        <label for="proyecto">Distrito:</label>
+                        {{ $p->nombre_dis }}
+                    </div>
                 </div>
-                <div class="group-form-control col-xs-4">
-                    <label for="proyecto">Macro Distrito:</label>
-                    {{ $p->nombre_mac }}
-                </div>
-                <div class="group-form-control col-xs-4">
-                    <label for="proyecto">Distrito:</label>
-                    {{ $p->nombre_dis }}
-                </div>
-                <div class="group-form-control">
-                    <label for="proyecto">Proyecto:</label>
-                    {{ $p->nombre_pro }}
+                <div class="row">
+                    <div class="group-form-control col-xs-12">
+                        <label for="proyecto">Proyecto:</label>
+                        {{ $p->nombre_pro }}
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-3">
@@ -63,7 +66,7 @@
                         <div class="row">
                             <div class="group-form-control col-xs-4">
                                 <label for="fecha">Fecha: </label>
-                                <div class="input-group date">
+                                <div class="input-group date" style="position:relative; z-index:1000">
                                     <div class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </div>
@@ -141,7 +144,6 @@
             <div class="group-form-control">
                 <a href="{{ url('findProyecto') }}" class="btn btn-danger">VOLVER</a>
             </div>
-        </form>
     </div>
   </div>
 @endsection

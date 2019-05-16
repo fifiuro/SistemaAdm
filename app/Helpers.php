@@ -33,7 +33,17 @@ function buscarDato($lista, $buscar){
 }
 /** Formato de numero con decimales */
 function formatoDecimal($num){
-    $n = explode('.',$num);
+    if($num > 0){
+        $signo = '';
+        $n = explode('.',$num);
+    }elseif($num < 0){
+        $signo = substr($num,1,1);
+        $num = substr($num,1);
+        $n = explode('.',$num);
+    }else{
+        return $num;
+    }
+    
     if(isset($n[1])){
         $decimal = ",".$n[1];
     }else{
@@ -44,7 +54,7 @@ function formatoDecimal($num){
         $uno = strlen($n[0]) % 3;
         $con = 1;
         $fin = '';
-
+        
         for($i=0; $i<strlen($n[0]); $i++){
             if($i < $uno){
                 $fin .= $n[0][$i];
@@ -59,9 +69,17 @@ function formatoDecimal($num){
                 $con = $con + 1;
             }
         }
-
-        return $fin.$decimal;
+        
+        if($signo != ''){
+            return $signo.$fin.$decimal;
+        }else{
+            return $fin.$decimal;
+        }
     }else{
-        return $n[0].$decimal;
+        if($signo != ''){
+            return $signo.$n[0].$decimal;
+        }else {
+            return $n[0].$decimal;
+        }
     }
 }

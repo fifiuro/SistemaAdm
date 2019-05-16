@@ -52,7 +52,7 @@
     <div class="wrapper">
 
         @if (Auth::check())
-        <header class="main-header">
+        <header class="main-header" style="position:relative; z-index:1">
             <!-- Logo -->
             <a href="{{ url('home') }}" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
@@ -115,7 +115,7 @@
         </header>
         
         <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+        <aside class="main-sidebar" style="position:absolute; z-index:0">
             <!-- sidebar: style can be found in sidebar.less -->
             <section class="sidebar">
                 <!-- sidebar menu: : style can be found in sidebar.less -->

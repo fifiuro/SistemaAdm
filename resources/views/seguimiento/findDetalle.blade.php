@@ -36,7 +36,7 @@
                     <option>Asfalto</option>
                 </select>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-4" style="z-index:0">
                 <div class="form-group">
                     <label for="fecha">Fechas:</label>
                     <div class="input-group">

@@ -108,23 +108,23 @@
                     <div class="progress progress-xs">
                       <div class="progress-bar progress-bar-danger" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
                     </div>
-                  @elseif((($s->total * 100) / $s->programado) > 0)
-                    <div class="progress progress-xs">
-                      <div class="progress-bar progress-bar-warning" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
-                    </div>
                   @elseif((($s->total * 100) / $s->programado) >= 100)
                     <div class="progress progress-xs">
                       <div class="progress-bar progress-bar-success" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
+                    </div>
+                  @elseif((($s->total * 100) / $s->programado) > 0)
+                    <div class="progress progress-xs">
+                      <div class="progress-bar progress-bar-warning" style="width: {{ (($s->total * 100) / $s->programado) }}%"></div>
                     </div>
                   @endif
                 </td>
                 <td>
                   @if(($s->programado - $s->total) == $s->programado)
                     <span class="badge bg-red">{{ formatoDecimal($s->programado - $s->total) }}</span>
+                  @elseif(($s->programado - $s->total) == 0)
+                    <span class="badge bg-green">{{ formatoDecimal($s->programado - $s->total) }}</span>
                   @elseif(($s->programado - $s->total) < $s->programado)
                     <span class="badge bg-yellow">{{ formatoDecimal($s->programado - $s->total) }}</span>
-                  @elseif(($s->programado - $s->total) >= $s->programado)
-                    <span class="badge bg-green">{{ formatoDecimal($s->programado - $s->total) }}</span>
                   @endif
                 </td>
                 <td>
