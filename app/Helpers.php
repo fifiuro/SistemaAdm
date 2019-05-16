@@ -52,6 +52,9 @@ function formatoDecimal($num){
 
     if(strlen($n[0])>3){
         $uno = strlen($n[0]) % 3;
+        if($uno == 0){
+            $uno = 3;
+        }
         $con = 1;
         $fin = '';
         

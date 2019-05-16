@@ -61,7 +61,7 @@
                 </div>
                 @if ($p->estado == 1)
                     <hr>
-                    <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
+                    <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
                         {{ csrf_field() }}
                         <div class="row">
                             <div class="group-form-control col-xs-4">

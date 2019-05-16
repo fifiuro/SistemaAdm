@@ -58,7 +58,7 @@
             <div class="col-xs-1">
                 <label for="estado">Estado:</label>
                 <select name="estado" id="estado" class="form-control">
-                  <option></option>
+                  <option value=" like '%%'"></option>
                   <option value="=0">Por Ejecutar</option>
                   <option value=">0">En ejecución</option>
                   <option value="<0">Ejecutado</option>
@@ -119,12 +119,12 @@
                   @endif
                 </td>
                 <td>
-                  @if(($s->programado - $s->total) == $s->programado)
-                    <span class="badge bg-red">{{ formatoDecimal($s->programado - $s->total) }}</span>
-                  @elseif(($s->programado - $s->total) == 0)
-                    <span class="badge bg-green">{{ formatoDecimal($s->programado - $s->total) }}</span>
-                  @elseif(($s->programado - $s->total) < $s->programado)
-                    <span class="badge bg-yellow">{{ formatoDecimal($s->programado - $s->total) }}</span>
+                  @if($s->total == 0)
+                    <span class="badge bg-green">{{ formatoDecimal($s->total) }}</span>
+                  @elseif($s->total > 0 and ($s->programado - $s->total) > 0)
+                    <span class="badge bg-yellow">{{ formatoDecimal($s->total) }}</span>
+                  @elseif(($s->programado - $s->total) >= -5 and ($s->programado - $s->total) <= 10)
+                    <span class="badge bg-red">{{ ($s->programado - $s->total) }}</span>
                   @endif
                 </td>
                 <td>
