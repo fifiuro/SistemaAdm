@@ -80,8 +80,8 @@
                 <td>{{ $p->nombre_pro }}</td>
                 <td>{{ $p->ubicacion }}</td>
                 <td>{{ $p->ema }}</td>
-                <td>{{ $p->presupuesto }}</td>
-                <td>{{ $p->programado }}</td>
+                <td>{{ formatoDecimal($p->presupuesto) }}</td>
+                <td>{{ formatoDecimal($p->programado) }}</td>
                 <td>
                   @if ($p->estado)
                     <i class="fa fa-fw fa-check" style="color:green"></i>
