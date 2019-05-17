@@ -4,11 +4,11 @@
 
 <div class="box box-danger login-box">
   <div class="login-logo">
-    <a href="../../index2.html"><b>Plan Asfalto</b></a>
+    <b>Control de Mezcla Asfáltica</b>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
-    <p class="login-box-msg">Inicia sesión para iniciar tu sesión.</p>
+    <p class="login-box-msg">Inicia sesión para iniciar en el Sistema.</p>
     
 	<form action="{{ route('login') }}" method="post">
 		@csrf

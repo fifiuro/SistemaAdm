@@ -80,11 +80,11 @@
                 <th>Gestion</th>
                 <th>Datos del Proyecto</th>
                 <th><strong>Adjudicado A</strong></th>
-                <th>Volumen<br>Presupuestado</th>
-                <th>Volumen<br>Programado</th>
+                <th>Volumen<br>Presupuestado Bs.</th>
+                <th>Volumen<br>Programado m<sup>3</sup></th>
                 <th>Volumen Total</th>
                 <th>Progeso</th>
-                <th>Saldo</th>
+                <th>Saldo m<sup>3</sup></th>
                 <th>Acciones</th>
               </tr>
               @foreach($seg as $key => $s)

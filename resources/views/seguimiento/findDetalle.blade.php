@@ -77,8 +77,8 @@
                     <strong>Macro Distrito: </strong>{{ $r->nombre_mac }}<br>
                     <strong>Distrito: </strong> {{ $r->nombre_dis }}<br>
                     <strong>Nombre Proyecto: </strong>{{ $r->nombre_pro }}<br>
-                    <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }}<br>
-                    <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }}
+                    <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
+                    <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
                 </td>
                 <td>
                     <strong>Documento: </strong>{{ $r->adjudicacion }}<br>

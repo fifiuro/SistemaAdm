@@ -65,8 +65,8 @@
                 <th>Nombre del Proyecto</th>
                 <th>Ubicacion</th>
                 <th>Codigo EMA</th>
-                <th>Presupuesto</th>
-                <th>Programado</th>
+                <th>Presupuesto Bs.</th>
+                <th>Programado m<sup>3</sup></th>
                 <th>Estado</th>
                 <th>Acciones</th>
               </tr>

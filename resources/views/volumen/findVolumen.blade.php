@@ -125,10 +125,10 @@
                     <tr>
                         <td style="text-align:right"><h3><strong>TOTAL</strong></h3></td>
                         <td>
-                            <h3>{{ formatoDecimal($sum[0]->total) }}</h3>
+                            <h3>{{ formatoDecimal($sum[0]->total) }} m<sup>3</sup></h3>
                         </td>
                         <td>
-                            <h3><strong>Saldo:</strong> {{ formatoDecimal($proy[0]->programado - $sum[0]->total) }}</h3>
+                            <h3><strong>Saldo:</strong> {{ formatoDecimal($proy[0]->programado - $sum[0]->total) }} m<sup>3</sup></h3>
                         </td>
                     </tr>
                     </table>
