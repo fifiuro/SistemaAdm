@@ -19,7 +19,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findDetalle') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-2">
                 <label for="gestion">Gestion:</label>
                 <select name="gestion" id="gestion" class="form-control">
                     @foreach ($gestion as $key => $g)
@@ -27,7 +27,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-xs-4">
+            <div class="col-xs-3">
                 <label for="proyecto">Tipo Proyecto:</label>
                 <select name="proyecto" id="proyecto" class="form-control">
                     <option></option>
@@ -36,7 +36,7 @@
                     <option>Asfalto</option>
                 </select>
             </div>
-            <div class="col-xs-4" style="z-index:0">
+            <div class="col-xs-3" style="z-index:0">
                 <div class="form-group">
                     <label for="fecha">Fechas:</label>
                     <div class="input-group">
@@ -47,11 +47,14 @@
                     </div>
                 </div>
             </div>
-
-          <div class="col-xs-2">
-            {{-- Boton Buscar --}}
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
+            <div class="col-xs-2">
+                <label for="ema">EMA</label>
+                <input type="text" name="ema" id="ema" class="form-control">
+            </div>
+            <div class="col-xs-2">
+                {{-- Boton Buscar --}}
+                <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
         </div>
       </form>
     </div>
@@ -77,6 +80,7 @@
                     <strong>Macro Distrito: </strong>{{ $r->nombre_mac }}<br>
                     <strong>Distrito: </strong> {{ $r->nombre_dis }}<br>
                     <strong>Nombre Proyecto: </strong>{{ $r->nombre_pro }}<br>
+                    <strong>EMA: </strong>{{ $r->ema }}<br>
                     <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
                     <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
                 </td>

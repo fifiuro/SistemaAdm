@@ -48,6 +48,16 @@
                 <span>REPORTE DE MODIFICACIONES</span>
             </a>
         </li>
+        <li>
+            <a href="{{ url('findSeguimiento') }}">
+                <i class="fa fa-eye"></i>
+                <span>SEGUIMIENTO PROYECTOS</span>
+            </a>
+            <a href="{{ url('findDetalle') }}">
+                <i class="fa fa-eye"></i>
+                <span>DETALLE DE PROYECTOS</span>
+            </a>
+        </li>
         @break
     @case(2)
         <li>
@@ -68,6 +78,16 @@
             <a href="{{ url('findProyecto') }}">
                 <i class="fa fa-archive"></i>
                 <span>PROYECTO</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('findSeguimiento') }}">
+                <i class="fa fa-eye"></i>
+                <span>SEGUIMIENTO PROYECTOS</span>
+            </a>
+            <a href="{{ url('findDetalle') }}">
+                <i class="fa fa-eye"></i>
+                <span>DETALLE DE PROYECTOS</span>
             </a>
         </li>
         @break

@@ -18,7 +18,7 @@
       <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findSeguimiento') }}">
         {{ csrf_field() }}
         <div class="row">
-            <div class="col-xs-1">
+            <div class="col-xs-3">
                 <label for="gestion">Gestion:</label>
                 <select name="gestion" id="gestion" class="form-control">
                   <option value=""></option>
@@ -41,12 +41,14 @@
                 <select name="macro" id="macro" class="form-control">
                 </select>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-3">
                 <label for="distrito">Distrito:</label>
                 <select name="distrito" id="distrito" class="form-control">
                 </select>
             </div>
-            <div class="col-xs-1">
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
               <label for="proyecto">Proyecto:</label>
               <select name="proyecto" id="proyecto" class="form-control">
                 <option></option>
@@ -55,19 +57,23 @@
                 <option>Asfalto</option>
               </select>
             </div>
-            <div class="col-xs-1">
-                <label for="estado">Estado:</label>
-                <select name="estado" id="estado" class="form-control">
-                  <option value=" like '%%'"></option>
-                  <option value="=0">Por Ejecutar</option>
-                  <option value=">0">En ejecución</option>
-                  <option value="<0">Ejecutado</option>
-                </select>
-              </div>
-          <div class="col-xs-1">
-            {{-- Boton Buscar --}}
-            <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
+            <div class="col-xs-3">
+              <label for="ema">EMA</label>
+              <input type="text" name="ema" id="ema" class="form-control">
+            </div>
+            <div class="col-xs-3">
+              <label for="estado">Estado:</label>
+              <select name="estado" id="estado" class="form-control">
+                <option value=" like '%%'"></option>
+                <option value="=0">Por Ejecutar</option>
+                <option value=">0">En ejecución</option>
+                <option value="<0">Ejecutado</option>
+              </select>
+            </div>
+            <div class="col-xs-3">
+              {{-- Boton Buscar --}}
+              <button type="submit" class="btn btn-primary"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
         </div>
       </form>
     </div>
@@ -94,7 +100,8 @@
                   <strong>Unidad Ejecutora: </strong>{{ $s->unidad_ejecutora }} <br>
                   <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
                   <strong>Distrito: </strong>{{ $s->nombre_dis }}<br>
-                  <strong>Nombre Proyecto: </strong>{{ $s->nombre_pro }}
+                  <strong>Nombre Proyecto: </strong>{{ $s->nombre_pro }}<br>
+                  <strong>EMA: </strong>{{ $s->ema }}
                 </td>
                 <td>
                   <strong>Documento: </strong>{{ $s->adjudicacion }}<br>

@@ -49,8 +49,9 @@ class SeguimientoController extends Controller
                         ->where('macro.id_mac','like','%'.$request->macro.'%')
                         ->where('distrito.id_dist','like','%'.$request->distrito.'%')
                         ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+                        ->where('proyecto.ema','like','%'.$request->ema.'%')
                         ->whereRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
-                        ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.nombre_pro','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
+                        ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.nombre_pro','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
                         ->selectRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) as total')
                         ->get();
 
@@ -91,20 +92,11 @@ class SeguimientoController extends Controller
         $gestion = Gestion::all();
 
         $fecha = explode(' - ',$request->fecha);
-
-        /*$result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
-                          ->join('gestion','gestion.id_ges','=','proyecto.id_ges')
-                          ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                          ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
-                          ->join('macro','macro.id_mac','=','distrito.id_mac')
-                          ->where('proyecto.id_ges','=',$request->gestion)
-                          ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
-                          ->whereBetween('fecha',array(formatoFecha($fecha[0]),formatoFecha($fecha[1])))
-                          ->get();*/
         
         $result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
                           ->where('proyecto.id_ges','=',$request->gestion)
                           ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
+                          ->where('proyecto.ema','like','%'.$request->ema.'%')
                           ->whereBetween('fecha',array(formatoFecha($fecha[0]),formatoFecha($fecha[1])))
                           ->orderBy('proyecto.id_pro','DESC')
                           ->get();
