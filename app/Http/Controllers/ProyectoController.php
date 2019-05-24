@@ -39,7 +39,6 @@ class ProyectoController extends Controller
         ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
         ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
         ->join('macro','macro.id_mac','=','distrito.id_mac')
-        ->where('proyecto.nombre_pro','like','%'.$request->proyecto.'%')
         ->where('proyecto.ema','like','%'.$request->ema.'%')
         ->where('unidad.id_uni','like','%'.$request->unidad.'%')
         ->select('unidad_ejecutora',
@@ -47,7 +46,6 @@ class ProyectoController extends Controller
                 'nombre_dis',
                 'proyecto.id_pro',
                 'distrito.nombre_dis',
-                'proyecto.nombre_pro',
                 'proyecto.ubicacion',
                 'proyecto.ema',
                 'proyecto.presupuesto',
@@ -98,8 +96,6 @@ class ProyectoController extends Controller
         $proyecto->id_dist = $request->id_dist;
         $proyecto->id_ges = $request->id_ges;
         $proyecto->id_uni = $request->id_uni;
-        //$proyecto->nombre_pro = $request->nombre_pro;
-        $proyecto->nombre_pro = " ";
         $proyecto->ubicacion = $request->ubicacion;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
@@ -143,10 +139,6 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($request->id_pro);
 
-        //if($this->modificacion('proyecto',$request->id_pro,$request->nombre_pro,$request->nombre_proA)){
-            //$proyecto->nombre_pro = $request->nombre_pro;
-        //}
-        $proyecto->nombre_pro = " ";
         if($this->modificacion('proyecto',$request->id_pro,$request->ubicacion,$request->ubicacionA)){
             $proyecto->ubicacion = $request->ubicacion;
         }
@@ -235,7 +227,6 @@ class ProyectoController extends Controller
                     'unidad.unidad_ejecutora',
                     'distrito.nombre_dis',
                     'distrito.numero_dis',
-                    'proyecto.nombre_pro',
                     'proyecto.ema',
                     'proyecto.presupuesto',
                     'proyecto.programado')

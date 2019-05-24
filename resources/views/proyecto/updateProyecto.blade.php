@@ -34,29 +34,6 @@
                 <input type="hidden" name="id_dist" id="id_dist" value="{{ $p->id_dist }}">
             </div>
             <div class="group-form-control">
-                <label for="nombre_pro">Nombre del Proyecto:</label>
-                <select name="nombre_pro" id="nombre_pro" class="form-control" required>
-                    @if($p->nombre_pro == 'Recapeo')
-                        <option selected>Recapeo</option>
-                        <option>Bacheo</option>
-                        <option>Asfalto</option>
-                    @elseif($p->nombre_pro == 'Bacheo')
-                        <option>Recapeo</option>
-                        <option selected>Bacheo</option>
-                        <option>Asfalto</option>
-                    @elseif($p->nombre_pro == 'Asfalto')
-                        <option>Recapeo</option>
-                        <option>Bacheo</option>
-                        <option selected>Asfalto</option>
-                    @else
-                        <option>Recapeo</option>
-                        <option>Bacheo</option>
-                        <option >Asfalto</option>
-                    @endif
-                </select>
-                <input type="hidden" name="nombre_proA" value="{{ $p->nombre_pro }}">
-            </div>
-            <div class="group-form-control">
                 <label for="ubicacion">Ubicacion:</label>
                 <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicacion" type="text" value="{{ $p->ubicacion }}" required>
                 <input type="hidden" name="ubicacionA" value="{{ $p->ubicacion }}">

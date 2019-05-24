@@ -20,7 +20,7 @@
         {{ csrf_field() }}
         <div class="row">
             
-            <div class="col-xs-4">
+            <div class="col-xs-5">
                 <label for="unidad">Unidad Ejecutora:</label>
                     <select name="unidad" id="unidad" class="form-control">
                       <option value=""></option>
@@ -29,11 +29,7 @@
                       @endforeach
                     </select>
             </div>
-            <div class="col-xs-3">
-                <label for="proyecto">Nombre del Proyecto:</label>
-                <input class="form-control" id="proyecto" name="proyecto" placeholder="Nombre del Proyecto" type="text">
-            </div>
-            <div class="col-xs-3">
+            <div class="col-xs-5">
                 <label for="ema">EMA:</label>
                 <input class="form-control" id="ema" name="ema" placeholder="EMA" type="text">
             </div>
