@@ -45,7 +45,7 @@ class VolumenController extends Controller
                         ->groupBy('id_pro')
                         ->get();
 
-        if(count($volumen) > 0){
+        if(count($estimado) > 0){
             return view('volumen.findVolumen', array('proy' => $proy, 
                                                      'volumen' => $volumen,
                                                      'estimado' => $estimado,

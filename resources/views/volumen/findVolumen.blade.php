@@ -90,11 +90,11 @@
                 @endif
             @endforeach
             <hr>
-            @if (isset($volumen) or isset($estimado))
                 <div class="row">
                 @if ($estado)
                     <div class="col-xs-6">
                         <h3 class="text-center">TABLA DE VOLUMEN</h3>
+                        @if(isset($volumen) and count($volumen) > 0)
                         <table class="table">
                             <tbody>
                                 <th>Fecha</th>
@@ -137,10 +137,12 @@
                                 </td>
                             </tr>
                         </table>
+                        @endif
                     </div>
 
                     <div class="col-xs-6">
                         <h3 class="text-center">TABLA DE ESTIMADO</h3>
+                        @if(isset($estimado) and count($estimado) > 0)
                         <table class="table">
                             <tbody>
                                 <th>Fecha</th>
@@ -161,6 +163,7 @@
                                 </td>
                             </tr>
                         </table>
+                        @endif
                     </div>
                 @else
                     <h3>
@@ -170,7 +173,6 @@
                     </h3>
                 @endif
                 </div>
-            @endif
             <hr>
             <div class="group-form-control">
                 <a href="{{ url('findProyecto') }}" class="btn btn-danger">VOLVER</a>
