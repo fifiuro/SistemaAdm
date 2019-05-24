@@ -98,7 +98,8 @@ class ProyectoController extends Controller
         $proyecto->id_dist = $request->id_dist;
         $proyecto->id_ges = $request->id_ges;
         $proyecto->id_uni = $request->id_uni;
-        $proyecto->nombre_pro = $request->nombre_pro;
+        //$proyecto->nombre_pro = $request->nombre_pro;
+        $proyecto->nombre_pro = " ";
         $proyecto->ubicacion = $request->ubicacion;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
@@ -142,9 +143,10 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($request->id_pro);
 
-        if($this->modificacion('proyecto',$request->id_pro,$request->nombre_pro,$request->nombre_proA)){
-            $proyecto->nombre_pro = $request->nombre_pro;
-        }
+        //if($this->modificacion('proyecto',$request->id_pro,$request->nombre_pro,$request->nombre_proA)){
+            //$proyecto->nombre_pro = $request->nombre_pro;
+        //}
+        $proyecto->nombre_pro = " ";
         if($this->modificacion('proyecto',$request->id_pro,$request->ubicacion,$request->ubicacionA)){
             $proyecto->ubicacion = $request->ubicacion;
         }
