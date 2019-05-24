@@ -61,7 +61,7 @@
                     <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeEstimado') }}">
                         {{ csrf_field() }}
                         <div class="row">
-                            <div class="group-form-control col-xs-4">
+                            <div class="group-form-control col-xs-3">
                                 <label for="fecha">Fecha: </label>
                                 <div class="input-group date">
                                     <div class="input-group-addon">
@@ -71,11 +71,20 @@
                                 </div>
                                 <input type="hidden" name="id_pro" value="{{ $proy[0]->id_pro }}">
                             </div>
-                            <div class="group-form-control col-xs-4">
+                            <div class="group-form-control col-xs-3">
                                 <label for="monto">Volumen Proyectado: </label>
                                 <input type="text" name="monto" id="monto" class="form-control" required>
                             </div>
-                            <div class="group-form-control col-xs-4">
+                            <div class="group-form-control col-xs-3">
+                                <label for="tipo">Tipo de mezcla:</label>
+                                <select name="tipo" id="tipo" class="form-control" required>
+                                    <option></option>
+                                    <option>Recapeo</option>
+                                    <option>Bacheo</option>
+                                    <option>Asfalto</option>
+                                </select>
+                            </div>
+                            <div class="group-form-control col-xs-3">
                                 <button type="submit" class="btn btn-primary">GUARDAR</button>
                             </div>
                         </div>
@@ -90,6 +99,7 @@
                         <tbody>
                             <th>Fecha</th>
                             <th>Volumen</th>
+                            <th>Tipo de mezcla</th>
                             <th>Acciones</th>
                         </tbody>
                     </div>
@@ -97,6 +107,7 @@
                         <tr>
                             <td>{{ formatoFechaReporte($e->fecha) }}</td>
                             <td>{{ formatoDecimal($e->volumen) }}</td>
+                            <td>{{ $e->tipo }}</td>
                             <td>
                                 @switch(Auth::user()->tipoUser(Auth::user()->id))
                                     @case(1)

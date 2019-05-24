@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         //$this->call(UnidadTableSeeder::class);
         //$this->call(DistritoTableSeeder::class);
         //$this->call(ProyectoTableSeeder::class);
-        $this->call(MacroDistritoTableSeeder::class);
+        //$this->call(MacroDistritoTableSeeder::class);
 
         Model::reguard();
         

@@ -34,6 +34,30 @@
             <input type="text" name="monto" id="monto" class="form-control" value="{{ $estimado->volumen }}" required>
             <input type="hidden" name="montoA" value="{{ $estimado->volumen }}">
         </div>
+        <div class="group-form-control">
+            <label for="tipo">Tipo de mezcla: </label>
+            <select name="tipo" id="tipo" class="form-control" required>
+                <option value=" "></option>
+                @if($estimado->tipo == 'Recapeo')
+                    <option selected>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option>Asfalto</option>
+                @elseif($estimado->tipo == 'Bacheo')
+                    <option>Recapeo</option>
+                    <option selected>Bacheo</option>
+                    <option>Asfalto</option>
+                @elseif($estimado->tipo == 'Asfalto')
+                    <option>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option selected>Asfalto</option>
+                @else
+                    <option>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option>Asfalto</option>
+                @endif
+            </select>
+            <input type="hidden" name="tipoA" value="{{ $estimado->tipo }}">
+        </div>
         <hr>
         <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>

@@ -61,77 +61,107 @@
                 </div>
                 @if ($p->estado == 1)
                     <hr>
-                    <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
-                        {{ csrf_field() }}
-                        <div class="row">
-                            <div class="group-form-control col-xs-4">
-                                <label for="fecha">Fecha: </label>
-                                <div class="input-group date" style="position:relative; z-index:1000">
-                                    <div class="input-group-addon">
-                                        <i class="fa fa-calendar"></i>
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="group-form-control col-xs-4">
+                                        <label for="fecha">Fecha: </label>
+                                        <div class="input-group date" style="position:relative; z-index:1000">
+                                            <div class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </div>
+                                            <input type="text" class="form-control pull-right" name="fecha" id="datepicker" autocomplete="off" required>
+                                        </div>
+                                        <input type="hidden" name="id_pro" value="{{ $proy[0]->id_pro }}">
                                     </div>
-                                    <input type="text" class="form-control pull-right" name="fecha" id="datepicker" autocomplete="off" required>
+                                    <div class="group-form-control col-xs-4">
+                                        <label for="monto">Volumen Proyectado: </label>
+                                        <input type="text" name="monto" id="monto" class="form-control" required>
+                                    </div>
+                                    <div class="group-form-control col-xs-4">
+                                        <button type="submit" class="btn btn-primary">GUARDAR</button>
+                                    </div>
                                 </div>
-                                <input type="hidden" name="id_pro" value="{{ $proy[0]->id_pro }}">
-                            </div>
-                            <div class="group-form-control col-xs-4">
-                                <label for="monto">Volumen Proyectado: </label>
-                                <input type="text" name="monto" id="monto" class="form-control" required>
-                            </div>
-                            <div class="group-form-control col-xs-4">
-                                <button type="submit" class="btn btn-primary">GUARDAR</button>
-                            </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 @endif
             @endforeach
             <hr>
-            @if (isset($volumen))
+            @if (isset($volumen) or isset($estimado))
+                <div class="row">
                 @if ($estado)
-                    <table class="table">
-                    <div class="box-footer">
-                        <tbody>
-                            <th>Fecha</th>
-                            <th>Volumen</th>
-                            <th>Acciones</th>
-                        </tbody>
+                    <div class="col-xs-6">
+                        <h3 class="text-center">TABLA DE VOLUMEN</h3>
+                        <table class="table">
+                            <tbody>
+                                <th>Fecha</th>
+                                <th>Volumen</th>
+                                <th>Acciones</th>
+                            </tbody>
+                            @foreach ($volumen as $key => $v)
+                                <tr>
+                                    <td>{{ formatoFechaReporte($v->fecha) }}</td>
+                                    <td>{{ formatoDecimal($v->monto) }}</td>
+                                    <td>
+                                        @switch(Auth::user()->tipoUser(Auth::user()->id))
+                                            @case(1)
+                                                {{-- Boton Editar --}}
+                                                <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </a>
+                                                {{-- Boton Eliminar --}}
+                                                <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy[0]->id_pro) }}" class="btn btn-danger">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </a>
+                                                @break
+                                            @case(5)
+                                                {{-- Boton Editar --}}
+                                                <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
+                                                    <i class="glyphicon glyphicon-pencil"></i>
+                                                </a>
+                                            @break                                        
+                                        @endswitch
+                                    </td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td></td>
+                                <td style="text-align:right">
+                                    <h3><strong>TOTAL</strong> {{ formatoDecimal($sum[0]->total) }} m<sup>3</sup></h3>
+                                </td>
+                                <td>
+                                    <h3><strong>SALDO:</strong> {{ formatoDecimal($proy[0]->programado - $sum[0]->total) }} m<sup>3</sup></h3>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
-                    @foreach ($volumen as $key => $v)
-                        <tr>
-                            <td>{{ formatoFechaReporte($v->fecha) }}</td>
-                            <td>{{ formatoDecimal($v->monto) }}</td>
-                            <td>
-                                @switch(Auth::user()->tipoUser(Auth::user()->id))
-                                    @case(1)
-                                        {{-- Boton Editar --}}
-                                        <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </a>
-                                        {{-- Boton Eliminar --}}
-                                        <a href="{{ url('confirmVolumen/'.$v->id_mon.'/'.$proy[0]->id_pro) }}" class="btn btn-danger">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </a>
-                                        @break
-                                    @case(5)
-                                        {{-- Boton Editar --}}
-                                        <a href="{{ url('editVolumen/'.$v->id_mon) }}" class="btn btn-warning">
-                                            <i class="glyphicon glyphicon-pencil"></i>
-                                        </a>
-                                        @break                                        
-                                @endswitch
-                            </td>
-                        </tr>
-                    @endforeach
-                    <tr>
-                        <td style="text-align:right"><h3><strong>TOTAL</strong></h3></td>
-                        <td>
-                            <h3>{{ formatoDecimal($sum[0]->total) }} m<sup>3</sup></h3>
-                        </td>
-                        <td>
-                            <h3><strong>Saldo:</strong> {{ formatoDecimal($proy[0]->programado - $sum[0]->total) }} m<sup>3</sup></h3>
-                        </td>
-                    </tr>
-                    </table>
+
+                    <div class="col-xs-6">
+                        <h3 class="text-center">TABLA DE ESTIMADO</h3>
+                        <table class="table">
+                            <tbody>
+                                <th>Fecha</th>
+                                <th>Volumen</th>
+                                <th>Tipo</th>
+                            </tbody>
+                            @foreach ($estimado as $key => $e)
+                                <tr>
+                                    <td>{{ formatoFechaReporte($e->fecha) }}</td>
+                                    <td>{{ formatoDecimal($e->volumen) }}</td>
+                                    <td>{{ $e->tipo }}</td>
+                                </tr>
+                            @endforeach
+                            <tr>
+                                <td></td>
+                                <td style="text-align:right">
+                                    <h3><strong>TOTAL</strong> {{ formatoDecimal($sume[0]->total) }} m<sup>3</sup></h3>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 @else
                     <h3>
                         <p class="text-red" style="text-align:center;">
@@ -139,6 +169,7 @@
                         </p>
                     </h3>
                 @endif
+                </div>
             @endif
             <hr>
             <div class="group-form-control">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Volumen;
 use App\Proyecto;
 use App\Modificacion;
+use App\Estimado;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidarVolumenRequest;
@@ -30,19 +31,31 @@ class VolumenController extends Controller
                           ->orderBy('fecha','desc')
                           ->get();
         
+        $estimado = Estimado::where('id_pro','=',$id)
+                             ->orderBy('fecha','desc')
+                             ->get();
+        
         $sum = Volumen::selectRaw('sum(monto) total')
                       ->where('id_pro','=',$id)
                       ->groupBy('id_pro')
                       ->get();
+        
+        $sume = Estimado::selectRaw('sum(volumen) total')
+                        ->where('id_pro','=',$id)
+                        ->groupBy('id_pro')
+                        ->get();
 
         if(count($volumen) > 0){
             return view('volumen.findVolumen', array('proy' => $proy, 
                                                      'volumen' => $volumen,
-                                                     'sum' => $sum, 
+                                                     'estimado' => $estimado,
+                                                     'sum' => $sum,
+                                                     'sume' => $sume, 
                                                      'estado' => true));
         }else{
             return view('volumen.findVolumen', array('proy' => $proy, 
-                                                     'volumen' => '', 
+                                                     'volumen' => '',
+                                                     'estimado' => '', 
                                                      'estado' => false,
                                                      'mensaje' => 'No se tiene niguna Volumen registrado para el Proyecto'));
         }

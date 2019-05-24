@@ -70,6 +70,7 @@ class EstimadoController extends Controller
         $estimado->id_pro = $request->id_pro;
         $estimado->fecha = formatoFecha($request->fecha);
         $estimado->volumen = $request->monto;
+        $estimado->tipo = $request->tipo;
         $estimado->estado = 1;
 
         $estimado->save();
@@ -119,6 +120,10 @@ class EstimadoController extends Controller
             $estimado->volumen = $request->monto;
         }
 
+        if($this->modificacion('estimado',$request->id_est,$request->tipo,$request->tipoA)){
+            $estimado->tipo = $request->tipo;
+        }
+
         $estimado->save();
 
         return redirect('findEstimado/'.$request->id_pro);
@@ -131,7 +136,11 @@ class EstimadoController extends Controller
             $mod->tabla = $tabla;
             $mod->id = $id;
             $mod->actual = $a;
-            $mod->anterior = $b;
+            if(is_null($b)){
+                $mod->anterior = " ";    
+            }else{
+                $mod->anterior = $b;
+            }
             $mod->fecha = date('Y-m-d');
             $mod->use_id = Auth::user()->id;
             $mod->save();
