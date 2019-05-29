@@ -126,7 +126,7 @@ Route::group(['middleware' => 'auth'], function(){
     // Recibe los datos de nuevo Proyecto
     Route::post('storeProyecto','ProyectoController@store');
     // Formulario con los datos a modificar el Proyecto
-    Route::get('editProyecto/{id}','ProyectoController@edit');
+    Route::get('editProyecto/{id}/{uni}','ProyectoController@edit');
     // Recibe los datos a modificar el Proyecto
     Route::post('updateProyecto','ProyectoController@update');
     // Formulario de Confirmacion para eliminar Proyecto

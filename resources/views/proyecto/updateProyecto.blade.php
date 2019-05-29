@@ -24,14 +24,51 @@
                     @if($p->id_ges == $g->id_ges)
                         <input class="form-control" id="gestion" name="gestion" placeholder="Gestion" type="text" value="{{ $g->gestion }}" disabled>
                         <input type="hidden" name="id_ges" value="{{ $g->id_ges }}" required>
+                        <input type="hidden" name="id_pro" value="{{ $p->id_pro }}">
                     @endif
                 @endforeach
             </div>
             <div class="group-form-control">
-                <label for="distrito">Distrito:</label>
-                <input type="text" name="distrito" id="distrito" value="{{ $p->nombre_dis }}" class="form-control" disabled>
-                <input type="hidden" name="id_pro" value="{{ $p->id_pro }}" required>
-                <input type="hidden" name="id_dist" id="id_dist" value="{{ $p->id_dist }}">
+                <label for="id_uni">Unidad Ejecutora:</label>
+                <select name="id_uni" id="id_uni" class="form-control" required>
+                    <option value=""></option>
+                    @foreach ($unidad as $key => $u)
+                        @if($u->id_uni == $p->id_uni)
+                            <option value="{{ $u->id_uni }}" selected>{{ $u->unidad_ejecutora }}</option>
+                        @else
+                            <option value="{{ $u->id_uni }}">{{ $u->unidad_ejecutora }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <input type="hidden" name="id_uniA" value="{{ $p->id_uni }}">
+            </div>
+            <div class="group-form-control">
+                <label for="id_mac">Macro Distrito:</label>
+                <select name="id_mac" id="id_mac" class="form-control" required>
+                    <option></option>
+                    @foreach ($macro as $key => $m)
+                        @if($m->id_mac == $p->id_mac)
+                            <option value="{{ $m->id_mac }}" selected>{{ $m->nombre_mac }}</option>
+                        @else
+                            <option value="{{ $m->id_mac }}">{{ $m->nombre_mac }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <input type="hidden" name="id_macA" value="{{ $p->id_mac }}">
+            </div>
+            <div class="group-form-control">
+                <label for="id_dist">Distrito:</label>
+                <select name="id_dist" id="id_dist" class="form-control" required>
+                    <option value=""></option>
+                    @foreach ($distrito as $key => $d)
+                        @if($d->id_dist == $p->id_dist)
+                            <option value="{{ $d->id_dist }}" selected>{{ $d->nombre_dis }}</option>
+                        @else
+                            <option value="{{ $d->id_dist }}">{{ $d->nombre_dis }}</option>
+                        @endif
+                    @endforeach
+                </select>
+                <input type="hidden" name="id_distA" value="{{ $p->id_dist }}">
             </div>
             <div class="group-form-control">
                 <label for="ubicacion">Ubicacion:</label>
@@ -93,6 +130,7 @@
             <a href="{{ url('findProyecto') }}" class="btn btn-danger">CANCELAR</a>
         </div>
       </form>
+      <meta name="csrf-token" content="{{ csrf_token() }}">
     </div>
   </div>
 @endsection
@@ -109,5 +147,75 @@ $("input").on("keypress",function(){
 $('#datepicker').datepicker({
     autoclose: true,
     format: "dd/mm/yyyy"
+});
+
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$("#id_uni").change(function(){
+    $.ajax({
+        url: '{{ url("listaMacro") }}',
+        data: {'id':$("#id_uni").val()},
+        type: 'post',
+        success: function(response){
+            if(response != ''){
+                $("#id_mac").attr('disabled',false);
+                $("#id_mac").html(response);
+
+                $("#id_dist").empty();
+                $("#id_dist").attr('disabled',true);
+            }else{
+                $("#id_mac").empty();
+                $("#id_mac").attr('disabled',true);
+
+                $("#id_dist").empty();
+                $("#id_dist").attr('disabled',true);
+
+                alert('No se tuvieron resultados.');
+            }
+        },
+        statusCode: {
+            404: function*(){
+                alert('No se pudo conectar con el Servidor.');
+            }
+        },
+        error: function(x,xs,xt){
+            // nos dara el errore si es que hay alguno
+            window.open(JSON.stringify(x));
+            // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+        }
+    });
+});
+
+$("#id_mac").change(function(){
+    $.ajax({
+        url: '{{ url("listaDistrito") }}',
+        data: {'id':$("#id_mac").val()},
+        type: 'post',
+        success: function(response){
+            if(response != ''){
+                $("#id_dist").attr('disabled',false);
+                $("#id_dist").html(response);
+            }else{
+                $("#id_dist").empty();
+                $("#id_dist").attr('disabled',true);
+
+                alert('No se tuvieron resultados.');
+            }
+        },
+        statusCode: {
+            404: function*(){
+                alert('No se pudo conectar con el Servidor.');
+            }
+        },
+        error: function(x,xs,xt){
+            // nos dara el errore si es que hay alguno
+            window.open(JSON.stringify(x));
+            // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
+        }
+    });
 });
 @endsection

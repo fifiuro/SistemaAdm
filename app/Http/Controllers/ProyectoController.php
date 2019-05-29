@@ -8,6 +8,8 @@ use App\Volumen;
 use App\Gestion;
 use App\Unidad;
 use App\Modificacion;
+use App\UnidadMacro;
+use App\Macro;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidarProyectoRequest;
@@ -45,6 +47,7 @@ class ProyectoController extends Controller
                 'nombre_mac',
                 'nombre_dis',
                 'proyecto.id_pro',
+                'proyecto.id_uni',
                 'distrito.nombre_dis',
                 'proyecto.ubicacion',
                 'proyecto.ema',
@@ -117,15 +120,36 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id,$uni)
     {
         $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                        ->where('id_pro','=',$id)
-                        ->get();
+                            ->join('macro','macro.id_mac','=','distrito.id_mac')
+                            ->join('unidad_macro','unidad_macro.id_mac','=','macro.id_mac')
+                            ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+                            ->where('proyecto.id_pro','=',$id)
+                            ->where('unidad_macro.id_uni','=',$uni)
+                            ->get();
         
         $gestion = Gestion::all();
 
-        return view('proyecto.updateProyecto',array('proyecto' => $proyecto, 'gestion' => $gestion));
+        $unidad = Unidad::all();
+
+        $macro = UnidadMacro::join('macro','macro.id_mac','=','unidad_macro.id_mac')
+                            ->where('unidad_macro.id_uni','=',$uni)
+                            ->get();
+
+        foreach($proyecto as $key => $p){
+            $m = $p->id_mac;
+        }
+        
+        $distrito = Distrito::where('id_mac','=',$m)->get();
+
+        return view('proyecto.updateProyecto',array('proyecto' => $proyecto,
+                                                    'gestion' => $gestion,
+                                                    'unidad' => $unidad,
+                                                    'macro' => $macro,
+                                                    'distrito' => $distrito
+                                                ));
     }
 
     /**
@@ -139,6 +163,12 @@ class ProyectoController extends Controller
     {
         $proyecto = Proyecto::find($request->id_pro);
 
+        if($this->modificacion('proyecto',$request->id_pro,$request->id_dist,$request->id_distA)){
+            $proyecto->id_dist = $request->id_dist;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->id_uni,$request->id_uniA)){
+            $proyecto->id_uni = $request->id_uni;
+        }
         if($this->modificacion('proyecto',$request->id_pro,$request->ubicacion,$request->ubicacionA)){
             $proyecto->ubicacion = $request->ubicacion;
         }

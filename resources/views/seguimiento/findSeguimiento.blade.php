@@ -49,15 +49,6 @@
         </div>
         <div class="row">
             <div class="col-xs-3">
-              <label for="proyecto">Proyecto:</label>
-              <select name="proyecto" id="proyecto" class="form-control">
-                <option></option>
-                <option>Recapeo</option>
-                <option>Bacheo</option>
-                <option>Asfalto</option>
-              </select>
-            </div>
-            <div class="col-xs-3">
               <label for="ema">EMA</label>
               <input type="text" name="ema" id="ema" class="form-control">
             </div>
@@ -100,7 +91,6 @@
                   <strong>Unidad Ejecutora: </strong>{{ $s->unidad_ejecutora }} <br>
                   <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
                   <strong>Distrito: </strong>{{ $s->nombre_dis }}<br>
-                  <strong>Nombre Proyecto: </strong>{{ $s->nombre_pro }}<br>
                   <strong>EMA: </strong>{{ $s->ema }}
                 </td>
                 <td>
@@ -129,9 +119,9 @@
                   @if($s->total == 0)
                     <span class="badge bg-green">{{ formatoDecimal($s->total) }}</span>
                   @elseif($s->total > 0 and ($s->programado - $s->total) > 0)
-                    <span class="badge bg-yellow">{{ formatoDecimal($s->total) }}</span>
-                  @elseif(($s->programado - $s->total) >= -5 and ($s->programado - $s->total) <= 10)
-                    <span class="badge bg-red">{{ ($s->programado - $s->total) }}</span>
+                    <span class="badge bg-yellow">{{ formatoDecimal($s->programado - $s->total) }}</span>
+                  @elseif(($s->programado - $s->total) < 0)
+                    <span class="badge bg-red">{{ formatoDecimal($s->programado - $s->total) }}</span>
                   @endif
                 </td>
                 <td>

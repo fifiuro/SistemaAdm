@@ -33,56 +33,15 @@ function buscarDato($lista, $buscar){
 }
 /** Formato de numero con decimales */
 function formatoDecimal($num){
-    if($num > 0){
-        $signo = '';
-        $n = explode('.',$num);
-    }elseif($num < 0){
-        $signo = substr($num,1,1);
-        $num = substr($num,1);
-        $n = explode('.',$num);
-    }else{
-        return $num;
-    }
-    
-    if(isset($n[1])){
-        $decimal = ",".$n[1];
-    }else{
-        $decimal = '';
-    }
+    $n = explode('.',$num);
 
-    if(strlen($n[0])>3){
-        $uno = strlen($n[0]) % 3;
-        if($uno == 0){
-            $uno = 3;
-        }
-        $con = 1;
-        $fin = '';
-        
-        for($i=0; $i<strlen($n[0]); $i++){
-            if($i < $uno){
-                $fin .= $n[0][$i];
-            }else{
-                if($con <= 3){
-                    if($con == 1){
-                        $fin .= '.'.$n[0][$i];
-                    }else{
-                        $fin .= $n[0][$i];
-                    }
-                }
-                $con = $con + 1;
-            }
-        }
-        
-        if($signo != ''){
-            return $signo.$fin.$decimal;
-        }else{
-            return $fin.$decimal;
+    if(count($n) > 1){
+        if($n[1] > 0){
+            return number_format($num,4,",",".");
+        }else {
+            return number_format($num,0,",",".");
         }
     }else{
-        if($signo != ''){
-            return $signo.$n[0].$decimal;
-        }else {
-            return $n[0].$decimal;
-        }
+        return number_format($num,0,",",".");
     }
 }

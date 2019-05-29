@@ -53,6 +53,8 @@
                 <i class="fa fa-eye"></i>
                 <span>SEGUIMIENTO PROYECTOS</span>
             </a>
+        </li>
+        <li>
             <a href="{{ url('findDetalle') }}">
                 <i class="fa fa-eye"></i>
                 <span>DETALLE DE PROYECTOS</span>
@@ -65,6 +67,8 @@
                 <i class="fa fa-eye"></i>
                 <span>SEGUIMIENTO PROYECTOS</span>
             </a>
+        </li>
+        <li>
             <a href="{{ url('findDetalle') }}">
                 <i class="fa fa-eye"></i>
                 <span>DETALLE DE PROYECTOS</span>
@@ -85,6 +89,8 @@
                 <i class="fa fa-eye"></i>
                 <span>SEGUIMIENTO PROYECTOS</span>
             </a>
+        </li>
+        <li>
             <a href="{{ url('findDetalle') }}">
                 <i class="fa fa-eye"></i>
                 <span>DETALLE DE PROYECTOS</span>

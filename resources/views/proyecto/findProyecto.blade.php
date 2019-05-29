@@ -58,7 +58,6 @@
             <tbody>
               <tr>
                 <th>Nombre de Distrito</th>
-                <th>Nombre del Proyecto</th>
                 <th>Ubicacion</th>
                 <th>Codigo EMA</th>
                 <th>Presupuesto Bs.</th>
@@ -73,7 +72,6 @@
                   <strong>Macro Distrito: </strong>{{ $p->nombre_mac }}<br>
                   <strong>Distrito: </strong>{{ $p->nombre_dis }}
                 </td>
-                <td>{{ $p->nombre_pro }}</td>
                 <td>{{ $p->ubicacion }}</td>
                 <td>{{ $p->ema }}</td>
                 <td>{{ formatoDecimal($p->presupuesto) }}</td>
@@ -89,7 +87,7 @@
                   @switch(Auth::user()->tipoUser(Auth::user()->id))
                       @case(1)
                           {{-- Boton Editar --}}
-                          <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
+                          <a href="{{ url('editProyecto/'.$p->id_pro.'/'.$p->id_uni) }}" class="btn btn-warning">
                             <i class="glyphicon glyphicon-pencil"></i>
                           </a>
                           {{-- Boton Eliminar --}}
@@ -113,7 +111,7 @@
                           @break
                       @case(3)
                           {{-- Boton Editar --}}
-                          <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
+                          <a href="{{ url('editProyecto/'.$p->id_pro.'/'.$p->id_uni) }}" class="btn btn-warning">
                             <i class="glyphicon glyphicon-pencil"></i>
                           </a>
                           {{-- Boton imprmir --}}
