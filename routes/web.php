@@ -206,6 +206,8 @@ Route::group(['middleware' => 'auth'], function(){
     // Datos para hacer la busqueda de modificaciones
     Route::post('findModificaciones','ModificacionesController@show');
     /** FIN */
+
+    
 });
 
 Auth::routes();
