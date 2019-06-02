@@ -58,7 +58,7 @@
                 <option value=" like '%%'"></option>
                 <option value="=0">Por Ejecutar</option>
                 <option value=">0">En ejecución</option>
-                <option value="< 0">Ejecutado</option>
+                <option value="<0">Ejecutado</option>
               </select>
             </div>
             <div class="col-xs-3">
