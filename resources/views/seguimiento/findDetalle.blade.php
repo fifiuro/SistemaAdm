@@ -82,7 +82,7 @@
                     <table class="table">
                         <tr>
                             <td><strong>Fecha</strong></td>
-                            <td><strong>Monto</strong></td>
+                            <td><strong>Volumen</strong></td>
                         </tr>
                         @foreach ($estimado as $key => $e)
                             @if ($e->id_pro == $r->id_pro)
@@ -98,7 +98,7 @@
                     <table class="table">
                         <tr>
                             <td><strong>Fecha</strong></td>
-                            <td><strong>Monto</strong></td>
+                            <td><strong>Volumen</strong></td>
                         </tr>
                         @foreach ($result as $key => $re)
                             @if ($r->id_pro == $re->id_pro)

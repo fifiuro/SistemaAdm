@@ -32,9 +32,21 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="group-form-control col-xs-12">
-                        <label for="proyecto">Proyecto:</label>
-                        {{ $p->nombre_pro }}
+                    <div class="group-form-control col-xs-3">
+                        <label for="proyecto">Numero de Contrato:</label>
+                        {{ $p->adjudicacion }}
+                    </div>
+                    <div class="group-form-control col-xs-3">
+                        <label for="proyecto">Fecha de Contrato:</label>
+                        {{ formatoFechaReporte($p->fecha_contrato) }}
+                    </div>
+                    <div class="group-form-control col-xs-3">
+                        <label for="proyecto">Fecha Orden de Proceder:</label>
+                        {{ formatoFechaReporte($p->fecha_adjudicacion) }}
+                    </div>
+                    <div class="group-form-control col-xs-3">
+                        <label for="proyecto">Plazo:</label>
+                        {{ $p->plazo }}
                     </div>
                 </div>
                 <div class="row">
@@ -66,7 +78,7 @@
                             <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('storeVolumen') }}">
                                 {{ csrf_field() }}
                                 <div class="row">
-                                    <div class="group-form-control col-xs-4">
+                                    <div class="group-form-control col-xs-2">
                                         <label for="fecha">Fecha: </label>
                                         <div class="input-group date" style="position:relative; z-index:1000">
                                             <div class="input-group-addon">
@@ -76,11 +88,23 @@
                                         </div>
                                         <input type="hidden" name="id_pro" value="{{ $proy[0]->id_pro }}">
                                     </div>
-                                    <div class="group-form-control col-xs-4">
-                                        <label for="monto">Volumen Proyectado: </label>
+                                    <div class="group-form-control col-xs-3">
+                                        <label for="monto">Volumen Despachado: </label>
                                         <input type="text" name="monto" id="monto" class="form-control" required>
                                     </div>
-                                    <div class="group-form-control col-xs-4">
+                                    <div class="group-form-control col-xs-2">
+                                        <label for="boleta">Numero de Boleta: </label>
+                                        <input type="text" name="boleta" id="boleta" class="form-control" required>
+                                    </div>
+                                    <div class="group-form-control col-xs-3">
+                                        <label for="tipo">Tipo de Mezcla: </label>
+                                        <select name="tipo" id="tipo" class="form-control">
+                                            <option>Recapeo</option>
+                                            <option>Bacheo</option>
+                                            <option>Asfalto</option>
+                                        </select>
+                                    </div>
+                                    <div class="group-form-control col-xs-2">
                                         <button type="submit" class="btn btn-primary">GUARDAR</button>
                                     </div>
                                 </div>
@@ -93,18 +117,22 @@
                 <div class="row">
                 @if ($estado)
                     <div class="col-xs-6">
-                        <h3 class="text-center">TABLA DE VOLUMEN</h3>
+                        <h3 class="text-center">VOLUMEN DESPACHADOS</h3>
                         @if(isset($volumen) and count($volumen) > 0)
                         <table class="table">
                             <tbody>
                                 <th>Fecha</th>
                                 <th>Volumen</th>
+                                <th>Numero de Boleta</th>
+                                <th>Tipo de Mezcla</th>
                                 <th>Acciones</th>
                             </tbody>
                             @foreach ($volumen as $key => $v)
                                 <tr>
                                     <td>{{ formatoFechaReporte($v->fecha) }}</td>
                                     <td>{{ formatoDecimal($v->monto) }}</td>
+                                    <td>{{ $v->numero_boleta }}</td>
+                                    <td>{{ $v->tipo }}</td>
                                     <td>
                                         @switch(Auth::user()->tipoUser(Auth::user()->id))
                                             @case(1)
@@ -141,13 +169,13 @@
                     </div>
 
                     <div class="col-xs-6">
-                        <h3 class="text-center">TABLA DE ESTIMADO</h3>
+                        <h3 class="text-center">VOLUMEN ESTIMADO</h3>
                         @if(isset($estimado) and count($estimado) > 0)
                         <table class="table">
                             <tbody>
                                 <th>Fecha</th>
                                 <th>Volumen</th>
-                                <th>Tipo</th>
+                                <th>Tipo de Mezcla</th>
                             </tbody>
                             @foreach ($estimado as $key => $e)
                                 <tr>

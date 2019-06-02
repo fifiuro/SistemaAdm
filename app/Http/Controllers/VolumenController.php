@@ -84,6 +84,8 @@ class VolumenController extends Controller
         $volumen->id_pro = $request->id_pro;
         $volumen->fecha = formatoFecha($request->fecha);
         $volumen->monto = $request->monto;
+        $volumen->numero_boleta = $request->boleta;
+        $volumen->tipo = $request->tipo;
 
         $volumen->save();
 
@@ -130,6 +132,12 @@ class VolumenController extends Controller
         }
         if($this->modificacion('monto',$request->id_mon,$request->monto,$request->montoA)){
             $volumen->monto = $request->monto;
+        }
+        if($this->modificacion('monto',$request->id_mon,$request->boleta,$request->boletaA)){
+            $volumen->numero_boleta = $request->boleta;
+        }
+        if($this->modificacion('monto',$request->id_mon,$request->tipo,$request->tipoA)){
+            $volumen->tipo = $request->tipo;
         }
 
         $volumen->save();

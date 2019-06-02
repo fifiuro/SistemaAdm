@@ -107,6 +107,13 @@ class ProyectoController extends Controller
         $proyecto->fecha_adjudicacion = formatoFecha($request->fecha);
         $proyecto->numero_adjudicacion = 0;
         $proyecto->fecha_reg = date('Y-m-d');
+        $proyecto->fecha_contrato = formatoFecha($request->fechaContrato);
+        $proyecto->plazo = $request->plazo;
+        if($request->emaExterno == ''){
+            $proyecto->ema_externo = 0;
+        }else{
+            $proyecto->ema_externo = $request->emaExterno;
+        }
         $proyecto->estado = 1;
 
         $proyecto->save();

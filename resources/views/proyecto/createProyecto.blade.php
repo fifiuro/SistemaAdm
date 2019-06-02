@@ -46,8 +46,8 @@
                 </select>
             </div>
             <div class="group-form-control">
-                <label for="ubicacion">Ubicacion:</label>
-                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicacion" type="text" disabled required>
+                <label for="ubicacion">Nombre del Proyecto:</label>
+                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Nombre del Proyecto" type="text" disabled required>
             </div>
             <div class="group-form-control">
                 <label for="ema">Codigo EMA:</label>
@@ -66,18 +66,39 @@
                 <label for="programado">Volumen Proyectado:</label>
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
             </div>
-            <div class="group-form-control">
-                <label for="adjudicado">Documento de Adijudicacion:</label>
-                <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" disabled required>
+            <div class="row">
+                <div class="group-form-control col-md-6">
+                    <label for="adjudicado">Contrato:</label>
+                    <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Contrato" type="text" disabled required>
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="fechaContrato">Fecha:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" name="fechaContrato" class="form-control pull-right" id="fechaContrato" disabled required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="group-form-control col-md-6">
+                    <label for="fecha">Fecha de Orden de Proceder:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" name="fecha" class="form-control pull-right" id="datepicker" disabled required>
+                    </div>
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="plazo">Plazo:</label>
+                    <input type="text" name="plazo" class="form-control" id="plazo" disabled required>
+                </div>
             </div>
             <div class="group-form-control">
-                <label for="fecha">Fecha de Adjudicación:</label>
-                <div class="input-group date">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
-                    </div>
-                    <input type="text" name="fecha" class="form-control pull-right" id="datepicker" disabled required>
-                </div>
+                <label for="emaExterno">EMA externo:</label>
+                <input class="form-control" id="emaExterno" name="emaExterno" placeholder="EMA Externo" type="text" disabled>
             </div>
             <hr>
             <div class="group-form-control">
@@ -100,6 +121,11 @@ $("input").on("keypress",function(){
 });
 
 $('#datepicker').datepicker({
+    autoclose: true,
+    format: "dd/mm/yyyy"
+});
+
+$('#fechaContrato').datepicker({
     autoclose: true,
     format: "dd/mm/yyyy"
 });
@@ -215,7 +241,10 @@ $("#id_dist").change(function(){
         $("#programado").attr('disabled',false);
         $("#adjudicado").attr('disabled',false);
         $("#datepicker").attr('disabled',false);
+        $("#fechaContrato").attr('disabled',false);
         $("#numero").attr('disabled',false);
+        $("#emaExterno").attr('disabled',false);
+        $("#plazo").attr('disabled',false);
     }else{
         $("#nombre_pro").attr('disabled',true);
         $("#ubicacion").attr('disabled',true);
@@ -224,7 +253,10 @@ $("#id_dist").change(function(){
         $("#programado").attr('disabled',true);
         $("#adjudicado").attr('disabled',true);
         $("#datepicker").attr('disabled',true);
+        $("#fechaContrato").attr('disabled',true);
         $("#numero").attr('disabled',true);
+        $("#emaExterno").attr('disabled',true);
+        $("#plazo").attr('disabled',true);
     }
 });
 @endsection

@@ -28,6 +28,8 @@ class ValidarProyectoRequest extends FormRequest
             'id_ges' => 'required|numeric',
             'ema' => 'required',
             'presupuesto' => 'numeric',
+            'fechaContrato' => 'required',
+            'plazo' => 'required|numeric',
         ];
     }
 
@@ -40,6 +42,8 @@ class ValidarProyectoRequest extends FormRequest
             'id_ges.numeric' => 'EL :attribute deber ser un número.',
             'ema.required' => 'El :attribute es requerido.',
             'presupuesto.numeric' => 'El :attribute deber ser un número.',
+            'fechaContrato' => 'La fecha de Contrtrato es necesario.',
+            'plazo' => 'El plazo de Contrato es necesario.',
         ];
     }
 

@@ -34,6 +34,11 @@
             <input type="text" name="monto" id="monto" class="form-control" value="{{ $volumen->monto }}" required>
             <input type="hidden" name="montoA" value="{{ $volumen->monto }}">
         </div>
+        <div class="group-form-control">
+            <label for="monto">Numero de Boleta: </label>
+            <input type="text" name="boleta" id="boleta" class="form-control" value="{{ $volumen->numero_boleta }}" required>
+            <input type="hidden" name="boletaA" value="{{ $volumen->numero_boleta }}">
+        </div>
         <hr>
         <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>

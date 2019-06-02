@@ -58,7 +58,16 @@
                 <option value=" like '%%'"></option>
                 <option value="=0">Por Ejecutar</option>
                 <option value=">0">En ejecución</option>
-                <option value="<0">Ejecutado</option>
+                <option value="< 0">Ejecutado</option>
+              </select>
+            </div>
+            <div class="col-xs-3">
+              <label for="tipo">Tipo:</label>
+              <select name="tipo" id="tipo" class="form-control">
+                <option></option>
+                <option>Recapeo</option>
+                <option>Bacheo</option>
+                <option>Asfalto</option>
               </select>
             </div>
             <div class="col-xs-3">

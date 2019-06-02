@@ -30,9 +30,21 @@
                     <label for="proyecto">Distrito:</label>
                     {{ $p->nombre_dis }}
                 </div>
-                <div class="group-form-control">
-                    <label for="proyecto">Proyecto:</label>
-                    {{ $p->nombre_pro }}
+                <div class="group-form-control col-xs-3">
+                    <label for="proyecto">Numero de Contrato:</label>
+                    {{ $p->adjudicacion }}
+                </div>
+                <div class="group-form-control col-xs-3">
+                    <label for="proyecto">Fecha de Contrato:</label>
+                    {{ formatoFechaReporte($p->fecha_contrato) }}
+                </div>
+                <div class="group-form-control col-xs-3">
+                    <label for="proyecto">Fecha Orden de Proceder:</label>
+                    {{ formatoFechaReporte($p->fecha_adjudicacion) }}
+                </div>
+                <div class="group-form-control col-xs-3">
+                    <label for="proyecto">Plazo:</label>
+                    {{ $p->plazo }}
                 </div>
                 <div class="row">
                     <div class="col-xs-3">

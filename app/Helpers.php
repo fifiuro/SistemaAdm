@@ -15,6 +15,7 @@ function formatoFecha($fo){
 function formatoFechaReporte($fo){
     if($fo != ""){
         $fv = explode("-",$fo);
+        //dd($fv);
 
         $fm = $fv[2]."/".$fv[1]."/".$fv[0];
     }else{
