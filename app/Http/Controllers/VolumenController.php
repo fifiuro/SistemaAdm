@@ -19,13 +19,13 @@ class VolumenController extends Controller
      */
     public function index($id)
     {
-        $proy = Proyecto::
-        join('gestion','gestion.id_ges','=','proyecto.id_ges')
-        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
-        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
-        ->join('macro','macro.id_mac','=','distrito.id_mac')
-        ->where('proyecto.id_pro','=',$id)
-        ->get();
+        $proy = Proyecto::join('todo','todo.id_to','=','proyecto.id_to')
+                            ->select('proyecto.id_pro', 'proyecto.id_to', 'proyecto.id_ges', 'proyecto.ubicacion', 'proyecto.ema', 'proyecto.fecha_reg', 'proyecto.presupuesto', 'proyecto.programado', 'proyecto.adjudicacion', 'proyecto.numero_adjudicacion', 'proyecto.fecha_contrato', 'proyecto.plazo', 'proyecto.fecha_adjudicacion', 'proyecto.estado', 'proyecto.observaciones')
+                            ->selectRaw('ifnull((select unidad_ejecutora from unidad where id_uni = todo.id_uni),0) as unidad')
+                            ->selectRaw('ifnull((select nombre_mac from macro where id_mac = todo.id_mac),0) as macro')
+                            ->selectRaw('ifnull((select nombre_dis from distrito where id_dist = todo.id_dist),0) as distrito')
+                            ->where('proyecto.id_pro','=',$id)
+                            ->get();
 
         $volumen = Volumen::where('id_pro','=',$id)
                           ->orderBy('fecha','desc')

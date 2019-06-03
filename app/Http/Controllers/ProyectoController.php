@@ -133,27 +133,24 @@ class ProyectoController extends Controller
      * @param  \App\Proyecto  $proyecto
      * @return \Illuminate\Http\Response
      */
-    public function edit($id,$uni)
+    public function edit($id)
     {
-        $proyecto = Proyecto::join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                            ->join('macro','macro.id_mac','=','distrito.id_mac')
-                            ->join('unidad_macro','unidad_macro.id_mac','=','macro.id_mac')
-                            ->join('unidad','unidad.id_uni','=','unidad_macro.id_uni')
+        $proyecto = Proyecto::join('todo','todo.id_to','=','proyecto.id_to')
                             ->where('proyecto.id_pro','=',$id)
-                            ->where('unidad_macro.id_uni','=',$uni)
                             ->get();
         
         $gestion = Gestion::all();
 
         $unidad = Unidad::all();
 
+        foreach($proyecto as $key => $p){
+            $uni = $p->id_uni;
+            $m = $p->id_mac;
+        }
+
         $macro = UnidadMacro::join('macro','macro.id_mac','=','unidad_macro.id_mac')
                             ->where('unidad_macro.id_uni','=',$uni)
                             ->get();
-
-        foreach($proyecto as $key => $p){
-            $m = $p->id_mac;
-        }
         
         $distrito = Distrito::where('id_mac','=',$m)->get();
 

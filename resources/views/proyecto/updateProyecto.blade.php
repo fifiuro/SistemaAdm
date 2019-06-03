@@ -24,7 +24,8 @@
                     @if($p->id_ges == $g->id_ges)
                         <input class="form-control" id="gestion" name="gestion" placeholder="Gestion" type="text" value="{{ $g->gestion }}" disabled>
                         <input type="hidden" name="id_ges" value="{{ $g->id_ges }}" required>
-                        <input type="hidden" name="id_pro" value="{{ $p->id_pro }}">
+                        <input type="hidden" name="id_pro" value="{{ $p->id_pro }}" required>
+                        <input type="hidden" name="id_to" value="{{ $p->id_to }}" required>
                     @endif
                 @endforeach
             </div>
@@ -46,6 +47,11 @@
                 <label for="id_mac">Macro Distrito:</label>
                 <select name="id_mac" id="id_mac" class="form-control" required>
                     <option></option>
+                    @if($p->id_mac == '0')
+                        <option value="0" selected>Todos</option>
+                    @else
+                        <option value="0">Todos</option>
+                    @endif
                     @foreach ($macro as $key => $m)
                         @if($m->id_mac == $p->id_mac)
                             <option value="{{ $m->id_mac }}" selected>{{ $m->nombre_mac }}</option>
@@ -60,6 +66,11 @@
                 <label for="id_dist">Distrito:</label>
                 <select name="id_dist" id="id_dist" class="form-control" required>
                     <option value=""></option>
+                    @if($p->id_dist == '0')
+                        <option value="0" selected>Todos</option>
+                    @else
+                        <option value="0">Todos</option>
+                    @endif
                     @foreach ($distrito as $key => $d)
                         @if($d->id_dist == $p->id_dist)
                             <option value="{{ $d->id_dist }}" selected>{{ $d->nombre_dis }}</option>
@@ -71,8 +82,8 @@
                 <input type="hidden" name="id_distA" value="{{ $p->id_dist }}">
             </div>
             <div class="group-form-control">
-                <label for="ubicacion">Ubicacion:</label>
-                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Ubicacion" type="text" value="{{ $p->ubicacion }}" required>
+                <label for="ubicacion">Nombre del Proyecto:</label>
+                <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Nombre del Proyecto" type="text" value="{{ $p->ubicacion }}" required>
                 <input type="hidden" name="ubicacionA" value="{{ $p->ubicacion }}">
             </div>
             <div class="group-form-control">
@@ -81,8 +92,8 @@
                 <input type="hidden" name="emaA" value="{{ $p->ema }}">
             </div>
             <div class="group-form-control">
-                <label for="presupuesto">Volumen Presupuesto:</label>
-                <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Presupuesto" type="text" value="{{ $p->presupuesto }}" required>
+                <label for="presupuesto">Monto de Contrato:</label>
+                <input class="form-control" id="presupuesto" name="presupuesto" placeholder="Monto de Contrato" type="text" value="{{ $p->presupuesto }}" required>
                 <input type="hidden" name="presupuestoA" value="{{ $p->presupuesto }}">
             </div>
             <div class="group-form-control">
@@ -90,25 +101,44 @@
                 <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" value="{{ $p->programado }}" required>
                 <input type="hidden" name="programadoA" value="{{ $p->programado }}">
             </div>
-            <div class="group-form-control">
-                <label for="adjudicado">Documento de Adijudicacion:</label>
-                <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Adjudicado A" type="text" value="{{ $p->adjudicacion }}" required>
-                <input type="hidden" name="adjudicadoA" value="{{ $p->adjudicacion }}">
-            </div>
-            <div class="group-form-control">
-                <label for="fecha">Fecha de Adjudicación:</label>
-                <div class="input-group date">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
+            <div class="row">
+                <div class="group-form-control col-md-6">
+                    <label for="adjudicado">Contrato:</label>
+                    <input class="form-control" id="adjudicado" name="adjudicado" placeholder="Contratp" type="text" value="{{ $p->adjudicacion }}" required>
+                    <input type="hidden" name="adjudicadoA" value="{{ $p->adjudicacion }}">
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="fechaContrato">Fecha:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" name="fechaContrato" class="form-control pull-right" id="fechaContrato" value="{{ formatoFechaReporte($p->fecha_contrato) }}" required>
+                        <input type="hidden" name="fechaContratoA" value="{{ $p->fecha_contrato }}">
                     </div>
-                    <input type="text" name="fecha" class="form-control pull-right" id="datepicker" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}" required>
-                    <input type="hidden" name="fechaA" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}">
+                </div>
+            </div>
+            <div class="row">
+                <div class="group-form-control col-sm-6">
+                    <label for="fecha">Fecha de Orden de Proceder:</label>
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        <input type="text" name="fecha" class="form-control pull-right" id="datepicker" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}" required>
+                        <input type="hidden" name="fechaA" value="{{ formatoFechaReporte($p->fecha_adjudicacion) }}">
+                    </div>
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="plazo">Plazo:</label>
+                    <input type="text" name="plazo" class="form-control" id="plazo" value="{{ $p->plazo }}" required>
+                    <input type="hidden" name="plazoA" value="{{ $p->plazo }}">
                 </div>
             </div>
             <div class="group-form-control">
-                <label for="numero">Número Adjudicación:</label>
-                <input class="form-control" id="numero" name="numero" placeholder="Número de Adjudicación" type="text" value="{{ $p->numero_adjudicacion }}" required>
-                <input type="hidden" name="numeroA" value="{{ $p->numero_adjudicacion }}">
+                <label for="emaExterno">EMA externo:</label>
+                <input class="form-control" id="emaExterno" name="emaExterno" placeholder="EMA Externo" type="text" value="{{ $p->ema_externo }}">
+                <input type="hidden" name="emaExternoA" value="{{ $p->ema_externo }}">
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>

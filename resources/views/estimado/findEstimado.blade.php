@@ -20,15 +20,23 @@
             @foreach ($proy as $key => $p)
                 <div class="group-form-control col-xs-4">
                     <label for="proyecto">Unidad Ejecutora:</label>
-                    {{ $p->unidad_ejecutora }}
+                    {{ $p->unidad }}
                 </div>
                 <div class="group-form-control col-xs-4">
                     <label for="proyecto">Macro Distrito:</label>
-                    {{ $p->nombre_mac }}
+                    @if($p->macro == '0')
+                        Todos
+                    @else
+                        {{ $p->macro }}
+                    @endif
                 </div>
                 <div class="group-form-control col-xs-4">
                     <label for="proyecto">Distrito:</label>
-                    {{ $p->nombre_dis }}
+                    @if($p->distrito == '0')
+                        Todos
+                    @else
+                        {{ $p->distrito }}
+                    @endif
                 </div>
                 <div class="group-form-control col-xs-3">
                     <label for="proyecto">Numero de Contrato:</label>

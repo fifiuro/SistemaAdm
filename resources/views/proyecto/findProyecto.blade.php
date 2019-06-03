@@ -67,9 +67,20 @@
               @foreach($proyecto as $key => $p)
               <tr>
                 <td>
-                  <strong>Unidad Ejecutora: </strong>{{ $p->unidad_ejecutora }}<br>
-                  <strong>Macro Distrito: </strong>{{ $p->nombre_mac }}<br>
-                  <strong>Distrito: </strong>{{ $p->nombre_dis }}
+                  <strong>Unidad Ejecutora: </strong>{{ $p->unidad }}<br>
+                  <strong>Macro Distrito: </strong>
+                  @if($p->macro == '0')
+                    Todos
+                  @else
+                    {{ $p->macro }}
+                  @endif
+                  <br>
+                  <strong>Distrito: </strong>
+                  @if($p->distrito == '0')
+                    Todos
+                  @else
+                    {{ $p->distrito }}
+                  @endif
                 </td>
                 <td>{{ $p->ubicacion }}</td>
                 <td>{{ $p->ema }}</td>
@@ -86,7 +97,7 @@
                   @switch(Auth::user()->tipoUser(Auth::user()->id))
                       @case(1)
                           {{-- Boton Editar --}}
-                          <a href="{{ url('editProyecto/'.$p->id_pro.'/'.$p->id_uni) }}" class="btn btn-warning">
+                          <a href="{{ url('editProyecto/'.$p->id_pro) }}" class="btn btn-warning">
                             <i class="glyphicon glyphicon-pencil"></i>
                           </a>
                           {{-- Boton Eliminar --}}
