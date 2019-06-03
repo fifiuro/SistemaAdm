@@ -37,26 +37,14 @@ class ProyectoController extends Controller
      */
     public function show(Request $request)
     {
-        $proyecto = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
-        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
-        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
-        ->join('macro','macro.id_mac','=','distrito.id_mac')
-        ->where('proyecto.ema','like','%'.$request->ema.'%')
-        ->where('unidad.id_uni','like','%'.$request->unidad.'%')
-        ->select('unidad_ejecutora',
-                'nombre_mac',
-                'nombre_dis',
-                'proyecto.id_pro',
-                'proyecto.id_uni',
-                'distrito.nombre_dis',
-                'proyecto.ubicacion',
-                'proyecto.ema',
-                'proyecto.presupuesto',
-                'proyecto.programado',
-                'proyecto.estado')
-        ->get();
-
-        $proyecto = Proyecto::find();
+        $proyecto = Proyecto::join('todo','todo.id_to','=','proyecto.id_to')
+                            ->select('proyecto.id_pro', 'proyecto.id_to', 'proyecto.id_ges', 'proyecto.ubicacion', 'proyecto.ema', 'proyecto.fecha_reg', 'proyecto.presupuesto', 'proyecto.programado', 'proyecto.adjudicacion', 'proyecto.numero_adjudicacion', 'proyecto.estado', 'proyecto.observaciones')
+                            ->selectRaw('ifnull((select unidad_ejecutora from unidad where id_uni = todo.id_uni),0) as unidad')
+                            ->selectRaw('ifnull((select nombre_mac from macro where id_mac = todo.id_mac),0) as macro')
+                            ->selectRaw('ifnull((select nombre_dis from distrito where id_dist = todo.id_dist),0) as distrito')
+                            ->where('proyecto.ema','like','%'.$request->ema.'%')
+                            ->where('todo.id_uni','like','%'.$request->unidad.'%')
+                            ->get();
 
         $unidad = Unidad::all();
 
