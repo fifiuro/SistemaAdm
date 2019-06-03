@@ -10,6 +10,7 @@ use App\Unidad;
 use App\Modificacion;
 use App\UnidadMacro;
 use App\Macro;
+use App\Todo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Requests\ValidarProyectoRequest;
@@ -36,8 +37,7 @@ class ProyectoController extends Controller
      */
     public function show(Request $request)
     {
-        $proyecto = Proyecto::
-        join('gestion','gestion.id_ges','=','proyecto.id_ges')
+        $proyecto = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
         ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
         ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
         ->join('macro','macro.id_mac','=','distrito.id_mac')
@@ -55,6 +55,8 @@ class ProyectoController extends Controller
                 'proyecto.programado',
                 'proyecto.estado')
         ->get();
+
+        $proyecto = Proyecto::find();
 
         $unidad = Unidad::all();
 
@@ -94,11 +96,27 @@ class ProyectoController extends Controller
      */
     public function store(ValidarProyectoRequest $request)
     {
+        $todo = new Todo;
+        if($request->id_mac == 0){
+            $todo->id_uni = $request->id_uni;
+            $todo->id_mac = 0;
+            $todo->id_dist = 0;
+        }elseif($request->id_dist == 0){
+            $todo->id_uni = $request->id_uni;
+            $todo->id_mac = $request->id_mac;
+            $todo->id_dist = 0;
+        }else{
+            $todo->id_uni = $request->id_uni;
+            $todo->id_mac = $request->id_mac;
+            $todo->id_dist = $request->id_dist;
+        }
+        $todo->save();
+        $id_to = $todo->id_to;
+
         $proyecto = new Proyecto;
 
-        $proyecto->id_dist = $request->id_dist;
+        $proyecto->id_to = $id_to;
         $proyecto->id_ges = $request->id_ges;
-        $proyecto->id_uni = $request->id_uni;
         $proyecto->ubicacion = $request->ubicacion;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
@@ -168,6 +186,40 @@ class ProyectoController extends Controller
      */
     public function update(ValidarProyectoRequest $request)
     {
+        $todo = Todo::find($request->id_to);
+        if($request->id_mac == 0){
+            if($this->modificacion('todo',$request->id_pro,$request->id_uni,$request->id_uniA)){
+                $todo->id_uni = $request->id_uni;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_mac,$request->id_macA)){
+                $todo->id_mac = 0;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_dist,$request->id_distA)){
+                $todo->id_dist = 0;
+            }
+        }elseif($request->id_dist == 0){
+            if($this->modificacion('todo',$request->id_pro,$request->id_uni,$request->id_uniA)){
+                $todo->id_uni = $request->id_uni;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_mac,$request->id_macA)){
+                $todo->id_mac = $request->id_mac;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_dist,$request->id_distA)){
+                $todo->id_dist = 0;
+            }
+        }else{
+            if($this->modificacion('todo',$request->id_pro,$request->id_uni,$request->id_uniA)){
+                $todo->id_uni = $request->id_uni;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_mac,$request->id_macA)){
+                $todo->id_mac = $request->id_mac;
+            }
+            if($this->modificacion('todo',$request->id_pro,$request->id_dist,$request->id_distA)){
+                $todo->id_dist = $request->id_dist;
+            }
+        }
+        $todo->save();
+
         $proyecto = Proyecto::find($request->id_pro);
 
         if($this->modificacion('proyecto',$request->id_pro,$request->id_dist,$request->id_distA)){

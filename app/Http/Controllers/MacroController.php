@@ -173,6 +173,7 @@ class MacroController extends Controller
 
         if(count($result) > 0){
             echo '<option value=""></option>';
+            echo '<option value="0">Todo</option>';
             foreach($result as $key => $r){
                 echo '<option value="'.$r->id_mac.'">'.$r->nombre_mac.'</option>';
             }

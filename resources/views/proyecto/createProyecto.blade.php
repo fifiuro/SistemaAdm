@@ -35,14 +35,12 @@
             <div class="group-form-control">
                 <label for="id_mac">Macro Distrito:</label>
                 <select name="id_mac" id="id_mac" class="form-control" disabled required>
-                    <option value=""></option>
                 </select>
                 <div id="resultado"></div>
             </div>
             <div class="group-form-control">
                 <label for="id_dist">Distrito:</label>
                 <select name="id_dist" id="id_dist" class="form-control" disabled required>
-                    <option value=""></option>
                 </select>
             </div>
             <div class="group-form-control">
@@ -188,48 +186,62 @@ $("#id_uni").change(function(){
 });
 
 $("#id_mac").change(function(){
-    $.ajax({
-        url: 'listaDistrito',
-        data: {'id':$("#id_mac").val()},
-        type: 'post',
-        success: function(response){
-            if(response != ''){
-                $("#id_dist").attr('disabled',false);
-                $("#id_dist").html(response);
-
-                $("#nombre_pro").attr('disabled',true);
-                $("#ema").attr('disabled',true);
-                $("#presupuesto").attr('disabled',true);
-
-                $("#nombre_pro").val('');
-                $("#ema").val('');
-                $("#presupuesto").val('');
-            }else{
-                $("#id_dist").empty();
-                $("#id_dist").attr('disabled',true);
-
-                $("#nombre_pro").attr('disabled',true);
-                $("#ema").attr('disabled',true);
-                $("#presupuesto").attr('disabled',true);
-
-                $("#nombre_pro").val('');
-                $("#ema").val('');
-                $("#presupuesto").val('');
-
-                alert('No se tuvieron resultados.');
+    if($("#id_mac").val() != 0){
+        $.ajax({
+            url: 'listaDistrito',
+            data: {'id':$("#id_mac").val()},
+            type: 'post',
+            success: function(response){
+                if(response != ''){
+                    $("#id_dist").attr('disabled',false);
+                    $("#id_dist").html(response);
+    
+                    $("#nombre_pro").attr('disabled',true);
+                    $("#ema").attr('disabled',true);
+                    $("#presupuesto").attr('disabled',true);
+    
+                    $("#nombre_pro").val('');
+                    $("#ema").val('');
+                    $("#presupuesto").val('');
+                }else{
+                    $("#id_dist").empty();
+                    $("#id_dist").attr('disabled',true);
+    
+                    $("#nombre_pro").attr('disabled',true);
+                    $("#ema").attr('disabled',true);
+                    $("#presupuesto").attr('disabled',true);
+    
+                    $("#nombre_pro").val('');
+                    $("#ema").val('');
+                    $("#presupuesto").val('');
+    
+                    alert('No se tuvieron resultados.');
+                }
+            },
+            statusCode: {
+                404: function*(){
+                    alert('No se pudo conectar con el Servidor.');
+                }
+            },
+            error: function(x,xs,xt){
+                // nos dara el errore si es que hay alguno
+                window.open(JSON.stringify(x));
+                // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
             }
-        },
-        statusCode: {
-            404: function*(){
-                alert('No se pudo conectar con el Servidor.');
-            }
-        },
-        error: function(x,xs,xt){
-            // nos dara el errore si es que hay alguno
-            window.open(JSON.stringify(x));
-            // alert('error: ' + JSON.stringify(x) + "\n error string: " + xs + "\n error throwed: " + xt);
-        }
-    });
+        });
+    }else{
+        $("#nombre_pro").attr('disabled',false);
+        $("#ubicacion").attr('disabled',false);
+        $("#ema").attr('disabled',false);
+        $("#presupuesto").attr('disabled',false);
+        $("#programado").attr('disabled',false);
+        $("#adjudicado").attr('disabled',false);
+        $("#datepicker").attr('disabled',false);
+        $("#fechaContrato").attr('disabled',false);
+        $("#numero").attr('disabled',false);
+        $("#emaExterno").attr('disabled',false);
+        $("#plazo").attr('disabled',false);
+    }
 });
 
 $("#id_dist").change(function(){

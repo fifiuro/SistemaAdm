@@ -24,7 +24,7 @@ class ValidarProyectoRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_dist' => 'required|numeric',
+            'id_uni' => 'required',
             'id_ges' => 'required|numeric',
             'ema' => 'required',
             'presupuesto' => 'numeric',
@@ -36,7 +36,7 @@ class ValidarProyectoRequest extends FormRequest
     public function messages()
     {
         return [
-            'id_dist.required' => 'Elija un :attribute.',
+            'id_uni.required' => 'Seleccione la :attribute.',
             'id_dist.numeric' => 'El :attribute debe ser un número.',
             'id_ges.required' => 'No se tiene seleccionada la :attribute.',
             'id_ges.numeric' => 'EL :attribute deber ser un número.',
@@ -50,7 +50,7 @@ class ValidarProyectoRequest extends FormRequest
     public function attributes()
     {
         return [
-            'id_dist' => 'Distrito',
+            'id_uni' => 'Unidad Ejecutora',
             'id_ges' => 'Gestion',
             'ema' => 'EMA',
             'presupuesto' => 'Preupuesto',

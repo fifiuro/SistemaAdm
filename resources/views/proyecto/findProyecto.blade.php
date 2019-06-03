@@ -49,8 +49,7 @@
         </div>
       </form>
     </div>
-    
-    
+        
     @if(isset($proyecto))
       @if($estado)
         <div class="box-footer">
