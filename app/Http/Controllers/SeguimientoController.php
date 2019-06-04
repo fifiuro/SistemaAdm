@@ -40,7 +40,7 @@ class SeguimientoController extends Controller
 
         $unidad = Unidad::all();
         
-        $seg = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+        /*$seg = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
                         ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
                         ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
                         ->join('macro','macro.id_mac','=','distrito.id_mac')
@@ -55,7 +55,31 @@ class SeguimientoController extends Controller
                         ->distinct()
                         ->select('distrito.id_dist','gestion.gestion','unidad.unidad_ejecutora','macro.nombre_mac','distrito.nombre_dis','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
                         ->selectRaw('ifnull((select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) as total')
-                        ->get();
+                        ->get();*/
+        
+        $seg = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                       ->join('estimado','estimado.id_pro','=','proyecto.id_pro')
+                       ->distinct()
+                       ->select('gestion.gestion','proyecto.id_to','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
+
+                       ->selectRaw('ifnull((select unidad_ejecutora from unidad as u inner join todo as t on(u.id_uni = t.id_uni) where proyecto.id_to = t.id_to),0) as unidad')
+                       ->selectRaw('ifnull((select u.id_uni from unidad as u inner join todo as t on(u.id_uni = t.id_uni) where proyecto.id_to = t.id_to),0) as id_uni')
+
+                       ->selectRaw('ifnull((select nombre_mac from macro as m inner join todo as t on(m.id_mac = t.id_mac) where proyecto.id_to = t.id_to),0) as nombre_mac')
+                       ->selectRaw('ifnull((select m.id_mac from macro as m inner join todo as t on(m.id_mac = t.id_mac) where proyecto.id_to = t.id_to),0) as id_mac')
+
+                       ->selectRaw('ifnull((select nombre_dis from distrito as d inner join todo as t on(d.id_dist = t.id_dist) where proyecto.id_to = t.id_to),0) as nombre_dis')
+                       ->selectRaw('ifnull((select d.id_dist from distrito as d inner join todo as t on(d.id_dist = t.id_dist) where proyecto.id_to = t.id_to),0) as id_dist')
+
+                       ->where('proyecto.id_ges','like','%'.$request->gestion.'%')
+                       ->where('unidad.id_uni','like','%'.$request->unidad.'%')
+                       ->where('macro.id_mac','like','%'.$request->macro.'%')
+                       ->where('distrito.id_dist','like','%'.$request->distrito.'%')
+                       ->where('proyecto.ema','like','%'.$request->ema.'%')
+                       ->where('estimado.tipo','like','%'.$request->tipo.'%')
+                       ->whereRaw('ifnull(proyecto.programado - (select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
+
+                       ->get();
 
         if(count($seg) > 0){
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,
