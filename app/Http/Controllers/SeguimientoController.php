@@ -114,14 +114,6 @@ class SeguimientoController extends Controller
 
         $id = array_unique($id1);
         
-        /*$proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
-                        ->join('distrito','distrito.id_dist','=','proyecto.id_dist')
-                        ->join('unidad','unidad.id_uni','=','proyecto.id_uni')
-                        ->join('macro','macro.id_mac','=','distrito.id_mac')
-                        ->whereIn('id_pro',$id)
-                        ->orderBy('proyecto.id_pro','DESC')
-                        ->get();*/
-        
         $proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
                         ->join('todo','todo.id_to','=','proyecto.id_to')
                         ->leftJoinSub('SELECT id_uni, unidad_ejecutora FROM unidad','unidad',function($join){ $join->on('unidad.id_uni','=','todo.id_uni'); })
