@@ -26,6 +26,7 @@ class ValidarProyectoRequest extends FormRequest
         return [
             'id_uni' => 'required',
             'id_ges' => 'required|numeric',
+            'tipoEma' => 'required',
             'ema' => 'required',
             'presupuesto' => 'numeric',
             'fechaContrato' => 'required',
@@ -40,6 +41,7 @@ class ValidarProyectoRequest extends FormRequest
             'id_dist.numeric' => 'El :attribute debe ser un número.',
             'id_ges.required' => 'No se tiene seleccionada la :attribute.',
             'id_ges.numeric' => 'EL :attribute deber ser un número.',
+            'tipoEma.required' => 'Elija un :attribute.',
             'ema.required' => 'El :attribute es requerido.',
             'presupuesto.numeric' => 'El :attribute deber ser un número.',
             'fechaContrato' => 'La fecha de Contrtrato es necesario.',
@@ -52,6 +54,7 @@ class ValidarProyectoRequest extends FormRequest
         return [
             'id_uni' => 'Unidad Ejecutora',
             'id_ges' => 'Gestion',
+            'tipoEma' => 'Tipo de Código EMA',
             'ema' => 'EMA',
             'presupuesto' => 'Preupuesto',
         ];

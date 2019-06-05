@@ -86,10 +86,28 @@
                 <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Nombre del Proyecto" type="text" value="{{ $p->ubicacion }}" required>
                 <input type="hidden" name="ubicacionA" value="{{ $p->ubicacion }}">
             </div>
-            <div class="group-form-control">
-                <label for="ema">Codigo EMA:</label>
-                <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $p->ema}}" required>
-                <input type="hidden" name="emaA" value="{{ $p->ema }}">
+            <div class="row">
+                <div class="group-form-control col-md-6">
+                    <label for="tipoEma">Tipo EMA:</label>
+                    <select name="tipoEma" id="tipoEma" class="form-control" required>
+                        @if($p->tipo_ema == 'EMA')
+                            <option selected>EMA</option>
+                            <option>EMA Externo</option>
+                        @elseif($p->tipo_ema == 'EMA Externo')
+                            <option>EMA</option>
+                            <option selected>EMA Externo</option>
+                        @else
+                            <option>EMA</option>
+                            <option>EMA Externo</option>
+                        @endif
+                    </select>
+                    <input type="hidden" name="tipoEmaA" value="{{ $p->tipo_ema }}">
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="ema">Codigo EMA:</label>
+                    <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" value="{{ $p->ema}}" required>
+                    <input type="hidden" name="emaA" value="{{ $p->ema }}">
+                </div>
             </div>
             <div class="group-form-control">
                 <label for="presupuesto">Monto de Contrato:</label>
@@ -134,11 +152,6 @@
                     <input type="text" name="plazo" class="form-control" id="plazo" value="{{ $p->plazo }}" required>
                     <input type="hidden" name="plazoA" value="{{ $p->plazo }}">
                 </div>
-            </div>
-            <div class="group-form-control">
-                <label for="emaExterno">EMA externo:</label>
-                <input class="form-control" id="emaExterno" name="emaExterno" placeholder="EMA Externo" type="text" value="{{ $p->ema_externo }}">
-                <input type="hidden" name="emaExternoA" value="{{ $p->ema_externo }}">
             </div>
             <div class="group-form-control">
                 <label for="estado">Estado:</label>

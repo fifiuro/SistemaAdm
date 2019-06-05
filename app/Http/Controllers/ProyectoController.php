@@ -106,6 +106,7 @@ class ProyectoController extends Controller
         $proyecto->id_to = $id_to;
         $proyecto->id_ges = $request->id_ges;
         $proyecto->ubicacion = $request->ubicacion;
+        $proyecto->tipo_ema = $request->tipoEma;
         $proyecto->ema = $request->ema;
         $proyecto->presupuesto = $request->presupuesto;
         $proyecto->programado = $request->programado;
@@ -115,11 +116,6 @@ class ProyectoController extends Controller
         $proyecto->fecha_reg = date('Y-m-d');
         $proyecto->fecha_contrato = formatoFecha($request->fechaContrato);
         $proyecto->plazo = $request->plazo;
-        if($request->emaExterno == ''){
-            $proyecto->ema_externo = 0;
-        }else{
-            $proyecto->ema_externo = $request->emaExterno;
-        }
         $proyecto->estado = 1;
 
         $proyecto->save();
@@ -215,6 +211,9 @@ class ProyectoController extends Controller
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->ubicacion,$request->ubicacionA)){
             $proyecto->ubicacion = $request->ubicacion;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->tipoEma,$request->tipoEmaA)){
+            $proyecto->tipo_ema = $request->tipoEma;
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->ema,$request->emaA)){
             $proyecto->ema = $request->ema;

@@ -47,9 +47,18 @@
                 <label for="ubicacion">Nombre del Proyecto:</label>
                 <input class="form-control" id="ubicacion" name="ubicacion" placeholder="Nombre del Proyecto" type="text" disabled required>
             </div>
-            <div class="group-form-control">
-                <label for="ema">Codigo EMA:</label>
-                <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" disabled required>
+            <div class="row">
+                <div class="group-form-control col-md-6">
+                    <label for="tipoEma">Tipo EMA:</label>
+                    <select name="tipoEma" id="tipoEma" class="form-control" disabled required>
+                        <option>EMA</option>
+                        <option>EMA Externo</option>
+                    </select>
+                </div>
+                <div class="group-form-control col-md-6">
+                    <label for="ema">Codigo EMA:</label>
+                    <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" disabled required>
+                </div>
             </div>
             <div class="group-form-control">
                 <label for="presupuesto">Monto de Contrato:</label>
@@ -93,10 +102,6 @@
                     <label for="plazo">Plazo:</label>
                     <input type="text" name="plazo" class="form-control" id="plazo" disabled required>
                 </div>
-            </div>
-            <div class="group-form-control">
-                <label for="emaExterno">EMA externo:</label>
-                <input class="form-control" id="emaExterno" name="emaExterno" placeholder="EMA Externo" type="text" disabled>
             </div>
             <hr>
             <div class="group-form-control">
@@ -239,7 +244,7 @@ $("#id_mac").change(function(){
         $("#datepicker").attr('disabled',false);
         $("#fechaContrato").attr('disabled',false);
         $("#numero").attr('disabled',false);
-        $("#emaExterno").attr('disabled',false);
+        $("#tipoEma").attr('disabled',false);
         $("#plazo").attr('disabled',false);
     }
 });
@@ -255,7 +260,7 @@ $("#id_dist").change(function(){
         $("#datepicker").attr('disabled',false);
         $("#fechaContrato").attr('disabled',false);
         $("#numero").attr('disabled',false);
-        $("#emaExterno").attr('disabled',false);
+        $("#tipoEma").attr('disabled',false);
         $("#plazo").attr('disabled',false);
     }else{
         $("#nombre_pro").attr('disabled',true);
@@ -267,7 +272,7 @@ $("#id_dist").change(function(){
         $("#datepicker").attr('disabled',true);
         $("#fechaContrato").attr('disabled',true);
         $("#numero").attr('disabled',true);
-        $("#emaExterno").attr('disabled',true);
+        $("#tipoEma").attr('disabled',true);
         $("#plazo").attr('disabled',true);
     }
 });
