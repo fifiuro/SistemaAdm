@@ -155,6 +155,18 @@ class SeguimientoController extends Controller
         return Excel::download(new DetalleExport, 'unidad.xlsx');
     }
 
+    public function indexTotal()
+    {
+        $gestion = Gestion::all();
+
+        return view('seguimiento.totalSeguimiento')->with('gestion',$gestion);
+    }
+
+    public function showTotal()
+    {
+        //
+    }
+
     /**
      * Update the specified resource in storage.
      *

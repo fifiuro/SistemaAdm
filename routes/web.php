@@ -198,6 +198,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::post('findDetalle','SeguimientoController@showDetalle');
     // Exportar a excel el Proyecto
     Route::get('exportarExcel/{id}','SeguimientoController@exportarExcel');
+    // Formulario de busqueda de totales del Proyecto
+    Route::get('findTotal','SeguimientoController@indexTotal');
     /** FIN */
 
     /** ACCIONES PARA TODAS LAS MODIFICACIONES DEL PROYECTO */
