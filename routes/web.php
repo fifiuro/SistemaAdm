@@ -200,6 +200,8 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('exportarExcel/{id}','SeguimientoController@exportarExcel');
     // Formulario de busqueda de totales del Proyecto
     Route::get('findTotal','SeguimientoController@indexTotal');
+    // Envia los parametros de busqueda
+    Route::post('findTotal','SeguimientoController@showTotal');
     /** FIN */
 
     /** ACCIONES PARA TODAS LAS MODIFICACIONES DEL PROYECTO */

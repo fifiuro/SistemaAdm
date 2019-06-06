@@ -162,9 +162,51 @@ class SeguimientoController extends Controller
         return view('seguimiento.totalSeguimiento')->with('gestion',$gestion);
     }
 
-    public function showTotal()
+    public function showTotal(Request $request)
     {
-        //
+        $gestion = Gestion::all();
+
+        $result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
+                          ->where('proyecto.id_ges','=',$request->gestion)
+                          ->where('proyecto.ema','like','%'.$request->ema.'%')
+                          ->whereMonth('fecha','>=',$request->mesI)
+                          ->whereMonth('fecha','<=',$request->mesF)
+                          ->select('proyecto.id_pro')
+                          ->selectRaw("date_format(monto.fecha,'%m') as mes")
+                          ->selectRaw("SUM(monto.monto) as monto")
+                          ->orderBy('proyecto.id_pro','DESC')
+                          ->groupBy('proyecto.id_pro',DB::raw("date_format(monto.fecha,'%m')"))
+                          ->get();
+                              
+        $id1 = array();
+        foreach($result as $key => $r){
+            array_push($id1, $r->id_pro);
+        }
+
+        $id = array_unique($id1);
+
+        $proy = Proyecto::join('gestion','gestion.id_ges','=','proyecto.id_ges')
+                        ->join('todo','todo.id_to','=','proyecto.id_to')
+                        ->leftJoinSub('SELECT id_uni, unidad_ejecutora FROM unidad','unidad',function($join){ $join->on('unidad.id_uni','=','todo.id_uni'); })
+                        ->leftJoinSub('SELECT id_mac, nombre_mac FROM macro','macro',function($join){ $join->on('macro.id_mac','=','todo.id_mac'); })
+                        ->leftJoinSub('SELECT id_dist, nombre_dis FROM distrito','distrito',function($join){ $join->on('distrito.id_dist','=','todo.id_dist'); })
+                        ->whereIn('id_pro',$id)
+                        ->orderby('proyecto.id_pro','DESC')
+                        ->get();
+
+        $estimado = Estimado::whereIn('id_pro',$id)
+                            ->select('id_pro')
+                            ->selectRaw("date_format(fecha,'%m') as fecha")
+                            ->selectRaw('SUM(volumen) as volumen')
+                            ->groupBy('id_pro',DB::raw("date_format(fecha,'%m')"))
+                            ->orderBy('id_pro','DESC')
+                            ->get();
+        
+        return view('seguimiento.totalSeguimiento')->with('gestion',$gestion)
+                                                   ->with('result',$result)
+                                                   ->with('proy',$proy)
+                                                   ->with('estimado',$estimado)
+                                                   ->with('estado',true);
     }
 
     /**

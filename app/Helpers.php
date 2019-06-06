@@ -46,3 +46,9 @@ function formatoDecimal($num){
         return number_format($num,0,",",".");
     }
 }
+/** NOMBRE DEL MES */
+function nombreMes($m){
+    $mes = array('','Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre');
+
+    return $mes[$m + 0];
+}

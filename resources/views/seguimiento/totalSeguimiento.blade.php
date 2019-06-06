@@ -16,7 +16,7 @@
     
 <div class="box box-danger">
     <div class="box-body">
-      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findDetalle') }}">
+      <form class="form-horizontal" name="form" id="form" role="form" method="POST" action="{{ url('findTotal') }}">
         {{ csrf_field() }}
         <div class="row">
             <div class="col-xs-2">
@@ -110,7 +110,7 @@
                         @foreach ($estimado as $key => $e)
                             @if ($e->id_pro == $r->id_pro)
                                 <tr>
-                                    <td>{{ formatoFechaReporte($e->fecha) }}</td>
+                                    <td>{{ nombreMes($e->fecha) }}</td>
                                     <td>{{ $e->volumen }}</td>
                                 </tr>
                             @endif
@@ -126,7 +126,7 @@
                         @foreach ($result as $key => $re)
                             @if ($r->id_pro == $re->id_pro)
                                 <tr>
-                                    <td>{{ formatoFechaReporte($re->fecha) }}</td>
+                                    <td>{{ nombreMes($re->mes) }}</td>
                                     <td>{{ $re->monto }}</td>
                                 </tr>
                             @endif
