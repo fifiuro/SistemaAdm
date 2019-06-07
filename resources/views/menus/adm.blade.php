@@ -80,6 +80,12 @@
                 <span>DETALLE DE PROYECTOS</span>
             </a>
         </li>
+        <li>
+            <a href="{{ url('findTotal') }}">
+                <i class="fa fa-eye"></i>
+                <span>TOTALES DE PROYECTOS</span>
+            </a>
+        </li>
         @break
     @case(3)
     @case(4)
@@ -100,6 +106,12 @@
             <a href="{{ url('findDetalle') }}">
                 <i class="fa fa-eye"></i>
                 <span>DETALLE DE PROYECTOS</span>
+            </a>
+        </li>
+        <li>
+            <a href="{{ url('findTotal') }}">
+                <i class="fa fa-eye"></i>
+                <span>TOTALES DE PROYECTOS</span>
             </a>
         </li>
         @break
