@@ -47,11 +47,11 @@ class SeguimientoController extends Controller
                        ->leftJoinSub('SELECT id_dist, nombre_dis FROM distrito','distrito',function($join){ $join->on('distrito.id_dist','=','todo.id_dist'); })
                        ->join('estimado','estimado.id_pro','proyecto.id_pro')
                        ->distinct()
-                       ->selectRaw('ifnull(distrito.id_dist,0) as id_dist')
-                       ->selectRaw('ifnull(unidad.unidad_ejecutora,0) as unidad_ejecutora')
-                       ->selectRaw('ifnull(macro.nombre_mac,0) as nombre_mac')
-                       ->selectRaw('ifnull(distrito.nombre_dis,0) as nombre_dis')
                        ->select('gestion.gestion','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
+                       ->selectRaw('IFNULL(distrito.id_dist,"GAMLP") as id_dist')
+                       ->selectRaw('IFNULL(unidad.unidad_ejecutora,"GAMLP") as unidad_ejecutora')
+                       ->selectRaw('IFNULL(macro.nombre_mac,"GAMLP") as nombre_mac')
+                       ->selectRaw('IFNULL(distrito.nombre_dis,"GAMLP") as nombre_dis')
                        ->selectRaw('IFNULL((SELECT SUM(monto) FROM monto WHERE id_pro = proyecto.id_pro GROUP BY id_pro),0) AS total')
                        ->where('proyecto.id_ges','=',$request->gestion)
                        ->where('todo.id_uni','like','%'.$request->unidad.'%')
@@ -61,6 +61,8 @@ class SeguimientoController extends Controller
                        ->where('estimado.tipo','like','%'.$request->tipo.'%')
                        ->whereRaw('ifnull(proyecto.programado - (select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
                        ->get();
+        
+        //dd($seg);
 
         if(count($seg) > 0){
             return view('seguimiento.findSeguimiento', array('gestion' => $gestion,

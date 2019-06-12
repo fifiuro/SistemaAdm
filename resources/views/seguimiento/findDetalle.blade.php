@@ -68,8 +68,20 @@
                 <td>
                     <strong>Getion: </strong>{{ $r->gestion }}<br>
                     <strong>Unidad Ejecutora: </strong>{{ $r->unidad_ejecutora }}<br>
-                    <strong>Macro Distrito: </strong>{{ $r->nombre_mac }}<br>
-                    <strong>Distrito: </strong> {{ $r->nombre_dis }}<br>
+                    <strong>Macro Distrito: </strong>
+                        @if(is_null($r->nombre_mac))
+                            GAMLP
+                        @else
+                            {{ $r->nombre_mac }}
+                        @endif
+                        <br>
+                    <strong>Distrito: </strong> 
+                        @if(is_null($r->nombre_dis))
+                            GAMLP
+                        @else
+                            {{ $r->nombre_dis }}
+                        @endif
+                        <br>
                     <strong>EMA: </strong>{{ $r->ema }}<br>
                     <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
                     <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
