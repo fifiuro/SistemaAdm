@@ -39,7 +39,7 @@
                 <div id="resultado"></div>
             </div>
             <div class="group-form-control">
-                <label for="id_dist">Distrito:</label>
+                <label for="id_dist">Zona:</label>
                 <select name="id_dist" id="id_dist" class="form-control" disabled required>
                 </select>
             </div>
@@ -49,14 +49,14 @@
             </div>
             <div class="row">
                 <div class="group-form-control col-md-6">
-                    <label for="tipoEma">Tipo EMA:</label>
+                    <label for="tipoEma">Código:</label>
                     <select name="tipoEma" id="tipoEma" class="form-control" disabled required>
                         <option>EMA</option>
-                        <option>EMA Externo</option>
+                        <option>Externo</option>
                     </select>
                 </div>
                 <div class="group-form-control col-md-6">
-                    <label for="ema">Codigo EMA:</label>
+                    <label for="ema">Número:</label>
                     <input class="form-control" id="ema" name="ema" placeholder="Codigo EMA" type="text" disabled required>
                 </div>
             </div>
