@@ -76,87 +76,97 @@
     
     @if(isset($result))
       @if($estado)
+        <?php $et = 0; $rt = 0; ?>
         <div class="box-footer">
           <table class="table">
             <tbody>
-              <tr>
-                <th>Datos proyecto</th>
-                <th>Adjudicado A</th>
-                <th>Estimado</th>
-                <th>Volumen Real</th>
-                <th>Acciones</th>
-              </tr>
-              @foreach($proy as $key => $r)
-              <tr>
-                <td>
-                    <strong>Getion: </strong>{{ $r->gestion }}<br>
-                    <strong>Unidad Ejecutora: </strong>{{ $r->unidad_ejecutora }}<br>
-                    <strong>Macro Distrito: </strong>
-                    @if(is_null($r->nombre_mac))
-                        GAMLP
-                    @else
-                        {{ $r->nombre_mac }}
-                    @endif
-                    <br>
-                    <strong>Distrito: </strong>
-                    @if(is_null($r->nombre_dis))
-                        GAMLP
-                    @else
-                        {{ $r->nombre_dis }}
-                    @endif
-                    <br>
-                    <strong>EMA: </strong>{{ $r->ema }}<br>
-                    <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
-                    <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
-                </td>
-                <td>
-                    <strong>Documento: </strong>{{ $r->adjudicacion }}<br>
-                    <strong>Fecha: </strong>{{ formatoFechaReporte($r->fecha_adjudicacion) }}
-                </td>
-                <td>
-                    <table class="table">
-                        <tr>
-                            <td><strong>Fecha</strong></td>
-                            <td><strong>Volumen</strong></td>
-                        </tr>
-                        @foreach ($estimado as $key => $e)
-                            @if ($e->id_pro == $r->id_pro)
-                                <tr>
-                                    <td>{{ nombreMes($e->fecha) }}</td>
-                                    <td>{{ $e->volumen }}</td>
-                                </tr>
+                <tr>
+                    <th>Datos proyecto</th>
+                    <th>Adjudicado A</th>
+                    <th>Estimado</th>
+                    <th>Volumen Real</th>
+                    <th>Acciones</th>
+                </tr>
+                @foreach($proy as $key => $r)
+                    <tr>
+                        <td>
+                            <strong>Getion: </strong>{{ $r->gestion }}<br>
+                            <strong>Unidad Ejecutora: </strong>{{ $r->unidad_ejecutora }}<br>
+                            <strong>Macro Distrito: </strong>
+                            @if(is_null($r->nombre_mac))
+                                GAMLP
+                            @else
+                                {{ $r->nombre_mac }}
                             @endif
-                        @endforeach
-                    </table>
-                </td>
-                <td>
-                    <table class="table">
-                        <tr>
-                            <td><strong>Fecha</strong></td>
-                            <td><strong>Volumen</strong></td>
-                        </tr>
-                        @foreach ($result as $key => $re)
-                            @if ($r->id_pro == $re->id_pro)
-                                <tr>
-                                    <td>{{ nombreMes($re->mes) }}</td>
-                                    <td>{{ $re->monto }}</td>
-                                </tr>
+                            <br>
+                            <strong>Distrito: </strong>
+                            @if(is_null($r->nombre_dis))
+                                GAMLP
+                            @else
+                                {{ $r->nombre_dis }}
                             @endif
-                        @endforeach
-                    </table>
-                </td>
-                <td>
-                    @switch(Auth::user()->tipoUser(Auth::user()->id))
-                    @case(2)
-                        {{-- Boton Exportar a Excel --}}
-                        <a href="{{ url('exportarExcel/'.$r->id_pro) }}" class="btn btn-success">
-                            <i class="fa fa-file-excel-o"></i>
-                        </a>
-                        @break
-                    @endswitch
-                </td>
-              </tr>
-              @endforeach
+                            <br>
+                            <strong>EMA: </strong>{{ $r->ema }}<br>
+                            <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
+                            <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
+                        </td>
+                        <td>
+                            <strong>Documento: </strong>{{ $r->adjudicacion }}<br>
+                            <strong>Fecha: </strong>{{ formatoFechaReporte($r->fecha_adjudicacion) }}
+                        </td>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Fecha</strong></td>
+                                    <td><strong>Volumen</strong></td>
+                                </tr>
+                                @foreach ($estimado as $key => $e)
+                                    @if ($e->id_pro == $r->id_pro)
+                                        <tr>
+                                            <td>{{ nombreMes($e->fecha) }}</td>
+                                            <td>{{ $e->volumen }}</td>
+                                            <?php $et += $e->volumen ?>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </table>
+                        </td>
+                        <td>
+                            <table class="table">
+                                <tr>
+                                    <td><strong>Fecha</strong></td>
+                                    <td><strong>Volumen</strong></td>
+                                </tr>
+                                @foreach ($result as $key => $re)
+                                    @if ($r->id_pro == $re->id_pro)
+                                        <tr>
+                                            <td>{{ nombreMes($re->mes) }}</td>
+                                            <td>
+                                                {{ $re->monto }}
+                                                <?php $rt += $re->monto ?>
+                                            </td>
+                                        </tr>
+                                    @endif
+                                @endforeach
+                            </table>
+                        </td>
+                        <td>
+                            @switch(Auth::user()->tipoUser(Auth::user()->id))
+                                @case(2)
+                                    {{-- Boton Exportar a Excel --}}
+                                    <a href="{{ url('exportarExcel/'.$r->id_pro) }}" class="btn btn-success">
+                                        <i class="fa fa-file-excel-o"></i>
+                                    </a>
+                                @break
+                            @endswitch
+                        </td>
+                    /tr>
+                @endforeach
+                <tr>
+                    <td colspan="2" class="text-right"><strong>TOTALES</strong></td>
+                    <td>{{ $et }}</td>
+                    <td>{{ $rt }}</td>
+                </tr>
             </tbody>
           </table>
         </div>
