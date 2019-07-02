@@ -53,6 +53,7 @@
     
     @if(isset($result))
       @if($estado)
+        <?php $et = 0; $rt = 0; ?>
         <div class="box-footer">
           <table class="table">
             <tbody>
@@ -100,7 +101,8 @@
                             @if ($e->id_pro == $r->id_pro)
                                 <tr>
                                     <td>{{ formatoFechaReporte($e->fecha) }}</td>
-                                    <td>{{ $e->volumen }}</td>
+                                    <td style="text-align:right;">{{ formatoDecimal($e->volumen) }}</td>
+                                    <?php $et += $e->volumen ?>
                                 </tr>
                             @endif
                         @endforeach
@@ -116,7 +118,8 @@
                             @if ($r->id_pro == $re->id_pro)
                                 <tr>
                                     <td>{{ formatoFechaReporte($re->fecha) }}</td>
-                                    <td>{{ $re->monto }}</td>
+                                    <td style="text-align:right;">{{ formatoDecimal($re->monto) }}</td>
+                                    <?php $rt += $re->monto ?>
                                 </tr>
                             @endif
                         @endforeach
@@ -134,6 +137,11 @@
                 </td>
               </tr>
               @endforeach
+              <tr>
+                    <td colspan="2" class="text-right"><strong>TOTALES</strong></td>
+                    <td style="text-align:right;">{{ formatoDecimal($et) }}</td>
+                    <td style="text-align:right;">{{ formatoDecimal($rt) }}</td>
+                </tr>
             </tbody>
           </table>
         </div>

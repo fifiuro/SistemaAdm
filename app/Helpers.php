@@ -38,7 +38,7 @@ function formatoDecimal($num){
 
     if(count($n) > 1){
         if($n[1] > 0){
-            return number_format($num,4,",",".");
+            return number_format($num,2,",",".");
         }else {
             return number_format($num,0,",",".");
         }
