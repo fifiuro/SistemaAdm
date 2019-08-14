@@ -53,6 +53,13 @@
               <input type="text" name="ema" id="ema" class="form-control">
             </div>
             <div class="col-xs-3">
+                <label for="tipo_ema">TIPO EMA</label>
+                <select name="tipo_ema" id="tipo_ema" class="form-control">
+                  <option>EMA</option>
+                  <option>Externo</option>
+                </select>
+              </div>
+            <div class="col-xs-3">
               <label for="estado">Estado:</label>
               <select name="estado" id="estado" class="form-control">
                 <option value=" like '%%'"></option>
@@ -100,7 +107,9 @@
                   <strong>Unidad Ejecutora: </strong>{{ $s->unidad_ejecutora }} <br>
                   <strong>Macro Distrito: </strong>{{ $s->nombre_mac }} <br>
                   <strong>Distrito: </strong>{{ $s->nombre_dis }}<br>
-                  <strong>EMA: </strong>{{ $s->ema }}
+                  <strong>Tipo EMA: </strong>{{ $s->tipo_ema }}<br>
+                  <strong>EMA: </strong>{{ $s->ema }}<br>
+                  <strong>Observaciones: </strong> {{ $s->observaciones }}
                 </td>
                 <td>
                   <strong>Documento: </strong>{{ $s->adjudicacion }}<br>

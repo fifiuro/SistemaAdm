@@ -39,6 +39,25 @@
             <input type="text" name="boleta" id="boleta" class="form-control" value="{{ $volumen->numero_boleta }}" required>
             <input type="hidden" name="boletaA" value="{{ $volumen->numero_boleta }}">
         </div>
+        <div class="group-form-control">
+            <label for="monto">Tipo de mezcla: </label>
+            <select name="tipo" id="tipo" class="form-control">
+                @if ($volumen->tipo == 'Recapeo')
+                    <option selected>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option>Asfalto</option>
+                @elseif($volumen->tipo == 'Bacheo')
+                    <option>Recapeo</option>
+                    <option selected>Bacheo</option>
+                    <option>Asfalto</option>
+                @elseif($volumen->tipo == 'Asfalto')
+                    <option>Recapeo</option>
+                    <option>Bacheo</option>
+                    <option selected>Asfalto</option>
+                @endif
+            </select>
+            <input type="hidden" name="tipoA" value="{{ $volumen->tipo }}">
+        </div>
         <hr>
         <div class="group-form-control">
             <button type="submit" class="btn btn-primary" name="guardar" id="guardar">MODIFICAR</button>

@@ -27,8 +27,7 @@ class ValidarVolumenRequest extends FormRequest
             'id_pro' => 'required|numeric',
             'fecha' => 'required',
             'monto' => 'required|numeric',
-            'boleta' => 'required',
-            'tipo' => 'required',
+            'boleta' => 'required'
         ];
     }
 
@@ -40,8 +39,7 @@ class ValidarVolumenRequest extends FormRequest
             'fecha.required' => 'La :attribute es requerido.',
             'monto.required' => 'El :attribute es requerido.',
             'monto.numeric' => 'El :attribute debe ser un número.',
-            'boleta' => 'El numero de boleta es necesario.',
-            'tipo' => 'El tipo de Mezcla es necesario',
+            'boleta' => 'El numero de boleta es necesario.'
         ];
     }
 

@@ -27,7 +27,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <label for="mesI">Mes Inicio:</label>
                 <select name="mesI" id="mesI" class="form-control">
                     <option value="01">Enero</option>
@@ -44,7 +44,7 @@
                     <option value="12">Diciembre</option>
                 </select>
             </div>
-            <div class="col-xs-3">
+            <div class="col-xs-2">
                 <label for="mesF">Mes Fin:</label>
                 <select name="mesF" id="mesF" class="form-control">
                     <option value="01">Enero</option>
@@ -64,6 +64,13 @@
             <div class="col-xs-2">
                 <label for="ema">EMA</label>
                 <input type="text" name="ema" id="ema" class="form-control">
+            </div>
+            <div class="col-xs-2">
+                <label for="tipo_ema">TIPO EMA</label>
+                <select name="tipo_ema" id="tipo_ema" class="form-control">
+                    <option>EMA</option>
+                    <option>Externo</option>
+                </select>
             </div>
             <div class="col-xs-2">
                 {{-- Boton Buscar --}}
@@ -106,9 +113,11 @@
                                 {{ $r->nombre_dis }}
                             @endif
                             <br>
+                            <strong>Tipo EMA: </strong>{{ $r->tipo_ema }}<br>
                             <strong>EMA: </strong>{{ $r->ema }}<br>
                             <strong>Volumen Presupuestado: </strong>{{ formatoDecimal($r->presupuesto) }} Bs.<br>
-                            <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup>
+                            <strong>volumen Programado: </strong>{{ formatoDecimal($r->programado) }} m<sup>3</sup><br>
+                            <strong>Observaciones: </strong>{{ $r->observaciones }}
                         </td>
                         <td>
                             <strong>Documento: </strong>{{ $r->adjudicacion }}<br>
@@ -160,7 +169,7 @@
                                 @break
                             @endswitch
                         </td>
-                    /tr>
+                    </tr>
                 @endforeach
                 <tr>
                     <td colspan="2" class="text-right"><strong>TOTALES</strong></td>

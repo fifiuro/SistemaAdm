@@ -165,7 +165,12 @@
                     @endif
                 </select>
                 <input type="hidden" name="estadoA" value="{{ $p->estado }}">
-            </div>    
+            </div>
+            <div class="group-form-control">
+                <label for="estado">Observaciones:</label>
+                <textarea name="obs" id="obs" cols="30" rows="10" class="form-control">{{ $p->observaciones }}</textarea>
+                <textarea name="obsA" id="obsA" cols="30" rows="2" class="form-control" style="visibility:hidden">{{ $p->observaciones }}</textarea>
+            </div> 
         @endforeach
         <br>
         <div class="group-form-control">

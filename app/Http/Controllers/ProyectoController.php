@@ -29,7 +29,7 @@ class ProyectoController extends Controller
         return view('proyecto.findProyecto', array('unidad' => $unidad));
     }
 
-/**
+    /**
      * Display the specified resource.
      *
      * @param  \App\Proyecto  $proyecto
@@ -199,6 +199,8 @@ class ProyectoController extends Controller
                 $todo->id_dist = $request->id_dist;
             }
         }
+
+
         $todo->save();
 
         $proyecto = Proyecto::find($request->id_pro);
@@ -235,6 +237,9 @@ class ProyectoController extends Controller
         }
         if($this->modificacion('proyecto',$request->id_pro,$request->estado,$request->estadoA)){
             $proyecto->estado = $request->estado;
+        }
+        if($this->modificacion('proyecto',$request->id_pro,$request->obs,$request->obsA)){
+            $proyecto->observaciones = $request->obs;
         }
 
         $proyecto->save();

@@ -39,7 +39,7 @@ class SeguimientoController extends Controller
         $gestion = Gestion::all();
 
         $unidad = Unidad::all();
-           
+
         $seg = Proyecto::join('todo','todo.id_to','=','proyecto.id_to')
                        ->join('gestion','gestion.id_ges','=','proyecto.id_ges')
                        ->leftJoinSub('SELECT id_uni, unidad_ejecutora FROM unidad','unidad',function($join){ $join->on('unidad.id_uni','=','todo.id_uni'); })
@@ -47,7 +47,7 @@ class SeguimientoController extends Controller
                        ->leftJoinSub('SELECT id_dist, nombre_dis FROM distrito','distrito',function($join){ $join->on('distrito.id_dist','=','todo.id_dist'); })
                        ->join('estimado','estimado.id_pro','proyecto.id_pro')
                        ->distinct()
-                       ->select('gestion.gestion','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion')
+                       ->select('gestion.gestion','proyecto.ema','proyecto.programado','proyecto.presupuesto','proyecto.adjudicacion','proyecto.fecha_adjudicacion','observaciones','proyecto.tipo_ema')
                        ->selectRaw('IFNULL(distrito.id_dist,"GAMLP") as id_dist')
                        ->selectRaw('IFNULL(unidad.unidad_ejecutora,"GAMLP") as unidad_ejecutora')
                        ->selectRaw('IFNULL(macro.nombre_mac,"GAMLP") as nombre_mac')
@@ -57,6 +57,7 @@ class SeguimientoController extends Controller
                        ->where('todo.id_uni','like','%'.$request->unidad.'%')
                        ->where('todo.id_mac','like','%'.$request->macro.'%')
                        ->where('todo.id_dist','like','%'.$request->distrito.'%')
+                       ->where('proyecto.tipo_ema','like','%'.$request->tipo_ema.'%')
                        ->where('proyecto.ema','like','%'.$request->ema.'%')
                        ->where('estimado.tipo','like','%'.$request->tipo.'%')
                        ->whereRaw('ifnull(proyecto.programado - (select sum(monto) from monto where id_pro = proyecto.id_pro group by id_pro),0) '.$request->estado)
@@ -105,6 +106,7 @@ class SeguimientoController extends Controller
         $result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
                           ->where('proyecto.id_ges','=',$request->gestion)
                           ->where('proyecto.ema','like','%'.$request->ema.'%')
+                          ->where('proyecto.tipo_ema','like','%'.$request->tipo_ema.'%')
                           ->whereBetween('fecha',array(formatoFecha($fecha[0]),formatoFecha($fecha[1])))
                           ->orderBy('proyecto.id_pro','DESC')
                           ->get();
@@ -171,6 +173,7 @@ class SeguimientoController extends Controller
         $result = Proyecto::join('monto','monto.id_pro','=','proyecto.id_pro')
                           ->where('proyecto.id_ges','=',$request->gestion)
                           ->where('proyecto.ema','like','%'.$request->ema.'%')
+                          ->where('proyecto.tipo_ema','like','%'.$request->tipo_ema.'%')
                           ->whereMonth('fecha','>=',$request->mesI)
                           ->whereMonth('fecha','<=',$request->mesF)
                           ->select('proyecto.id_pro')

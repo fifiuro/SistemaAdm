@@ -71,7 +71,12 @@
             </div>
             <div class="group-form-control">
                 <label for="programado">Volumen Proyectado:</label>
-                <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
+                <div class="input-group">
+                    <input class="form-control" id="programado" name="programado" placeholder="Volumen Programado" type="text" disabled required>
+                    <div class="input-group-addon">
+                        <strong>M3.</strong>
+                    </div>
+                </div>
             </div>
             <div class="row">
                 <div class="group-form-control col-md-6">
